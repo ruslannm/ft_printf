@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/10 13:20:18 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/10 16:04:04 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,49 @@ int		ft_width(char **s)
 {
 	int	ret;
 
-	ret = ft_atoi(*s);
-	if (ret > 0)
-		while (*(*s) >= '0' && *(*s) <= '9')
+   	ret = 0;
+	if (ft_isdigit(*(*s)))
+	{
+		ret = ft_atoi(*s);
+		if (ret > 0)
+			while (ft_isdigit(*(*s)))
+				(*s)++;
+	}
+	return (ret);
+}
+
+int		ft_precision(char **s)
+{
+	int	ret;
+
+	ret = -1;
+	if (*(*s) == '.' && ft_isdigit(*(*s + 1)))
+	{
+		(*s)++;
+		ret = ft_atoi(*s);
+		if (ret > 0)
+			while (ft_isdigit(*(*s)))
+				(*s)++;
+	}
+	return (ret);
+}
+
+
+
+char	ft_modifier(char **s)
+{
+	char	ret;
+
+	ret = 0;
+	if (*(*s) == 'h' && *(*(s + 1)) == 'h')
+		ret =  'H';
+	else if (*(*s) == 'l' && *(*s + 1) == 'l')
+		ret = '1';
+	else if (*(*s) == 'h' || *(*s) == 'l' || *(*s) == 'L')
+		ret = *(*s);
+	if (ret == 'H' || ret == '1')
+		*s = *s + 2;
+	else if (ret > 0)	
 			(*s)++;
 	return (ret);
 }
@@ -45,7 +85,12 @@ t_spec *ft_conversion(char *s)
 	printf("ret->flad=%c\n", ret->flag);
 	ret->width = ft_width(&s);
 	printf("ret->width=%i\n", ret->width);
-	printf("after ret->width=%s\n", s);
+	ret->precision = ft_precision(&s);
+	printf("ret->precision=%i\n", ret->precision);
+	ret->modifier = ft_modifier(&s);
+	printf("ret->modifier=%c\n", ret->modifier);
+
+	printf("after ret->modifier=%s\n", s);
 	return (ret);
 }
 
