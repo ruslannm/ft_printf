@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/10 15:33:50 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/10 17:19:12 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_spec
 	int		precision;
 	char	modifier;
 	char	conversion;
+	char	*type;
 }				t_spec;
  
 
