@@ -6,15 +6,25 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/07 18:11:56 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/10 12:33:20 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft/get_next_line.h"
-# include "libft/libft.h"
+# include "get_next_line.h"
+# include "libft.h"
+
+typedef struct s_spec
+{
+	char	flag;
+	int		width;
+	int		precision;
+	char	*modifier;
+	char	conversion;
+}				t_spec;
+ 
 
 typedef struct		s_stack
 {

@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2019/11/07 18:15:08 by rgero            ###   ########.fr        #
+#    Updated: 2019/11/10 12:22:57 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJ_PATH = ./
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-INC_PATH = ./
+INC_PATH = ./libft/
 INC = $(addprefix -I, $(INC_PATH))
 
 LIB_PATH = libft/
@@ -32,13 +32,13 @@ LIB_NAME = libft.a
 
 all: $(NAME)
 
-$(NAME): $(LIB_NAME) $(OBJ_NAME)
+$(NAME): $(LIB_PATH)$(LIB_NAME) $(OBJ_NAME)
 	$(CC) -o $(NAME)  $(OBJ_NAME) -L $(LIB_PATH) -lft
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@  -c $<
+	$(CC) $(CFLAGS) -I ${INC_PATH} -o $@  -c $<
 
-$(LIB_NAME):
+$(LIB_PATH)$(LIB_NAME):
 	make -C $(LIB_PATH)
 
 clean:
