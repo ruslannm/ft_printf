@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/10 17:32:30 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/12 18:45:26 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	ft_conversion(char **s)
 	return (ret);
 }
 
-void	ft_type(t_spec *spec)
+void	ft_factor(t_spec *spec)
 {
 	if (spec->conversion == 'c')
 		spec->type = strdup("char");
@@ -121,37 +121,51 @@ t_spec *ft_specification(char **s)
 	ret->precision = ft_precision(s);
 	ret->modifier = ft_modifier(s);
 	ret->conversion = ft_conversion(s);
-	ft_type(ret);
+	ft_factor(ret);
 	return (ret);
 }
 
+void	ft_print_arg(va_list factor, t_spec *spec)
+{
+	int	i;
 
+	if (!strcmp(spec->type, "int"))
+	{
+		i = va_arg(factor, int);
+		ft_putnbr(i);
+	}
+}
 
 int ft_printf(const char * restrict format, ...)
 {
 	char	*first_agr;
-	int	i;
-	//char	c;
-	va_list type;
+	char i;
+	size_t size;
+	va_list args;
 	t_spec	*spec;
 
+	size = sizeof(format);
 	first_agr = (char *)format;
-	va_start(type, format);
+	va_start(args, format);
+	//factor = factor + 8;
 	while (*first_agr)
 	{
-		if (*first_agr != '%')
-			ft_putchar(*first_agr);
-		else
+		while (*first_agr != '%')
 		{
-			spec = ft_specification(&first_agr);
-			if (!strcmp(spec->type, 'int')
-			{
-				i = va_arg(type, int);
-				ft_putnbr(i);
-			}
+			ft_putchar(*first_agr);
+			first_agr++;
 		}
-		first_agr++;
+		spec = ft_specification(&first_agr);
+//		if (!strcmp(spec->factor, 'int')
+//			//ft_print_arg(factor, spec);
+		if (!strcmp(spec->type, "int"))
+		{
+//			first_agr++;
+			i = va_arg(args, char);
+			ft_putchar(i);
+		}
+		//first_agr++;
 	}
-	va_end(type);
+	va_end(args);
 	return (0);
 }
