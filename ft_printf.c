@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/12 18:45:26 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/13 16:32:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,36 +136,51 @@ void	ft_print_arg(va_list factor, t_spec *spec)
 	}
 }
 
-int ft_printf(const char * restrict format, ...)
+void	ft_flags_int(va_list args, int *p)
 {
-	char	*first_agr;
-	char i;
-	size_t size;
-	va_list args;
-	t_spec	*spec;
+	int output;
 
-	size = sizeof(format);
-	first_agr = (char *)format;
-	va_start(args, format);
-	//factor = factor + 8;
-	while (*first_agr)
+	output = va_arg(args, int);
+	ft_putnbr(output);
+	if (output == -2147483648)
+		*p += 12;
+	else 
 	{
-		while (*first_agr != '%')
+		if (output < 0)
 		{
-			ft_putchar(*first_agr);
-			first_agr++;
+			*p = *p + 1;
+			output = -1 * output;
 		}
-		spec = ft_specification(&first_agr);
-//		if (!strcmp(spec->factor, 'int')
-//			//ft_print_arg(factor, spec);
-		if (!strcmp(spec->type, "int"))
+		while (output / 10 > 0)
 		{
-//			first_agr++;
-			i = va_arg(args, char);
-			ft_putchar(i);
+			output = output / 10;
+			*p = *p + 1;
 		}
-		//first_agr++;
+	}
+}
+
+void	ft_parse(int *i, const char *str, va_list args, int *p)
+{
+	*i = *i + 1;
+	str[*i] == 'i' ? ft_flags_int(args, p) : 0;
+}
+
+int ft_printf(const char *format, ...)
+{
+	int i;
+	int ret;
+	va_list args;
+
+	ret = 0;
+	va_start(args, format);
+	i = -1;
+	while (format[++i] != '\0')
+	{
+		if (format[i] == '%')
+			ft_parse(&i, format, args, &ret);			
+		else
+			write(1, &format[i], 1);
 	}
 	va_end(args);
-	return (0);
+	return (ret);
 }
