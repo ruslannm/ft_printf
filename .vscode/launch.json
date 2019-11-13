@@ -9,9 +9,8 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_printf",
-			"args": ["int=%i\n",
-					1
-					]
+			"args": [
+						],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2019/11/10 12:22:57 by rgero            ###   ########.fr        #
+#    Updated: 2019/11/13 18:23:02 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_PATH = ./
-SRC_NAME = main.c ft_printf.c
+SRC_NAME = main.c ft_printf.c ft_parse.c ft_flag_int.c ft_flag_char.c
 
 OBJ_PATH = ./
 OBJ_NAME = $(SRC_NAME:.c=.o)
