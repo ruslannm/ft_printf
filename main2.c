@@ -34,6 +34,12 @@ void display(char* format, ...)
  
 int main(void)
 {   
-    display("Age:%d \t Weight:%f", 24, 68.4);
+    display("Age:%d \t Weight:%f\n", 24, 68.4);
+    printf("Age:%2$i  Weight:%1$i\n", 24, 68);
+    printf("Age:%d  Weight:%d\n", 24, 68);
+     printf("%lu %lu %lu %lu\n", sizeof(double), sizeof(double *), sizeof(char), sizeof(char *));
+    printf("test %*.*i, %*i", 5, 2, 1, 2, 3);
+    printf("test %1$*.*i, %*i", 5, 2, 1, 2, 3);
     return 0;
+
 }

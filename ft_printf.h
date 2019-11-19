@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/13 18:22:19 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:30:28 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 typedef struct s_spec
 {
-	char	flag;
+	char	*flags;
 	int		width;
 	int		precision;
-	char	modifier;
+	char	*modifier;
 	char	conversion;
 	char	*type;
 }				t_spec;

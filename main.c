@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/13 18:26:53 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:20:49 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ int main(void)
 	i = printf("int(i)=%i,int(d)=%d,char(c)=%c, str(c)=%s", 15, 25, 'a', "str");
 	printf(", res=%i\nlib:\n", i);
 	printf("\n");
+	printf ("\n5. Вывод строки 'abc':\n");
+ { char d1[4]="abc";
+   printf ("%s\n",d1);
+ }
+ printf ("\n6. Вывод указателя:\n");
+ { char d1[4]="abc";
+   printf ("%p\n",d1);
+ }
+
 // printf("Le fichier{cyan}%s{eoc} contient : {red}%s{eoc}", "filename", "str");
 
 	return (0);
