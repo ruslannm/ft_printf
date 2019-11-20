@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/20 16:56:56 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/20 17:53:04 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	ft_flag_str(va_list args, int *p);
 
 int		ft_read_format(char *s, t_spec **s_args);
 int		ft_parse_position(char *s, t_spec *s_args, int *i);
-
+int		ft_parse_flags(char *s, t_spec *s_args, int *i);
 
 #endif

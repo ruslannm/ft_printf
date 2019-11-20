@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/20 17:01:58 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/20 18:01:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	ft_parse_format(char *s, t_spec *s_args)
 	i = -1;
 	while(s[++i] != '\0')
 	{
-		//number arg
 		if (ft_parse_position(s, s_args, &i) == -1)
 			return (-1);
-		//flags
-/*		flags = ft_strdup("#0- +'");
+		if (ft_parse_flags(s, s_args, &i) == -1)
+			return (-1);
+	/*		flags = ft_strdup("#0- +'");
 		tmp = ft_strnew(6);
 		j = 0;
 		while (ft_strchr(flags, s[i]))

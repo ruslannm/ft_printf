@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/20 16:36:44 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/20 17:58:26 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,7 @@
 #include <stdlib.h>
 #include "ft_printf.h"
 /*
-char	ft_flag(char **s)
-{
-	char	*flags;
-	char	ret;
 
-	ret = 0;
-	flags = ft_strdup("#0- +'");
-	if (ft_strchr(flags, *(*s)))
-	{
-		ret = *(*s);
-		(*s)++;
-	}
-	free(flags);
-	return (ret);
-}
 
 int		ft_width(char **s)
 {
