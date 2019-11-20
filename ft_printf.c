@@ -6,14 +6,14 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/20 15:07:27 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/20 16:36:44 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "ft_printf.h"
-
+/*
 char	ft_flag(char **s)
 {
 	char	*flags;
@@ -122,7 +122,7 @@ t_spec *ft_specification(char **s)
 	ft_factor(ret);
 	return (ret);
 }
-
+*/
 int ft_printf(const char *format, ...)
 {
 	int 	i;
@@ -138,9 +138,9 @@ int ft_printf(const char *format, ...)
 	while (format[++i] != '\0')
 		if (format[i] == '%' && format[i + 1] && format[i + 1] != '%')
 					count_args++;
-	*s_args = (t_spec**)malloc(sizeof(t_spec*) * count_args);
-	ft_read_format((char *)format, s_args, count_args);
-		i = -1;
+	s_args = (t_spec**)malloc(sizeof(t_spec*) * count_args);
+	ft_read_format((char *)format, s_args);
+	/*	i = -1;
 	while (format[++i] != '\0')
 	{
 		if (format[i] == '%' && format[i + 1] && format[i + 1] != '%')
@@ -148,6 +148,7 @@ int ft_printf(const char *format, ...)
 		else
 			write(1, &format[i], 1);
 	}
+	*/
 	va_end(args);
 	return (ret + i);
 }

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/20 15:19:09 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/20 16:56:56 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include "libft.h"
 
@@ -26,7 +27,7 @@ typedef struct s_spec
 	int		precision;
 	int		precision_ini; //0 - new struct, 1 - exists in format string, -1 * look in args
 	char	*modifier;
-	char	conversion;
+	char	*conversion;
 	char	*type;
 }				t_spec;
  
@@ -42,5 +43,9 @@ void	ft_parse(int *i, const char *str, va_list args, int *p);
 void	ft_flag_int(va_list args, int *p);
 void	ft_flag_char(va_list args, int *p);
 void	ft_flag_str(va_list args, int *p);
+
+int		ft_read_format(char *s, t_spec **s_args);
+int		ft_parse_position(char *s, t_spec *s_args, int *i);
+
 
 #endif
