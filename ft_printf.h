@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/20 17:53:04 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/21 18:39:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_spec
 	int		precision;
 	int		precision_ini; //0 - new struct, 1 - exists in format string, -1 * look in args
 	char	*modifier;
-	char	*conversion;
+	char	conversion;
 	char	*type;
 }				t_spec;
  
@@ -47,5 +47,9 @@ void	ft_flag_str(va_list args, int *p);
 int		ft_read_format(char *s, t_spec **s_args);
 int		ft_parse_position(char *s, t_spec *s_args, int *i);
 int		ft_parse_flags(char *s, t_spec *s_args, int *i);
+int		ft_parse_width(char *s, t_spec *s_args, int *i);
+int		ft_parse_precision(char *s, t_spec *s_args, int *i);
+int		ft_parse_modifier(char *s, t_spec *s_args, int *i);
+int		ft_parse_conversion(char *s, t_spec *s_args, int *i);
 
 #endif

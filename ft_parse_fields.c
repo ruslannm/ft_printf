@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parce_fields.c                                  :+:      :+:    :+:   */
+/*   ft_parse_fields.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/20 17:58:05 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/21 18:40:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,44 @@ int	ft_parse_flags(char *s, t_spec *s_args, int *i)
 	ft_strdel(&flags);
 	ft_strdel(&tmp);
 	return (ret);
+}
+
+int	ft_parse_width(char *s, t_spec *s_args, int *i)
+{
+	if (ft_isdigit(s[*i]))
+	{
+		s_args->width = ft_atoi(&s[*i]);
+		s_args->width_ini = 1;
+		while (ft_isdigit(s[*i]))
+			*i = *i + 1;
+	}
+	else if (s[*i] == '*')
+	{
+		s_args->width_ini = -1;
+		*i = *i + 1;
+	}
+	return (0);
+}
+
+int	ft_parse_precision(char *s, t_spec *s_args, int *i)
+{
+	if (s[*i] == '.')
+	{
+		*i = *i + 1;
+		if (ft_isdigit(s[*i]))
+		{
+			s_args->width = ft_atoi(&s[*i]);
+			s_args->width_ini = 1;
+			while (ft_isdigit(s[*i]))
+				*i = *i + 1;
+		}
+		else if (s[*i] == '*')
+		{
+			s_args->width_ini = -1;
+			*i = *i + 1;
+		}
+		else 
+			return (-1);
+	}
+	return (0);
 }

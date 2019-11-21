@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/20 18:01:48 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/21 18:44:01 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 int	ft_parse_format(char *s, t_spec *s_args)
 {
 	int		i;
-//	int 	j;
-//	int 	ret;
-	//int 	param;
-//	char	*flags;
-//	char	*tmp;
 
 	i = -1;
 	while(s[++i] != '\0')
@@ -28,42 +23,12 @@ int	ft_parse_format(char *s, t_spec *s_args)
 			return (-1);
 		if (ft_parse_flags(s, s_args, &i) == -1)
 			return (-1);
-	/*		flags = ft_strdup("#0- +'");
-		tmp = ft_strnew(6);
-		j = 0;
-		while (ft_strchr(flags, s[i]))
-			tmp[j++] = s[i++];
-		s_args->flags = ft_strdup(tmp);
-		free (tmp);
-		if (ft_isdigit(s[i]))
-		{
-			s_args->width = ft_atoi(&s[i]);
-			s_args->width_ini = 1;
-			while (ft_isdigit(s[i]))
-				i++;
-		}
-		else if (s[i] == '\*')
-		{
-			s_args->width_ini = -1;
-			i++;
-		}
-		if (s[i] == '.')
-		{
-			i++;
-			if (ft_isdigit(s[i]))
-			{
-				s_args->precision = ft_atoi(&s[i]);
-				s_args->precision_ini = 1;
-				while (ft_isdigit(s[i]))
-					i++;
-			}
-			else if (s[i] == '\*')
-			{
-				s_args->precision_ini = -1;
-				i++;
-			}
-		}
-		*/
+		ft_parse_width(s, s_args, &i);
+		ft_parse_precision(s, s_args, &i);
+		if (ft_parse_modifier(s, s_args, &i) == -1)
+			return (-1);
+		if (ft_parse_conversion(s, s_args, &i) == -1)
+			return (-1);
 	}
 	return (1);
 }
@@ -81,7 +46,7 @@ t_spec	*ft_new_spec()
 	ret->precision_ini = 0;
 	ret->precision = 0;
 	ret->modifier = NULL;
-	ret->conversion = NULL;
+	ret->conversion = 0;
 	ret->type = NULL;
 	return (ret);
 }
