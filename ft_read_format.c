@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/22 17:00:15 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/22 17:41:57 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_spec	*ft_new_spec(int start)
 }
 
 
-int	ft_read_format(char *s, t_spec **s_args)
+int	ft_read_format(char *s, t_spec **s_args, va_arg *args)
 {
 	int	i;
 	int j;
@@ -67,7 +67,7 @@ int	ft_read_format(char *s, t_spec **s_args)
 	{
 		if (s[i] == '%' && s[i + 1] && s[i + 1] != '%')
 		{
-			if (!(s_args[j] = ft_new_spec(i)))
+			if (!(s_args[j] = ft_new_spec(i, args)))
 				return (-1);
 			if ((i = ft_parse_format(&s[i + 1], s_args[j++])) < 0) 
 				return (-1);
