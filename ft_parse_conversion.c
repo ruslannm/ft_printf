@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:09:45 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/21 18:43:14 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/22 15:22:42 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,12 @@ int	ft_parse_modifier(char *s, t_spec *s_args, int *i)
 
 int	ft_parse_conversion(char *s, t_spec *s_args, int *i)
 {
-	char *conversion;
-
-	if (!(conversion = ft_strdup("cspdiouxX")))
-		return (-1);
-	if (ft_strchr(conversion, s[*i]))
+	if (ft_strchr("cspdiouxX", s[*i]))
 	{
 		s_args->conversion = s[*i];
 		*i = *i + 1;
+		return (0);
 	}
-	return (0);
+	else 
+		return (-1);
 }

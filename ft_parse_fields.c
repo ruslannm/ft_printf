@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/21 18:40:39 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/22 15:21:17 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,17 @@ int	ft_parse_position(char *s, t_spec *s_args, int *i)
 
 int	ft_parse_flags(char *s, t_spec *s_args, int *i)
 {
-	char	*flags;
-	char	ret;
+	int		ret;
 	char	*tmp;
 	int		j;
 
-	ret = 0;
 	j = 0;
-	flags = ft_strdup("#0- +'");
-	tmp = ft_strnew(6);
-	if (!flags || !tmp)
+	ret = 0;
+	if (!(tmp = ft_strnew(6)))
 		ret = -1;
 	else
 	{
-		while (ft_strchr(flags, s[*i]) && !ft_strchr(tmp, s[*i]))
+		while (ft_strchr("#0- +'", s[*i]) && !ft_strchr(tmp, s[*i]))
 		{
 			tmp[j++] = s[*i];
 			*i = *i + 1;
@@ -50,7 +47,6 @@ int	ft_parse_flags(char *s, t_spec *s_args, int *i)
 			if (!(s_args->flags = ft_strdup(tmp)))
 				ret = -1;
 	}
-	ft_strdel(&flags);
 	ft_strdel(&tmp);
 	return (ret);
 }
