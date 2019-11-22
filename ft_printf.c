@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/20 17:58:26 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/22 16:43:25 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,9 @@ int ft_printf(const char *format, ...)
 		if (format[i] == '%' && format[i + 1] && format[i + 1] != '%')
 					count_args++;
 	s_args = (t_spec**)malloc(sizeof(t_spec*) * count_args);
-	ft_read_format((char *)format, s_args);
+	ret = ft_read_format((char *)format, s_args);
+	if (!ret)
+		ret = ft_check_position(s_args, count_args);
 	/*	i = -1;
 	while (format[++i] != '\0')
 	{

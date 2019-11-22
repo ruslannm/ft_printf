@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/22 15:37:08 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/22 16:41:25 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int		ft_parse_precision(char *s, t_spec *s_args, int *i);
 int		ft_parse_modifier(char *s, t_spec *s_args, int *i);
 int		ft_parse_conversion(char *s, t_spec *s_args, int *i);
 int		ft_check_format(t_spec *s_args);
+int		ft_check_position(t_spec **s_args, int count_args);
 
 #endif

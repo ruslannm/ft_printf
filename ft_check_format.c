@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:00:47 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/22 15:48:03 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/22 16:41:11 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,34 @@ int	ft_check_format(t_spec *s_args)
 	{
 		if (s_args->conversion == 'c')
 		{
-			if (s_args->position || s_args->modifier)
+			if (s_args->precision || s_args->modifier)
 				ret = -1;
 		}
 		else 
 			ret = (s_args->modifier ? -1 : 0);
 	}
 	return (ret);
+}
+
+int		ft_check_position(t_spec **s_args, int count_args)
+{
+	int	position;
+	int asterisk;
+	int i;
+
+	position = 0;
+	asterisk = 0;
+	i = count_args;
+	while (i >= 0)
+	{
+		if (s_args[i]->position)
+			position++;
+		if (s_args[i]->width_ini == -1 || s_args[i]->precision_ini == -1)
+			asterisk++;
+		i--;
+	}
+	if (position && asterisk)
+		return (-1);
+	if (position && position != count_args)
+		return (-1);
 }

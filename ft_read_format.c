@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/22 15:37:48 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/22 17:00:15 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,19 @@ int	ft_parse_format(char *s, t_spec *s_args)
 {
 	int		i;
 
-	i = -1;
-	while(s[++i] != '\0')
-	{
-		if (ft_parse_position(s, s_args, &i) == -1)
-			return (-1);
-		if (ft_parse_flags(s, s_args, &i) == -1)
-			return (-1);
+	i = 0;
+	if (s[i] && ft_parse_position(s, s_args, &i) == -1)
+		return (-1);
+	if (s[i] && ft_parse_flags(s, s_args, &i) == -1)
+		return (-1);
+	if (s[i] != '\0')
 		ft_parse_width(s, s_args, &i);
+	if (s[i] != '\0')
 		ft_parse_precision(s, s_args, &i);
-		if (ft_parse_modifier(s, s_args, &i) == -1)
-			return (-1);
-		if (ft_parse_conversion(s, s_args, &i) == -1)
-			return (-1);
-	}
+	if (s[i] && ft_parse_modifier(s, s_args, &i) == -1)
+		return (-1);
+	if (s[i] && ft_parse_conversion(s, s_args, &i) == -1)
+		return (-1);
 	s_args->len = i;
 	if (ft_check_format(s_args) == -1)
 		return (-1);
@@ -76,5 +75,6 @@ int	ft_read_format(char *s, t_spec **s_args)
 		else if (s[i] == '%' && s[i + 1] && s[i + 1] == '%')
 			i++;
 	}
-	return (1);
+	ft_check_formats(s_args);
+	return (0);
 }
