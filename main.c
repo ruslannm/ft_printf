@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/25 16:01:55 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/25 17:17:58 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int main(void)
 {
 	int i;
 
-	printf("printf position %%1$i=%%i");
-	i = ft_printf("int(i)=%1$#0.5hi", 55);
+//	printf("printf position %%1$i=%%i");
+	i = ft_printf("int(i)=%#0.5hi, int(i)=%hi\n", 55, 77);
+	write(1, "\nres=", 5);
+	ft_putnbr(i);
 /*
 	printf("printf(int(i)=%%i,int(d)=%%d,char(c)=%%c', 15, 25);\nMy\n");
 	i = ft_printf("int(i)=%i,int(d)=%d,char(c)=%c, str(c)=%s", 15, 25, 'a', "str");
