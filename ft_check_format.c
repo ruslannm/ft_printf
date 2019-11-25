@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:00:47 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/22 16:41:11 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/25 15:34:36 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ int		ft_check_position(t_spec **s_args, int count_args)
 		return (-1);
 	if (position && position != count_args)
 		return (-1);
+	return (0);
 }

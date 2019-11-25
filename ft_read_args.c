@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_arg_d.c                                     :+:      :+:    :+:   */
+/*   ft_read_args.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/25 15:12:12 by rgero            ###   ########.fr       */
+/*   Created: 2019/11/25 15:22:55 by rgero             #+#    #+#             */
+/*   Updated: 2019/11/25 15:29:41 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char *ft_get_arg_d(t_spec *s_args, va_list args)
+int		ft_read_args(t_spec **s_args, int count_args, va_list args)
 {
-	char 		*ret;
-	intmax_t	nb;
+	int	i;
 
-	if (!ft_strcmp(s_args->conversion, "h"))
-		nb = (short)va_arg(args, short);
-	ret = ft_putnbr_str(nb);
-	return (ret);	
+	i = 0;
+	while (i < count_args)
+	{
+		s_args[i]->output = ft_get_arg_d(s_args[i], args);
+		i++;
+	}
+	return (0);
 }
