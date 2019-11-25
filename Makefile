@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2019/11/25 15:30:18 by rgero            ###   ########.fr        #
+#    Updated: 2019/11/25 15:59:11 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRC_PATH = ./
 SRC_NAME = main.c ft_printf.c ft_read_format.c ft_parse_fields.c \
 	ft_parse_conversion.c ft_check_format.c \
-	ft_putnbr_str.c ft_read_args.c, ft_get_arg_d.c
+	ft_putnbr_str.c ft_read_args.c ft_get_arg_d.c
 
 OBJ_PATH = ./
 OBJ_NAME = $(SRC_NAME:.c=.o)

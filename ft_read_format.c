@@ -6,13 +6,13 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/25 15:33:50 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/25 16:13:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_parse_format(char *s, t_spec *s_args)
+int	ft_parse_format(char *s, t_spec *s_args, int start)
 {
 	int		i;
 
@@ -32,7 +32,7 @@ int	ft_parse_format(char *s, t_spec *s_args)
 	s_args->len = i;
 	if (ft_check_format(s_args) == -1)
 		return (-1);
-	return (0);
+	return (start + i);
 }
 
 t_spec	*ft_new_spec(int start)
@@ -69,7 +69,7 @@ int	ft_read_format(char *s, t_spec **s_args)
 		{
 			if (!(s_args[j] = ft_new_spec(i)))
 				return (-1);
-			if ((i = ft_parse_format(&s[i + 1], s_args[j++])) < 0) 
+			if ((i = ft_parse_format(&s[i + 1], s_args[j++], i)) < 0) 
 				return (-1);
 		}
 		else if (s[i] == '%' && s[i + 1] && s[i + 1] == '%')
