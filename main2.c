@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdarg.h>
- 
+#include <locale.h>
+#include <string.h>
+
 void display(char* format, ...)
 {
     int d; 
@@ -37,9 +39,13 @@ int main(void)
     display("Age:%d \t Weight:%f\n", 24, 68.4);
     printf("Age:%2$i  Weight:%1$i\n", 24, 68);
     printf("Age:%d  Weight:%d\n", 24, 68);
-    printf("%lu %lu %lu %lu\n", sizeof(double), sizeof(double *), sizeof(char), sizeof(char *));
+  /*  printf("%lu %lu %lu %lu\n", sizeof(double), sizeof(double *), sizeof(char), sizeof(char *));
     printf("test %*.*i, %*i", 5, 2, 1, 2, 3);
-    printf("test %*i, %*i", 5, 2, 1, 3);
+    printf("test %*i, %*i", 5, 2, 1, 3);*/
+	struct lconv *lc;
+    lc = localeconv();
+	if (lc->thousands_sep)
+        printf("thousand=%s=\n", lc->thousands_sep);
     return 0;
 
 }
