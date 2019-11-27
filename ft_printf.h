@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/25 17:12:25 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:10:44 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_flag_int(va_list args, int *p);
 void	ft_flag_char(va_list args, int *p);
 void	ft_flag_str(va_list args, int *p);
 
-int		ft_read_format(char *s, t_spec **s_args);
-int		ft_read_args(t_spec **s_args, int count_args, va_list args);
+int		ft_read_format(char *s, t_spec ***s_args);
+int		ft_read_args(t_spec **s_args, va_list args);
 int		ft_parse_position(char *s, t_spec *s_args, int *i);
 int		ft_parse_flags(char *s, t_spec *s_args, int *i);
 int		ft_parse_width(char *s, t_spec *s_args, int *i);
@@ -56,9 +56,9 @@ int		ft_parse_precision(char *s, t_spec *s_args, int *i);
 int		ft_parse_modifier(char *s, t_spec *s_args, int *i);
 int		ft_parse_conversion(char *s, t_spec *s_args, int *i);
 int		ft_check_format(t_spec *s_args);
-int		ft_check_position(t_spec **s_args, int count_args);
+int		ft_check_position(t_spec **s_args);
 char	*ft_putnbr_str(int n);
 char	*ft_get_arg_d(t_spec *s_args, va_list args);
-int		ft_prinf_len(char *format, t_spec **s_args, int count_args);
+int		ft_printf_len(char *format, t_spec **s_args);
 
 #endif

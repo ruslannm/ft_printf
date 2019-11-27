@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/25 16:13:53 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:15:01 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,47 @@ t_spec	*ft_new_spec(int start)
 	return (ret);
 }
 
-int	ft_read_format(char *s, t_spec **s_args)
+t_spec **ft_ini_s_args(char *s)
+{
+	int	count_args;
+	int i;
+	t_spec	**ret;
+
+	count_args = 0;
+	i = -1;
+	while (s[++i] != '\0')
+		if (s[i] == '%' && s[i + 1] && s[i + 1] != '%')
+					count_args++;
+	if (!(ret = (t_spec**)malloc(sizeof(t_spec*) * (count_args + 1))))
+		return (NULL);
+	ret[count_args] = NULL;
+	return (ret);
+}
+
+
+int	ft_read_format(char *s, t_spec ***s_args)
 {
 	int	i;
 	int j;
 
+	if (!(*s_args = ft_ini_s_args(s)))
+		return (-1);
 	i = -1;
 	j = 0;
 	while (s[++i] != '\0')
 	{
 		if (s[i] == '%' && s[i + 1] && s[i + 1] != '%')
 		{
-			if (!(s_args[j] = ft_new_spec(i)))
+			if (!(*s_args[j] = ft_new_spec(i)))
 				return (-1);
-			if ((i = ft_parse_format(&s[i + 1], s_args[j++], i)) < 0) 
+			if ((i = ft_parse_format(&s[i + 1], *s_args[j++], i)) < 0) 
 				return (-1);
 		}
 		else if (s[i] == '%' && s[i + 1] && s[i + 1] == '%')
 			i++;
 	}
 	//ft_check_format(s_args);
+	if (ft_check_position(*s_args))
+		return (-1);
 	return (0);
 }
