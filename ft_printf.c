@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/27 15:11:09 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/27 16:11:26 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,34 +109,59 @@ t_spec *ft_specification(char **s)
 	return (ret);
 }
 */
-int ft_printf(const char *format, ...)
-{
-	int 	i;
-	int		j;
-	int 	ret;
-	va_list args;
-	t_spec	**s_args;
 
-	va_start(args, format);
-	s_args = NULL;
-	ret = ft_read_format((char *)format, &s_args);
-	if (!ret)
-		ret = ft_read_args(s_args, args);
+char	*ft_get_str(char *s, t_spec **s_args)
+{
+	char	*ret;
+	char	*tmp;
+	int		i;
+	int		j;
+
 	i = -1;
 	j = 0;
-	while (format[++i] != '\0')
+	ret = ft_strnew(0);
+	while (s[++i] != '\0')
 	{
-		if (format[i] == '%' && format[i + 1] && format[i + 1] != '%')
+		if (s[i] == '%' && s[i + 1] && s[i + 1] != '%')
 			{
+			/*
 				write(1, s_args[j]->output, ft_strlen(s_args[j]->output));
 				i = i + s_args[j]->len;
 				j++;
+				*/
+				tmp = ft_strjoin(ret, s_args[j]->output);
+				free(ret);
+				ret = tmp;
+				i = i + s_args[j++]->len;
 			}			
 		else
-			write(1, &format[i], 1);
+			{
+				tmp = ft_strcjoin(ret, s[i]);
+				free(ret);
+				ret = tmp;
+			}
 	}
+	return (ret);
+}
+
+
+int ft_printf(const char *format, ...)
+{
+	int 	ret;
+	va_list args;
+	t_spec	**s_args;
+	char	*output;
+
+	va_start(args, format);
+	ret = -1;
+	if ((s_args = ft_read_format((char *)format)))
+		ret = ft_read_args(s_args, args);
 	if (!ret)
-		ret = ft_printf_len((char*)format, s_args);
+	{
+		output = ft_get_str((char*)format, s_args);
+		ft_putstr(output);
+		ret = ft_strlen(output); //printf_len((char*)format, s_args);
+	}
 	else
 		ret = -1;
 	return (ret);	

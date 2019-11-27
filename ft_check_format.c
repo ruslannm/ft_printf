@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:00:47 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/25 16:29:02 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/27 15:41:16 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_check_format(t_spec *s_args)
 	return (ret);
 }
 
-int		ft_check_position(t_spec **s_args, int count_args)
+int		ft_check_position(t_spec **s_args)
 {
 	int	position;
 	int asterisk;
@@ -70,7 +70,7 @@ int		ft_check_position(t_spec **s_args, int count_args)
 	position = 0;
 	asterisk = 0;
 	i = 0;
-	while (i < count_args)
+	while (s_args[i])
 	{
 		if (s_args[i]->position)
 			position++;
@@ -80,7 +80,7 @@ int		ft_check_position(t_spec **s_args, int count_args)
 	}
 	if (position && asterisk)
 		return (-1);
-	if (position && position != count_args)
+	if (position && position != i)
 		return (-1);
 	return (0);
 }
