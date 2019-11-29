@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/27 18:13:20 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/29 17:07:03 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int		ft_get_digit(int n)
 	return (i);
 }
 
+/*
+TODO
 char	*ft_conv_sep(char *s)
 {
 	int i;
@@ -42,7 +44,52 @@ char	*ft_conv_sep(char *s)
 	ret = (char *)malloc(sizeof(char) * (i + 1));
 	while ()
 }
+*/
 
+char	*ft_putoutput(t_spec *s_args, char *s)
+{
+	int	len[5];
+	char	*tmp;
+	char	*output;
+
+	tmp = s;
+	len[0] = ft_strlen(tmp);
+	len[1] = (len[0] < s_args->precision ? s_args->precision : len[0]);
+	len[2] = (s_args->flags ? 1 : 0);
+	len[3] = (len[1] + len[2] < s_args->width ? s_args->width : len[1] + len[2]);
+	len[4] = len[3] - len[1] - len[2];
+	if (!(output = (char*)malloc(len[3] + 1)))
+		return (NULL);
+	output[len[3]] = '\0';
+	if (ft_strchr(s_args->flags, '-'))
+	{
+		if (len[2])
+			output[len[4]++] = s_args->sign;
+		while (len[1] - len[0] > 0)
+		{
+			output[len[4]++] = '0';
+			len[1]--;
+		}
+		while (len[0]-- > 0)
+			output[len[4]++] = *tmp++;
+	}
+	free(s);
+	return (output);
+}
+
+void	ft_putsign(t_spec *s_args)
+{
+	if (s_args->sign != '-')
+	{
+		if (s_args->flags)
+		{
+			if (ft_strchr(s_args->flags, '+'))
+				s_args->sign = '+';
+			else if (ft_strchr(s_args->flags, ' '))
+				s_args->sign = ' ';
+		}
+	}
+}
 
 char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
 {
@@ -54,7 +101,6 @@ char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
 	sign = 0;
 	if (n < 0)
 		s_args->sign = '-';
-	
 	if (n == -9223372036854775807 - 1)
 	{
 		tmp = ft_putnbr_str(223372036854775808, s_args);
@@ -78,3 +124,4 @@ char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
 	}
 	return (ret);
 }
+
