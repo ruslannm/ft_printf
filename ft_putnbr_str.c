@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/29 17:07:03 by rgero            ###   ########.fr       */
+/*   Updated: 2019/11/29 17:42:24 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,25 @@ char	*ft_putoutput(t_spec *s_args, char *s)
 	tmp = s;
 	len[0] = ft_strlen(tmp);
 	len[1] = (len[0] < s_args->precision ? s_args->precision : len[0]);
-	len[2] = (s_args->flags ? 1 : 0);
+	len[2] = (s_args->sign ? 1 : 0);
 	len[3] = (len[1] + len[2] < s_args->width ? s_args->width : len[1] + len[2]);
-	len[4] = len[3] - len[1] - len[2];
+	//len[4] = len[3] - len[1] - len[2];
+	len[4] = 0;
 	if (!(output = (char*)malloc(len[3] + 1)))
 		return (NULL);
 	output[len[3]] = '\0';
+	if (!ft_strchr(s_args->flags, '-'))
+		while (len[4] < len[3] - len[1] - len[2])
+			output[len[4]++] = ' ';
+	if (len[2])
+		output[len[4]++] = s_args->sign;
+	while (len[1]-- - len[0] > 0)
+		output[len[4]++] = '0';
+	while (len[0]-- > 0)
+		output[len[4]++] = *tmp++;
 	if (ft_strchr(s_args->flags, '-'))
-	{
-		if (len[2])
-			output[len[4]++] = s_args->sign;
-		while (len[1] - len[0] > 0)
-		{
-			output[len[4]++] = '0';
-			len[1]--;
-		}
-		while (len[0]-- > 0)
-			output[len[4]++] = *tmp++;
-	}
+		while (len[4] < len[3])
+			output[len[4]++] = ' ';
 	free(s);
 	return (output);
 }
