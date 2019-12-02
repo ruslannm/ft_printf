@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/29 17:42:24 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/02 17:05:51 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_putoutput(t_spec *s_args, char *s)
 	if (!(output = (char*)malloc(len[3] + 1)))
 		return (NULL);
 	output[len[3]] = '\0';
-	if (!ft_strchr(s_args->flags, '-'))
+	if (s_args->flags[2] == 0)
 		while (len[4] < len[3] - len[1] - len[2])
 			output[len[4]++] = ' ';
 	if (len[2])
@@ -71,7 +71,7 @@ char	*ft_putoutput(t_spec *s_args, char *s)
 		output[len[4]++] = '0';
 	while (len[0]-- > 0)
 		output[len[4]++] = *tmp++;
-	if (ft_strchr(s_args->flags, '-'))
+	if (s_args->flags[2] != 0)
 		while (len[4] < len[3])
 			output[len[4]++] = ' ';
 	free(s);
@@ -82,13 +82,10 @@ void	ft_putsign(t_spec *s_args)
 {
 	if (s_args->sign != '-')
 	{
-		if (s_args->flags)
-		{
-			if (ft_strchr(s_args->flags, '+'))
-				s_args->sign = '+';
-			else if (ft_strchr(s_args->flags, ' '))
+		if (s_args->flags[4] == '+')
+			s_args->sign = '+';
+		else if (s_args->flags[3] == ' ')
 				s_args->sign = ' ';
-		}
 	}
 }
 

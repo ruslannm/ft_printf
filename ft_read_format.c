@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/02 15:57:52 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/02 17:01:24 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,12 @@ t_spec	*ft_new_spec(int start)
 	if (!(ret = (t_spec*)malloc(sizeof(t_spec))))
 		return (NULL);
 	ret->position = 0;
-	ret->flags = NULL;
+	ret->flags[0] = 0;
+	ret->flags[1] = 0;
+	ret->flags[2] = 0;
+	ret->flags[3] = 0;
+	ret->flags[4] = 0;
+	ret->flags[5] = 0;
 	ret->width_ini = 0;
 	ret->width = 0;
 	ret->precision_ini = 0;

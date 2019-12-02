@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/02 16:06:51 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/02 17:00:30 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,32 @@ int	ft_parse_position(char *s, t_spec *s_args, int *i)
 	return (0);
 }
 
+void	ft_put_flag(t_spec *s_args, char c)
+{
+	if (c == '#')
+		s_args->flags[0] = c;
+	else if (c == '0')
+		s_args->flags[1] = c;
+	else if (c == '-')
+		s_args->flags[2] = c;
+	else if (c == ' ')
+		s_args->flags[3] = c;
+	else if (c == '+')
+		s_args->flags[4] = c;
+	else 
+		s_args->flags[5] = c;
+}
+
 int	ft_parse_flags(char *s, t_spec *s_args, int *i)
 {
 	int		ret;
-	char	*tmp;
 	int		j;
 
-	j = 0;
+	j = *i;
 	ret = 0;
-	if (!(tmp = ft_strnew(6)))
-		ret = -1;
-	else
-	{
-		while (ft_strchr("#0- +'", s[*i]) && !ft_strchr(tmp, s[*i]))
-		{
-			tmp[j++] = s[*i];
-			*i = *i + 1;
-		}
-		if (tmp[0] != '\0')
-			if (!(s_args->flags = ft_strdup(tmp)))
-				ret = -1;
-	}
-	ft_strdel(&tmp);
+	while (ft_strchr("#0- +'", s[j]))
+		ft_put_flag(s_args, s[j++]);
+	*i  = j;
 	return (ret);
 }
 

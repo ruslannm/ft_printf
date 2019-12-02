@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/29 17:45:38 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/02 17:06:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int main(void)
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 //
-	i = printf("int(i)=%-10.7i, int(i)=%10.7i=lib", 55555, 77777);
-	printf("res=%i=lib\n", i);
+	i = printf("int(i)=%-10.7i, int(i)=%10.7i=li", 55555, 77777);
+	printf("\nres=%i=lib\n", i);
 /*	printf(", res=%i\nlib:\n", i);
 	i = printf("int(i)=%i,int(d)=%d,char(c)=%c, str(c)=%s", 15, 25, 'a', "str");
 	printf(", res=%i\nlib:\n", i);
