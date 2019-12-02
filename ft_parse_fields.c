@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/29 17:54:40 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/02 16:06:51 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 int	ft_parse_position(char *s, t_spec *s_args, int *i)
 {
 	int	position;
+	int j;
 	
-	if (ft_isdigit(s[*i]))
+	j = *i;
+	if (ft_isdigit(s[j]))
 	{
-		position = ft_atoi(&s[*i]);
-		while (ft_isdigit(s[*i]))
-			*i = *i + 1;
-		if (s[*i] != '$')
+		position = ft_atoi(&s[j]);
+		while (ft_isdigit(s[j]))
+			j++;
+		if (s[j] != '$')
 			return (-1);
 		s_args->position = position;
-		*i = *i + 1;
+		*i = j + 1;
 	}
 	return (0);
 }
