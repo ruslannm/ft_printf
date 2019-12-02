@@ -6,14 +6,14 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/02 17:05:51 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/02 18:01:35 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <locale.h>
 
-int		ft_get_digit(int n)
+static int		ft_get_digit(intmax_t n)
 {
 	int i;
 
@@ -25,9 +25,7 @@ int		ft_get_digit(int n)
 	}
 	return (i);
 }
-
 /*
-TODO
 char	*ft_conv_sep(char *s)
 {
 	int i;
@@ -39,13 +37,12 @@ char	*ft_conv_sep(char *s)
 	lc = localeconv();
 	thousands_sep = ",";//lc->thousands_sep;
 	i = ft_strlen(s);
-	j = (i + 1)
+	j = (i + 1);
 	i = i + ft_strlen(lc->thousands_sep) * (i + 1)/3;
 	ret = (char *)malloc(sizeof(char) * (i + 1));
-	while ()
+	return (ret);
 }
 */
-
 char	*ft_putoutput(t_spec *s_args, char *s)
 {
 	int	len[5];
@@ -95,6 +92,9 @@ char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
 	int		sign;
 	int 	i;
 	char	*tmp;
+	uintmax_t	dele;
+
+	dele =UINTMAX_MAX;
 
 	sign = 0;
 	if (n < 0)
