@@ -6,13 +6,13 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/04 16:16:45 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/04 16:51:56 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static intmax_t	ft_get_digit(intmax_t n)
+static intmax_t	ft_get_maxpower(intmax_t n)
 {
 	intmax_t i;
 
@@ -21,6 +21,20 @@ static intmax_t	ft_get_digit(intmax_t n)
 		i *= 10;
 	return (i);
 }
+
+static int	ft_get_digit(intmax_t n)
+{
+	int i;
+
+	i = 1;
+	while (n / 10 > 0)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
+}
+
 
 void	ft_get_len_output(t_spec *s_args, char *s)
 {
@@ -84,9 +98,9 @@ char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
 	int		sign;
 	int 	i;
 	char	*tmp;
-	uintmax_t	dele;
+	intmax_t	maxpower;
 
-	dele =UINTMAX_MAX;
+	//maxpower = UINTMAX_MAX;
 
 	sign = 0;
 	if (n < 0)
@@ -102,15 +116,23 @@ char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
 		if (n < 0)
 			n = -1 * n;
 		i = ft_get_digit(n);
+		i = i + (s_args->flags[5] == 39 ? ft_strlen(s_args->thousand_sep) * (i + 1)/3 : 0);
 		ret = (char *)malloc(sizeof(char) * (i + 1));
-		ret[i] = '\0';
-		while (i > 0)
+		maxpower = ft_get_maxpower(n);
+		i = 0;
+		while (n / maxpower > 0)
 		{
-			if (n % 10 < 10)
-				ret[i - 1] = n % 10 + '0';
+			if (s_args->flags[5] == 39 && ft_strlen(s_args->thousand_sep) > 0 && i % 3 == 0)
+			{
+				ft_strcpy(&ret[i], s_args->thousand_sep);
+				i = i + ft_strlen(s_args->thousand_sep);
+			}
+			ret[i] = n / maxpower + '0';
 			n = n / 10;
-			i--;
+			maxpower = (maxpower == 1 ? 10 : maxpower / 10);
+			i++;
 		}
+		ret[i] = '\0';
 	}
 	return (ret);
 }
