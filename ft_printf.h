@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/02 17:36:36 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/04 15:43:58 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <locale.h>
 # include "libft.h"
-
 typedef struct s_spec
 {
 	int		position;
@@ -32,9 +32,12 @@ typedef struct s_spec
 	int		len;
 	char	*type;
 	char	*output;
+	int		output_len[6];
 	char	sign;
 	char	*before;
 	char	*after;
+	char	*thousand_sep;
+	
 }				t_spec;
  
 
@@ -66,5 +69,6 @@ int		ft_printf_len(char *format, t_spec **s_args);
 void	ft_putsign(t_spec *s_args);
 char	*ft_putoutput(t_spec *s_args, char *s);
 char	*ft_putunbr_str(uintmax_t n, t_spec *s_args);
+void	ft_get_len_output(t_spec *s_args, char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/02 17:00:30 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/04 15:20:10 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int	ft_parse_position(char *s, t_spec *s_args, int *i)
 
 void	ft_put_flag(t_spec *s_args, char c)
 {
+	struct lconv *lc;
+
+	lc = localeconv();
 	if (c == '#')
 		s_args->flags[0] = c;
 	else if (c == '0')
@@ -43,8 +46,11 @@ void	ft_put_flag(t_spec *s_args, char c)
 		s_args->flags[3] = c;
 	else if (c == '+')
 		s_args->flags[4] = c;
-	else 
+	else if (c == 39)
+	{
 		s_args->flags[5] = c;
+		s_args->thousand_sep = ft_strdup(lc->thousands_sep);
+	}
 }
 
 int	ft_parse_flags(char *s, t_spec *s_args, int *i)

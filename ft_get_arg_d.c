@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/02 17:40:07 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/04 15:34:25 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char *ft_get_arg_d(t_spec *s_args, va_list args)
 		nb = (int)va_arg(args, int);
 	ret = ft_putnbr_str(nb, s_args);
 	ft_putsign(s_args);
+	ft_get_len_output(s_args, ret);
 	ret = ft_putoutput(s_args, ret);
 	return (ret);	
 }
