@@ -6,12 +6,13 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/04 16:51:56 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/04 17:44:06 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/*
 static intmax_t	ft_get_maxpower(intmax_t n)
 {
 	intmax_t i;
@@ -21,7 +22,7 @@ static intmax_t	ft_get_maxpower(intmax_t n)
 		i *= 10;
 	return (i);
 }
-
+*/
 static int	ft_get_digit(intmax_t n)
 {
 	int i;
@@ -98,7 +99,8 @@ char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
 	int		sign;
 	int 	i;
 	char	*tmp;
-	intmax_t	maxpower;
+	//intmax_t	maxpower;
+	int		j;
 
 	//maxpower = UINTMAX_MAX;
 
@@ -116,8 +118,25 @@ char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
 		if (n < 0)
 			n = -1 * n;
 		i = ft_get_digit(n);
-		i = i + (s_args->flags[5] == 39 ? ft_strlen(s_args->thousand_sep) * (i + 1)/3 : 0);
+		i = i + (s_args->flags[5] == 39 ? ft_strlen(s_args->thousand_sep) * (i / 3 ) : 0);
 		ret = (char *)malloc(sizeof(char) * (i + 1));
+		ret[i] = '\0';
+		j = 0;
+		while (i > 0)
+		{
+		//	if (n % 10 < 10)
+			ret[i - 1] = n % 10 + '0';
+			if (s_args->flags[5] == 39 && ft_strlen(s_args->thousand_sep) > 0 && j % 3 == 0)
+			{
+				ft_strcpy(&ret[i - ft_strlen(s_args->thousand_sep)], s_args->thousand_sep);
+				i = i - ft_strlen(s_args->thousand_sep);
+			}
+			n = n / 10;
+			i--;
+			j++;
+		}
+		/*
+		
 		maxpower = ft_get_maxpower(n);
 		i = 0;
 		while (n / maxpower > 0)
@@ -133,6 +152,7 @@ char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
 			i++;
 		}
 		ret[i] = '\0';
+		*/
 	}
 	return (ret);
 }
