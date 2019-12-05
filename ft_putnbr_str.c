@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/04 17:44:06 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/05 16:14:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,67 +93,27 @@ void	ft_putsign(t_spec *s_args)
 	}
 }
 
-char	*ft_putnbr_str(intmax_t n, t_spec *s_args)
+int	ft_putnbr_str(intmax_t n, t_spec *s_args)
 {
-	char	*ret;
-	int		sign;
 	int 	i;
-	char	*tmp;
-	//intmax_t	maxpower;
 	int		j;
 
-	//maxpower = UINTMAX_MAX;
-
-	sign = 0;
-	if (n < 0)
-		s_args->sign = '-';
-	if (n == -9223372036854775807 - 1)
+	n = n * (n < 0 ? -1 : 1);
+	i = ft_get_digit(n);
+	i = i + (s_args->flags[5] == 39 ? THOUSAND_SEP_LEN * (i / 3 ) : 0);
+	if (!(s_args->output = (char *)malloc(sizeof(char) * (i + 1))))
+		return (-1);
+	s_args->output[i] = '\0';
+	j = 0;
+	while (--i >= 0)
 	{
-		tmp = ft_putnbr_str(223372036854775808, s_args);
-		ret = ft_strjoin("9", tmp);
-		free(tmp);
-	}
-	else 
-	{
-		if (n < 0)
-			n = -1 * n;
-		i = ft_get_digit(n);
-		i = i + (s_args->flags[5] == 39 ? ft_strlen(s_args->thousand_sep) * (i / 3 ) : 0);
-		ret = (char *)malloc(sizeof(char) * (i + 1));
-		ret[i] = '\0';
-		j = 0;
-		while (i > 0)
+		if (j++ % 3 == 0 && j > 2 && s_args->flags[5] == 39 && THOUSAND_SEP_LEN > 0)
 		{
-		//	if (n % 10 < 10)
-			ret[i - 1] = n % 10 + '0';
-			if (s_args->flags[5] == 39 && ft_strlen(s_args->thousand_sep) > 0 && j % 3 == 0)
-			{
-				ft_strcpy(&ret[i - ft_strlen(s_args->thousand_sep)], s_args->thousand_sep);
-				i = i - ft_strlen(s_args->thousand_sep);
-			}
-			n = n / 10;
-			i--;
-			j++;
+			ft_strncpy(&s_args->output[i + 1 - THOUSAND_SEP_LEN], THOUSAND_SEP, THOUSAND_SEP_LEN);
+			i = i - THOUSAND_SEP_LEN;
 		}
-		/*
-		
-		maxpower = ft_get_maxpower(n);
-		i = 0;
-		while (n / maxpower > 0)
-		{
-			if (s_args->flags[5] == 39 && ft_strlen(s_args->thousand_sep) > 0 && i % 3 == 0)
-			{
-				ft_strcpy(&ret[i], s_args->thousand_sep);
-				i = i + ft_strlen(s_args->thousand_sep);
-			}
-			ret[i] = n / maxpower + '0';
-			n = n / 10;
-			maxpower = (maxpower == 1 ? 10 : maxpower / 10);
-			i++;
-		}
-		ret[i] = '\0';
-		*/
+		s_args->output[i] = n % 10 + '0';
+		n = n / 10;
 	}
-	return (ret);
+	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/04 15:43:58 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/05 16:18:59 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <locale.h>
 # include "libft.h"
+
+# define THOUSAND_SEP ","
+# define THOUSAND_SEP_LEN 1
 typedef struct s_spec
 {
 	int		position;
@@ -63,12 +65,12 @@ int		ft_parse_modifier(char *s, t_spec *s_args, int *i);
 int		ft_parse_conversion(char *s, t_spec *s_args, int *i);
 int		ft_check_format(t_spec *s_args);
 int		ft_check_position(t_spec **s_args);
-char	*ft_putnbr_str(intmax_t n, t_spec *s_args);
+int		ft_putnbr_str(intmax_t n, t_spec *s_args);
 char	*ft_get_arg_d(t_spec *s_args, va_list args);
 int		ft_printf_len(char *format, t_spec **s_args);
 void	ft_putsign(t_spec *s_args);
 char	*ft_putoutput(t_spec *s_args, char *s);
-char	*ft_putunbr_str(uintmax_t n, t_spec *s_args);
+int		ft_putunbr_str(uintmax_t n, t_spec *s_args);
 void	ft_get_len_output(t_spec *s_args, char *s);
 
 #endif

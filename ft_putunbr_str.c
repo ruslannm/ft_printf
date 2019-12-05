@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/02 17:39:14 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/05 16:18:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,31 @@ static int		ft_get_udigit(uintmax_t n)
 	return (i);
 }
 
-/*
-TODO
-char	*ft_conv_sep(char *s)
+int	ft_putunbr_str(uintmax_t n, t_spec *s_args)
 {
-	int i;
-	int j;
-	struct lconv *lc;
-	char	*thousands_sep;
-	char	*ret;
+	int 	i;
+	int		j;
 
-	lc = localeconv();
-	thousands_sep = ",";//lc->thousands_sep;
-	i = ft_strlen(s);
-	j = (i + 1)
-	i = i + ft_strlen(lc->thousands_sep) * (i + 1)/3;
-	ret = (char *)malloc(sizeof(char) * (i + 1));
-	while ()
+	i = ft_get_udigit(n);
+	i = i + (s_args->flags[5] == 39 ? THOUSAND_SEP_LEN * (i / 3 ) : 0);
+	if (!(s_args->output = (char *)malloc(sizeof(char) * (i + 1))))
+		return (-1);
+	s_args->output[i] = '\0';
+	j = 0;
+	while (--i >= 0)
+	{
+		if (j++ % 3 == 0 && j > 2 && s_args->flags[5] == 39 && THOUSAND_SEP_LEN > 0)
+		{
+			ft_strncpy(&s_args->output[i + 1 - THOUSAND_SEP_LEN], THOUSAND_SEP, THOUSAND_SEP_LEN);
+			i = i - THOUSAND_SEP_LEN;
+		}
+		s_args->output[i] = n % 10 + '0';
+		n = n / 10;
+	}
+	return (0);
 }
-*/
+
+/*
 
 char	*ft_putunbr_str(uintmax_t n, t_spec *s_args)
 {
@@ -69,3 +75,4 @@ char	*ft_putunbr_str(uintmax_t n, t_spec *s_args)
 	return (ret);
 }
 
+*/

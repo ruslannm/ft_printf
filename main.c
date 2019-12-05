@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/04 16:53:19 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/05 16:07:03 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(void)
 	//lc->thousands_sep = "f[";//lc->thousands_sep;
 	
 //	printf("printf position %%1$i=%%i");
-	i = ft_printf("int(i)=%-'10.7i, int(i)=%10.7i=my", 55555, 77777);
+	i = ft_printf("int(i)=%-'10.7i, int(i)=%10.7i=my", 5555555, 77777);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
