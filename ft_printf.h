@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/05 16:28:39 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/05 16:58:46 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_spec
 	int		start;
 	int		len;
 	char	*type;
+	char	*output_raw;
 	char	*output;
 	int		output_len[6];
 	char	sign;
@@ -69,8 +70,8 @@ int		ft_putnbr_str(intmax_t n, t_spec *s_args);
 int		ft_get_arg_d(t_spec *s_args, va_list args);
 int		ft_printf_len(char *format, t_spec **s_args);
 void	ft_putsign(t_spec *s_args);
-char	*ft_putoutput(t_spec *s_args, char *s);
+int		ft_putoutput(t_spec *s_args);
 int		ft_putunbr_str(uintmax_t n, t_spec *s_args);
-void	ft_get_len_output(t_spec *s_args, char *s);
+void	ft_get_len_output(t_spec *s_args);
 
 #endif
