@@ -6,15 +6,15 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/05 16:23:47 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/05 16:29:15 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char *ft_get_arg_d(t_spec *s_args, va_list args)
+int ft_get_arg_d(t_spec *s_args, va_list args)
 {
-	char 		*ret;
+	int 		ret;
 	intmax_t	nb;
 
 	if (!s_args->modifier)
@@ -31,20 +31,19 @@ char *ft_get_arg_d(t_spec *s_args, va_list args)
 		nb = (int)va_arg(args, int);
 	s_args->sign = (nb < 0 ? '-' : 0);
 	if (nb == -9223372036854775807 - 1)
-		ft_putunbr_str(9223372036854775808U, s_args);
+		ret = ft_putunbr_str(9223372036854775808U, s_args);
 	else
-		ft_putnbr_str(nb, s_args);
+		ret = ft_putnbr_str(nb, s_args);
 
 	ft_putsign(s_args);
 //	ft_get_len_output(s_args, ret);
 //	ret = ft_putoutput(s_args, ret);
-	ret = s_args->output;
 	return (ret);	
 }
 
-char *ft_get_arg_u(t_spec *s_args, va_list args)
+int	ft_get_arg_u(t_spec *s_args, va_list args)
 {
-	char 		*ret;
+	int			ret;
 	uintmax_t	nb;
 
 	if (!s_args->modifier)
@@ -59,8 +58,7 @@ char *ft_get_arg_u(t_spec *s_args, va_list args)
 		nb = (unsigned long long)va_arg(args, unsigned long long int);
 	else
 		nb = (unsigned int)va_arg(args, unsigned int);
-	ft_putunbr_str(nb, s_args);
-	ret = s_args->output;
+	ret = ft_putunbr_str(nb, s_args);
 	//ret = ft_putoutput(s_args, ret);
 	return (ret);	
 }
