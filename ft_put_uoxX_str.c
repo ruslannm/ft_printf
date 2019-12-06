@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunbr_str.c                                   :+:      :+:    :+:   */
+/*   ft_put_uoxX_str.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/06 15:36:35 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/06 16:01:11 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <locale.h>
 
 static int	ft_get_udigit(uintmax_t n, int base)
 {
@@ -26,7 +25,7 @@ static int	ft_get_udigit(uintmax_t n, int base)
 	return (i);
 }
 
-int	ft_putunbr_str(uintmax_t n, t_spec *s_args)
+int	ft_put_u_str(uintmax_t n, t_spec *s_args)
 {
 	int 	i;
 	int		j;
@@ -50,29 +49,7 @@ int	ft_putunbr_str(uintmax_t n, t_spec *s_args)
 	return (0);
 }
 
-/*
-int	ft_putonbr_str(uintmax_t n, t_spec *s_args)
-{
-	int i;
-	int	j;
-	int	base;
-
-	base = 8;
-	i = ft_get_udigit(n, base);
-	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
-		return (-1);
-	s_args->output_raw[i] = '\0';
-	j = 0;
-	while (--i >= 0)
-	{
-		s_args->output_raw[i] = n % base + '0';
-		n = n / base;
-	}
-	return (0);
-}
-*/
-
-int	ft_putoxXnbr_str(uintmax_t n, t_spec *s_args)
+int	ft_put_oxX_str(uintmax_t n, t_spec *s_args)
 {
 	int i;
 	int	j;

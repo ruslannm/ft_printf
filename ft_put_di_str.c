@@ -1,28 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_str.c                                    :+:      :+:    :+:   */
+/*   ft_put_di_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/05 17:17:46 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/06 16:01:13 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/*
-static intmax_t	ft_get_maxpower(intmax_t n)
-{
-	intmax_t i;
-
-	i = 1;
-	while (i * 10 < n)
-		i *= 10;
-	return (i);
-}
-*/
 static int	ft_get_digit(intmax_t n)
 {
 	int i;
@@ -91,7 +80,7 @@ void	ft_putsign(t_spec *s_args)
 	}
 }
 
-int	ft_putnbr_str(intmax_t n, t_spec *s_args)
+int	ft_put_di_str(intmax_t n, t_spec *s_args)
 {
 	int 	i;
 	int		j;
