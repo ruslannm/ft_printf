@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:00:47 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/27 15:41:16 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/06 16:49:03 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_check_format(t_spec *s_args)
 {
 	int	ret;
 
-	ret = -1;
+	ret = 0;
 	if (ft_strchr("dinouxX", s_args->conversion))
 		ret = ft_check_modifier_int(s_args->modifier);
 	else if (ft_strchr("feg", s_args->conversion))
