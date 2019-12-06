@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/05 17:05:10 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/06 15:40:09 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ int main(void)
 
 //
 	i = printf("int(i)=%-'10.7i, int(i)=%10.7i=li", 55555, 77777);
+	printf("\nres=%i=lib\n", i);
+
+
+	i = ft_printf("int(o)=%-15.10o, int(o)=%15.10o, int(X)=%15.10X=my", 55555, 77777, 77777);
+	write(1, "\nres=", 5);
+	ft_putnbr(i);
+	write(1, "=my\n", 4);
+
+	i = printf("int(o)=%-15.10o, int(o)=%15.10o, int(X)=%15.10X=li", 55555, 77777, 77777);
 	printf("\nres=%i=lib\n", i);
 /*	printf(", res=%i\nlib:\n", i);
 	i = printf("int(i)=%i,int(d)=%d,char(c)=%c, str(c)=%s", 15, 25, 'a', "str");

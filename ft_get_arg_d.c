@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/05 17:04:51 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/06 15:37:44 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,30 @@ int	ft_get_arg_u(t_spec *s_args, va_list args)
 	else
 		nb = (unsigned int)va_arg(args, unsigned int);
 	ret = ft_putunbr_str(nb, s_args);
-	//ret = ft_putoutput(s_args, ret);
+	ft_get_len_output(s_args);
+	ret = (!ret ? ft_putoutput(s_args) : ret);
+	return (ret);	
+}
+
+int	ft_get_arg_oxX(t_spec *s_args, va_list args)
+{
+	int			ret;
+	uintmax_t	nb;
+
+	if (!s_args->modifier)
+		nb = (unsigned int)va_arg(args, unsigned int);
+	else if (!ft_strcmp(s_args->modifier, "h"))
+		nb = (unsigned short)va_arg(args, unsigned int);
+	else if (!ft_strcmp(s_args->modifier, "hh"))
+		nb = (unsigned char)va_arg(args, unsigned int);
+	else if (!ft_strcmp(s_args->modifier, "l"))
+		nb = (unsigned long)va_arg(args, unsigned long int);
+	else if (!ft_strcmp(s_args->modifier, "ll"))
+		nb = (unsigned long long)va_arg(args, unsigned long long int);
+	else
+		nb = (unsigned int)va_arg(args, unsigned int);
+	ret = ft_putoxXnbr_str(nb, s_args);
+	ft_get_len_output(s_args);
+	ret = (!ret ? ft_putoutput(s_args) : ret);
 	return (ret);	
 }
