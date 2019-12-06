@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/06 16:01:13 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/06 17:49:16 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	ft_get_len_output(t_spec *s_args)
 
 	len[0] = ft_strlen(s_args->output_raw);
 	len[1] = (len[0] < s_args->precision ? s_args->precision : len[0]);
-	len[2] = (s_args->sign ? 1 : 0);
+	if (s_args->output_raw && ((ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#') || s_args->conversion == 'p'))
+		len[2] = 2;
+	else
+		len[2] = (s_args->sign ? 1 : 0);
 	len[3] = (len[1] + len[2] < s_args->width ? s_args->width : len[1] + len[2]);
 	len[4] = 0;
 	s_args->output_len[0] = len[0];
@@ -68,6 +71,37 @@ int	ft_putoutput(t_spec *s_args)
 	s_args->output = output;
 	return (0);
 }
+
+int	ft_putoutput_xX(t_spec *s_args)
+{
+	int		*len;
+	char	*tmp;
+	char	*output;
+
+	len = s_args->output_len;
+	tmp = s_args->output_raw;
+	if (!(output = (char*)malloc(len[3] + 1)))
+		return (-1);
+	output[len[3]] = '\0';
+	if (s_args->flags[2] == 0)
+		while (len[4] < len[3] - len[1] - len[2])
+			output[len[4]++] = ' ';
+	if (len[2])
+	{
+		output[len[4]++] = '0';
+		output[len[4]++] = (s_args->conversion == 'p' ? 'x' : s_args->conversion);
+	}
+	while (len[1]-- - len[0] > 0)
+		output[len[4]++] = '0';
+	while (len[0]-- > 0)
+		output[len[4]++] = *tmp++;
+	if (s_args->flags[2] != 0)
+		while (len[4] < len[3])
+			output[len[4]++] = ' ';
+	s_args->output = output;
+	return (0);
+}
+
 
 void	ft_putsign(t_spec *s_args)
 {

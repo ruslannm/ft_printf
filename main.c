@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/06 16:56:42 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/06 18:02:40 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,24 @@ int main(void)
 	i = printf("int(i)=%-'10.7i, int(i)=%10.7i=li", 55555, 77777);
 	printf("\nres=%i=lib\n", i);
 
-
-	i = ft_printf("int(o)=%-15.10o, int(o)=%15.10o, int(X)=%15.10X=my", 55555, 77777, 77777);
-	write(1, "\nres=", 5);
-	ft_putnbr(i);
-	write(1, "=my\n", 4);
-
-	i = printf("int(o)=%-15.10o, int(o)=%15.10o, int(X)=%15.10X=li", 55555, 77777, 77777);
-	printf("\nres=%i=lib\n", i);
 */
-//
-	i = ft_printf("int(c)=%-15c, int(c)=%15c, char(s)=%-15s=my", 70, 70, "test");
+	i = ft_printf("int(o)=%#-15.10o, int(o)=%#15.10o, int(x)=%#15.10x=my", 55555, 77777, 77777);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("int(c)=%-15c, int(c)=%15c, char(s)=%-15s=li", 70, 70, "test");
+	i = printf("int(o)=%#-15.10o, int(o)=%#15.10o, int(x)=%#15.10x=li", 55555, 77777, 77777);
+	printf("\nres=%i=lib\n", i);
+
+//
+	char *s = "test";
+
+	i = ft_printf("int(c)=%-15c, int(c)=%15c, char(s)=%-15s, char(p)=%-15p=my", 70, 70, "test", s);
+	write(1, "\nres=", 5);
+	ft_putnbr(i);
+	write(1, "=my\n", 4);
+
+	i = printf("int(c)=%-15c, int(c)=%15c, char(s)=%-15s, char(p)=%-15p=li", 70, 70, "test", s);
 	printf("\nres=%i=lib\n", i);
 
 

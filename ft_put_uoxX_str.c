@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/06 16:01:11 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/06 18:13:54 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,31 @@ int	ft_put_oxX_str(uintmax_t n, t_spec *s_args)
 		else
 			s_args->output_raw[i] = n % base - 10 + (s_args->conversion == 'x' ? 'a' : 'A');
 		n = n / base;
+	}
+	return (0);
+}
+
+int	ft_put_p_str(char *s, t_spec *s_args)
+{
+	int i;
+	int	j;
+	int	base;
+	long p;
+
+	base = 16;
+	p = (long)s;
+	i = ft_get_udigit(p, base);
+	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
+		return (-1);
+	s_args->output_raw[i] = '\0';
+	j = 0;
+	while (--i >= 0)
+	{
+		if (p % base < 10)
+			s_args->output_raw[i] = p % base + '0';
+		else
+			s_args->output_raw[i] = p % base - 10 + 'a';
+		p = p / base;
 	}
 	return (0);
 }
