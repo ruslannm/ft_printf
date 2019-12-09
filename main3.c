@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 15:53:23 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/09 16:44:12 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/09 17:41:26 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ union u_double
 
 union my_double 
 {	
-	double ld; 
+	float ld; 
 	struct 
 	{ 
-		unsigned long int m : 52; 
-		unsigned int e : 11;
+		unsigned int m : 23; 
+		unsigned int e : 8;
 		unsigned int s : 1; 
 	} 		s_parts; 
 };
 
 int main(void) {
     union floatint u = {10.f};
-	union my_double d = {0.15625};
+	union my_double d = {3.14f};
 	
     printf("%f\n", d.ld);
-    printf("%lu\n", d.s_parts.m);
-    printf("%x\n", d.s_parts.e);
+    printf("%u\n", d.s_parts.m);
+    printf("%u\n", d.s_parts.e);
     printf("%o\n", d.s_parts.s);
 
     return (0);
