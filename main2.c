@@ -46,6 +46,9 @@ int main(void)
     lc = localeconv();
 	if (lc->thousands_sep)
         printf("thousand=%s=\n", lc->thousands_sep);
+
+
+        
     return 0;
 
 }
