@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_printf",
-			"args": [
+			"args": [155, 555
 						],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
