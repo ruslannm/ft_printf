@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/16 15:34:33 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/16 17:23:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,62 @@ int	ft_sum(char *s, char *s1, char *s2, int base)
 	return (0);
 }
 
-int	ft_pow(intmax_t n, int power, char *s)
+int	ft_binary_pow(int power, char *s)
 {
 	int	i;
+
 	char	*tmp;
 	char	*n_str;
 
-	if (power < 0)
+	if (!(s = ft_strnew(power + 1)))
 		return (-1);
-	if (ft_put_binary_str(n, &n_str) == -1)
-		return (-1);
+	s[0] = '1';
 	i = 0;
-	while (i < power)
+	while (++i <= power)
+		s[i] = 0;
+	return (0);
+}
+
+
+int	ft_div(char *s, char *s1, char *s2, int precision)
+{
+	int 	carry;
+	int		s_len[3];
+	int		i;
+
+	s_len[1] = ft_strlen(s1);  //делимое
+	s_len[2] = ft_strlen(s2);  //делитель
+	s_len[0] = 1 + (s_len[1] > s_len[2] ? s_len[1] : s_len[2]);
+	
+	while (s1 < s2)
 	{
-		ft_sum(&s ,&tmp, n_str, 2);
-		free(&tmp);
-		tmp = s;
+		s = 
 	}
+	
+	
+	
+	
+	
+	carry = 0;
+	if (!(s = ft_strnew(precision + 1)))
+		return (-1);
+	i = 1;
+	if (s_len[2] > s_len[1])
+
+	
+	
+	while (i <= s_len[1] || i <= s_len[2])	
+	{
+		s[s_len[0] - i]  = (ft_get_digit(s1, s_len[1], i) + ft_get_digit(s2, s_len[2], i) + carry) % base + '0';
+		carry = (ft_get_digit(s1, s_len[1], i) + ft_get_digit(s2, s_len[2], i) + carry) / base;
+		i++;
+	}
+	if (carry)
+		s[s_len[0] - i] = '1';
+	else
+	{
+		ft_memmove(s, s + 1, s_len[0] - 1);
+		s[s_len[0] - 1] = '\0';
+	}
+	return (0);
 }
