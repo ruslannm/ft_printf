@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/06 18:03:32 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/16 15:16:45 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,7 @@ int		ft_put_c_str(unsigned char n, t_spec *s_args);
 int		ft_put_s_str(char *s, t_spec *s_args);
 int		ft_put_p_str(char *s, t_spec *s_args);
 void	ft_get_len_output(t_spec *s_args);
+int		ft_nbr_len(intmax_t n, int base);
+int		ft_put_binary_str(intmax_t n, char *s);
 
 #endif

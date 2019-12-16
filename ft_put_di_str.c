@@ -6,20 +6,20 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/06 17:49:16 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/16 15:17:13 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_get_digit(intmax_t n)
+int	ft_nbr_len(intmax_t n, int base)
 {
 	int i;
 
 	i = 1;
-	while (n / 10 > 0)
+	while (n / base > 0)
 	{
-		n = n / 10;
+		n = n / base;
 		i++;
 	}
 	return (i);
@@ -120,7 +120,7 @@ int	ft_put_di_str(intmax_t n, t_spec *s_args)
 	int		j;
 
 	n = n * (n < 0 ? -1 : 1);
-	i = ft_get_digit(n);
+	i = ft_nbr_len(n, 10);
 	i = i + (s_args->flags[5] == 39 ? THOUSAND_SEP_LEN * (i / 3 ) : 0);
 	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
 		return (-1);
