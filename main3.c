@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 15:53:23 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/13 14:53:50 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/17 16:09:42 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int main(void) {
     printf("%o\n", d.s_parts.s);
 	printf("%f\n", d.s_parts.m / 8388608.0);
 	z = d.s_parts.m;
-	s = (unsigned char *)d.s_parts.m;
+	//s = (unsigned char *)d.s_parts.m;
 	i = 0;
 	while (i++ < 23)
 		z = z / 2.;
