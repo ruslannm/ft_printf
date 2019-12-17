@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/17 15:20:11 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/17 15:32:19 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	ft_put_f_str(double n, t_spec *s_args)
 {
 	union u_double	u_d;
+	int	power;
 
 	u_d = (union u_double)n;
+	power = u_d.f_parts.e - 127 - 23;
 	s_args->output_raw = ft_strnew(1);
 /*	n = n * (n < 0 ? -1 : 1);
 	i = ft_nbr_len(n, 10);
