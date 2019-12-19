@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/19 15:39:30 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/19 17:19:30 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,45 @@ int	ft_sum(char **s, char *s1, char *s2, int base)
 		tmp[s_len[0] - i] = '1';
 	else
 	{
-		ft_memmove(s, s + 1, s_len[0] - 1);
+		ft_memmove(tmp, tmp + 1, s_len[0] - 1);
 		tmp[s_len[0] - 1] = '\0';
 	}
 	*s = tmp;
 	return (0);
 }
 
-char *ft_sub(char *x_str, char *y_str)
+char	*ft_sub(char *s1, char *s2)
 {
-	char *x;
-	char *y;
-	char *ret;
+	int 	carry;
+	int		s_len[3];
+	int		i;
+	char	*tmp;
+	int		nb[3];
 
-	x = x_str;
-	y = y_str;
-	ret = ft_strnew(10);
-	return (ret);
+	s_len[1] = ft_strlen(s1);
+	s_len[2] = ft_strlen(s2);
+	s_len[0] = s_len[1];
+	carry = 0;
+	tmp = s1;
+	i = 1;
+	while (i <= s_len[1])	
+	{
+		nb[1] = ft_get_digit(s1, s_len[1], i);
+		nb[2] = ft_get_digit(s2, s_len[2], i);
+		nb[0] = ((nb[1] - carry) < nb[2] ? 10 : 0);
+		tmp[s_len[0] - i]  = (nb[0] + nb[1] - nb[2] - carry) % 10 + '0';
+		carry = (nb[0] ? 1 : 0);
+		i++;
+	}
+	i = 0;
+	while (tmp[i] == '0')
+		i++;
+	if (i)
+	{
+		ft_memmove(tmp, tmp + i, s_len[0] - i);
+		tmp[s_len[0] - i] = '\0';
+	}
+	return (tmp);
 }
 
 int ft_mul(char **s, char *s1, int y)
@@ -75,7 +97,9 @@ int ft_mul(char **s, char *s1, int y)
 	s_len[1] = ft_strlen(s1);
 	s_len[0] = 1 + s_len[1];
 	tmp = ft_strnew(s_len[0] + 1);
-	if (y == 10)
+	if (!y)
+		tmp[0] = '0';
+	else if	(y == 10)
 	{
 		tmp = ft_strcpy(tmp, s1);
 		tmp[s_len[0] - 1] = '0';
@@ -101,14 +125,15 @@ int ft_mul(char **s, char *s1, int y)
 	*s = tmp;
 	return (0);
 }
-/*
-int ft_div(char *s1, char *s2, int digit)
+
+int ft_div(char *s, char *s1, char *s2, int digit)
 {
 	char *ret;
 	int i;
 	int d;
 	char *x_str;
 	char *y_str;
+	char	*tmp;
 
 	ret = ft_strnew(300);
 	i = 0;
@@ -116,7 +141,8 @@ int ft_div(char *s1, char *s2, int digit)
 	while (i < digit)
 	{
 		ret[i] = d;
-		x_str = NULL;//ft_sub(x_str, ft_mul(y_str, d));
+		ft_mul(&tmp, y_str, d);
+		x_str = ft_sub(x_str, tmp);
 		if (ft_strlen(x_str) == 0)
 			break;
 		x_str = ft_mul(&x_str, x_str, 10);
@@ -126,15 +152,19 @@ int ft_div(char *s1, char *s2, int digit)
 	}
 	return (0);
 }
-*/
+
 int main()
 {
 	char *ret;
 	
 	//ret = NULL;
-	ft_sum(&ret, "10", "10", 2);
+	ft_sum(&ret, "99", "99", 10);
 	printf("res=%s=\n", ret);
-	ft_mul(&ret, "111111111111111111111111111111", 9);
+	ft_mul(&ret, "111111111111111111111111111111", 0);
+	printf("res=%s=\n", ret);
+	free(ret);
+	ret = ft_strdup("123");
+    ret = ft_sub(ret, "123");
 	printf("res=%s=\n", ret);
 
 	return (0);
