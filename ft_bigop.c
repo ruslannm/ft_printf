@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/19 17:19:30 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/19 17:55:50 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,30 +126,58 @@ int ft_mul(char **s, char *s1, int y)
 	return (0);
 }
 
-int ft_div(char *s, char *s1, char *s2, int digit)
+int 	ft_div_int(char *s1, char *s2)
+{
+	int		ret;
+	char	*s;
+	
+	ret = 1;
+	while (ret < 10)
+	{
+		ft_mul(&s, s2, ret);
+		if (ft_strcmp(s, s1) > 0)
+		{
+			ret = ret - 1;
+			free(s);
+			break;
+		}
+		else if (ft_strcmp(s, s1) == 0)
+		{
+			free(s);
+			break;
+		}
+		ret++;
+		free(s);
+	}
+	return (0);
+}
+
+
+int ft_div(char **s, char *s1, char *s2, int digit)
 {
 	char *ret;
 	int i;
 	int d;
-	char *x_str;
-	char *y_str;
+//	char *x_str;
+//	char *y_str;
 	char	*tmp;
 
-	ret = ft_strnew(300);
+	ret = ft_strnew(digit);
 	i = 0;
 	d = 0;
 	while (i < digit)
 	{
 		ret[i] = d;
-		ft_mul(&tmp, y_str, d);
-		x_str = ft_sub(x_str, tmp);
-		if (ft_strlen(x_str) == 0)
+		ft_mul(&tmp, s2, d);
+		s1 = ft_sub(s1, tmp);
+		if (ft_strlen(s1) == 0)
 			break;
-		x_str = ft_mul(&x_str, x_str, 10);
-		d = ft_div_int(x_str, y_str);
+		ft_mul(&s1, s1, 10);
+		d = ft_div_int(s1, s2);
 		//if (i == 0)
 		// ret[i] = '.'
 	}
+	*s =ret;
 	return (0);
 }
 
@@ -165,6 +193,8 @@ int main()
 	free(ret);
 	ret = ft_strdup("123");
     ret = ft_sub(ret, "123");
+	printf("res=%s=\n", ret);
+	ft_div(&ret, "1", "10", 100);
 	printf("res=%s=\n", ret);
 
 	return (0);
