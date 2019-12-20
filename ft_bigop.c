@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/20 16:29:36 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/20 16:40:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*ft_mul(char *s1, int y)
 		s[0] = '0';
 	else if	(y == 10)
 	{
-		s = ft_strcpy(tmp, s1);
+		s = ft_strcpy(s, s1);
 		s[s_len[0] - 1] = '0';
 	}
 	else
@@ -122,7 +122,7 @@ char	*ft_mul(char *s1, int y)
 			s[s_len[0] - 1] = '\0';
 		}
 	}
-	return (0);
+	return (s);
 }
 
 int 	ft_div_int(char *s1, char *s2)
@@ -133,7 +133,7 @@ int 	ft_div_int(char *s1, char *s2)
 	ret = 1;
 	while (ret < 10)
 	{
-		ft_mul(&s, s2, ret);
+		s = ft_mul(s2, ret);
 		if (ft_strcmp(s, s1) > 0)
 		{
 			ret = ret - 1;
@@ -152,7 +152,7 @@ int 	ft_div_int(char *s1, char *s2)
 }
 
 
-int ft_div(char **s, char *s1, char *s2, int digit)
+char *ft_div(char *s1, char *s2, int digit)
 {
 	char *ret;
 	int i;
@@ -162,25 +162,26 @@ int ft_div(char **s, char *s1, char *s2, int digit)
 	char	*tmp;
 //	char	*tmp2;
 
-	ret = ft_strnew(digit);
+	if (!(ret = ft_strnew(digit)))
+		return (NULL);
 	i = 0;
 	d = 0;
 	while (i < digit)
 	{
 		ret[i] = d + '0';
-		ft_mul(&tmp, s2, d);
+		tmp = ft_mul(s2, d);
 		s1 = ft_sub(s1, tmp);
 //		free (s1);
 //		s1 = tmp2;
 		if (ft_strlen(s1) == 0)
 			break;
-		ft_mul(&s1, s1, 10);
+		s1 = ft_mul(s1, 10);
 		d = ft_div_int(s1, s2);
+		i++;
 		//if (i == 0)
 		// ret[i] = '.'
 	}
-	*s =ret;
-	return (0);
+	return (tmp);
 }
 
 int main()
@@ -189,15 +190,15 @@ int main()
 	char *tmp;
 	
 	//ret = NULL;
-	ft_sum(&ret, "99", "99", 10);
+	ret = ft_sum("99", "99", 10);
 	printf("res=%s=\n", ret);
-	ft_mul(&ret, "111111111111111111111111111111", 0);
+	ret = ft_mul("111111111111111111111111111111", 0);
 	printf("res=%s=\n", ret);
 	free(ret);
 	tmp = ft_strdup("1");
     ret = ft_sub(tmp, "0");
 	printf("res=%s=\n", ret);
-	ft_div(&ret, "1", "10", 100);
+	ret = ft_div("1", "16", 100);
 	printf("res=%s=\n", ret);
 
 	return (0);
