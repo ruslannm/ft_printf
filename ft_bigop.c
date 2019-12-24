@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/24 16:53:06 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/24 17:16:58 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ char	*ft_sum_decimal_place(char *s1, char *s2, int base)
 	int		i;
 	char	*s;
 
+	s1 = ft_strchr(s1, '.') + 1;
+	s2 = ft_strchr(s2, '.') + 1;
 	s_len[1] = ft_strlen(s1);
 	s_len[2] = ft_strlen(s2);
 	s_len[0] = 2 + (s_len[1] > s_len[2] ? s_len[1] : s_len[2]);
@@ -317,7 +319,7 @@ char	*ft_conv_bin_int(char *binary)
 	return (ret);
 }
 
-char	*ft_con_bin_dec_place(char *binary)
+char	*ft_conv_bin_dec_place(char *binary)
 {
 	char	*ret;
 	char	*tmp;
@@ -326,11 +328,11 @@ char	*ft_con_bin_dec_place(char *binary)
 	int		i;
 
 	ret = ft_strdup("0.0");
-	max_power = ft_strlen(binary) - 1;
-	i = 0;
+	max_power = ft_strlen(binary);
+	i = 1;
 	while (i <= max_power)
 	{
-		if (binary[i] == '1')
+		if (binary[i - 1] == '1')
 		{
 			tmp = ft_pow(2, i);
 			tmp2 = ft_div("1", tmp, 10);
@@ -342,15 +344,25 @@ char	*ft_con_bin_dec_place(char *binary)
 		}
 		i++;
 	}
-	return (ret);}
-/*
-char	*ft_conv_binary(char *binary)
-{
-//	char	*ret;
-
+	return (ret);
 }
 
-*/
+char	*ft_conv_binary(char *binary)
+{
+	char	*ret;
+	char	*pointer;
+	char	*int_part;
+	char	*dec_part;
+
+	ret = ft_strdup(binary);
+	pointer = ft_strchr(ret, '.');
+	dec_part = ft_conv_bin_dec_place(pointer + 1);
+	*pointer = '\0';
+	int_part = ft_conv_bin_int(ret);
+	free(ret);
+	ret = ft_strjoin(int_part, dec_part + 1);
+	return (ret);
+}
 
 int main()
 {
@@ -360,7 +372,7 @@ int main()
 	//ret = NULL;
 	ret = ft_sum("99", "99", 10);
 	printf("res_sum=%s=\n", ret);
-	ret = ft_sum_decimal_place("625", "615", 10);
+	ret = ft_sum_decimal_place("0.625", "0.615", 10);
 	printf("res_sum_decimal_place=%s=\n", ret);
 	
 	ret = ft_mul("16", 7);
@@ -378,8 +390,11 @@ int main()
 	ret = ft_conv_bin_int("1000");
 	printf("res_bin_to_int=%s=\n", ret);
 
-	ret = ft_con_bin_dec_place("1");
+	ret = ft_conv_bin_dec_place("101");
 	printf("res_bin_to_dec_place=%s=\n", ret);
+
+	ret = ft_conv_binary("1000.101");
+	printf("res_bin_to_int=%s=\n", ret);
 
 	return (0);
 }
