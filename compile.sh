@@ -6,7 +6,7 @@ CC="gcc"
 CFLAGS="-Wall -Wextra -Werror -g"
 
 SRC_PATH="./"
-SRC_NAME="ft_bigop.c"
+SRC_NAME="ft_bigop_sum.c"
 
 INC_PATH="./libft/"
 
