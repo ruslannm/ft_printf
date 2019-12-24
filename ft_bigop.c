@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/20 17:52:44 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/24 15:30:22 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,12 @@ int	ft_strcmp_nb(const char *s1, const char *s2)
 
 static int	ft_get_digit(char *s, int s_len, int i)
 {
-	if (i > s_len)
+	int	len_str;
+
+	len_str = (int)ft_strlen(s);
+	if (i > s_len) 
+		return (0);
+	else if (s_len >= len_str + i)
 		return (0);
 	else
 		return (s[s_len - i] - '0');
@@ -86,8 +91,8 @@ char	*ft_sum_decimal_place(char *s1, char *s2, int base)
 	i = 1;
 	while (i <= s_len[1] || i <= s_len[2])	
 	{
-		s[s_len[0] - i]  = (ft_get_digit(s1, s_len[1], s_len[0] - i) + ft_get_digit(s2, s_len[2], s_len[0] - i) + carry) % base + '0';
-		carry = (ft_get_digit(s1, s_len[1], s_len[0] - i) + ft_get_digit(s2, s_len[2], s_len[0] - i) + carry) / base;
+		s[s_len[0] - i]  = (ft_get_digit(s1, s_len[0] - 2, i) + ft_get_digit(s2, s_len[0] - 2, i) + carry) % base + '0';
+		carry = (ft_get_digit(s1, s_len[0] - 2, i) + ft_get_digit(s2, s_len[0] - 2, i) + carry) / base;
 		i++;
 	}
 	s[1] = '.';
@@ -130,6 +135,20 @@ char	*ft_sub(char *s1, char *s2)
 	}
 	return (s);
 }
+
+char	*ft_pow(int base, int power)
+{
+	char	*ret;
+	char	*tmp;
+	int		i;
+
+	i = ft_nbr_len(base, 2);
+	if (!(tmp = ft_strnew(i + 1)))
+		return (-1);
+	tmp[i] = '\0';
+	
+}
+
 
 char	*ft_mul(char *s1, int y)
 {
@@ -236,7 +255,7 @@ int main()
 	//ret = NULL;
 	ret = ft_sum("99", "99", 10);
 	printf("res_sum=%s=\n", ret);
-	ret = ft_sum_decimal_place("625", "15", 10);
+	ret = ft_sum_decimal_place("625", "615", 10);
 	printf("res_sum_decimal_place=%s=\n", ret);
 	
 	ret = ft_mul("16", 7);
