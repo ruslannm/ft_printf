@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/24 15:30:22 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/24 16:53:06 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,18 +136,7 @@ char	*ft_sub(char *s1, char *s2)
 	return (s);
 }
 
-char	*ft_pow(int base, int power)
-{
-	char	*ret;
-	char	*tmp;
-	int		i;
 
-	i = ft_nbr_len(base, 2);
-	if (!(tmp = ft_strnew(i + 1)))
-		return (-1);
-	tmp[i] = '\0';
-	
-}
 
 
 char	*ft_mul(char *s1, int y)
@@ -247,6 +236,122 @@ char *ft_div(char *s1, char *s2, int digit)
 	return (ret);
 }
 
+int	ft_nbr_len(intmax_t n, int base)
+{
+	int i;
+
+	i = 1;
+	while (n / base > 0)
+	{
+		n = n / base;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_put_i_str(int n)
+{
+	int 	i;
+	char	*ret;
+
+	i = ft_nbr_len(n, 10);
+	if (!(ret = ft_strnew(i + 1)))
+		return (NULL);
+	ret[i] = '\0';
+	while (--i >= 0)
+	{
+		ret[i] = n % 10 + '0';
+		n = n / 10;
+	}
+	return (ret);
+}
+
+char	*ft_pow(int base, int power)
+{
+	char	*ret;
+	char	*tmp;
+
+	if (power == 0)
+	{
+		if (!(ret = ft_strnew(2)))
+			return (NULL);
+		ret[0] = '1';
+	}
+	else
+	{
+		if (!(ret = ft_put_i_str(base)))
+			return (NULL);
+		while (--power)
+		{
+			tmp = ft_mul(ret, base);
+			free(ret);
+			ret = tmp;
+		}
+	}
+	return (ret);
+}
+
+char	*ft_conv_bin_int(char *binary)
+{
+	char	*ret;
+	char	*tmp;
+	char	*tmp2;
+	int		max_power;	
+	int		i;
+
+	ret = ft_strdup("0");
+	max_power = ft_strlen(binary) - 1;
+	i = 0;
+	while (i <= max_power)
+	{
+		if (binary[i] == '1')
+		{
+			tmp2 = ft_pow(2, max_power - i);
+			tmp = ft_sum(ret, tmp2, 10);
+			free(tmp2);
+			free(ret);
+			ret = tmp;
+		}
+		i++;
+	}
+	return (ret);
+}
+
+char	*ft_con_bin_dec_place(char *binary)
+{
+	char	*ret;
+	char	*tmp;
+	char	*tmp2;
+	int		max_power;	
+	int		i;
+
+	ret = ft_strdup("0.0");
+	max_power = ft_strlen(binary) - 1;
+	i = 0;
+	while (i <= max_power)
+	{
+		if (binary[i] == '1')
+		{
+			tmp = ft_pow(2, i);
+			tmp2 = ft_div("1", tmp, 10);
+			free(tmp);
+			tmp = ft_sum_decimal_place(ret, tmp2, 10);
+			free(tmp2);
+			free(ret);
+			ret = tmp;
+		}
+		i++;
+	}
+	return (ret);}
+/*
+char	*ft_conv_binary(char *binary)
+{
+//	char	*ret;
+
+}
+
+*/
+
 int main()
 {
 	char *ret;
@@ -266,6 +371,15 @@ int main()
 	printf("res_sub=%s=\n", ret);
 	ret = ft_div("1", "9", 100);
 	printf("res_div=%s=\n", ret);
+
+	ret=ft_pow(2, 16);
+	printf("res_pow=%s=\n", ret);
+
+	ret = ft_conv_bin_int("1000");
+	printf("res_bin_to_int=%s=\n", ret);
+
+	ret = ft_con_bin_dec_place("1");
+	printf("res_bin_to_dec_place=%s=\n", ret);
 
 	return (0);
 }
