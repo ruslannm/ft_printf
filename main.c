@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/17 16:19:51 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/25 16:22:43 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ int main(void)
 	printf("\nres=%i=lib\n", i);
 
 */
-double d = 3.14f;
+double d = 123.14f;
 
 	i = ft_printf("f(f)=%f=my", d);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("f(f)=%f=my", d);
+	i = printf("f(f)=%f=li", d);
 	printf("\nres=%i=lib\n", i);
 
 /*	printf(", res=%i\nlib:\n", i);

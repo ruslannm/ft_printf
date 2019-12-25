@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2019/12/17 15:13:49 by rgero            ###   ########.fr        #
+#    Updated: 2019/12/25 15:23:15 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_NAME = main.c ft_printf.c ft_read_format.c ft_parse_fields.c \
 	ft_parse_conversion.c ft_check_format.c \
 	ft_put_di_str.c ft_put_uoxX_str.c ft_read_args.c ft_get_arg_d.c \
 	ft_printf_len.c ft_put_csp_str.c \
-	ft_get_arg_f.c ft_put_f_str.c
+	ft_get_arg_f.c ft_put_f_str.c ft_bigop.c
 
 OBJ_PATH = ./
 OBJ_NAME = $(SRC_NAME:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/24 17:16:58 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/25 15:25:11 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ char *ft_div(char *s1, char *s2, int digit)
 	}
 	return (ret);
 }
-
+/*
 int	ft_nbr_len(intmax_t n, int base)
 {
 	int i;
@@ -250,7 +250,7 @@ int	ft_nbr_len(intmax_t n, int base)
 	}
 	return (i);
 }
-
+*/
 char	*ft_put_i_str(int n)
 {
 	int 	i;
@@ -363,7 +363,7 @@ char	*ft_conv_binary(char *binary)
 	ret = ft_strjoin(int_part, dec_part + 1);
 	return (ret);
 }
-
+/*
 int main()
 {
 	char *ret;
@@ -398,3 +398,4 @@ int main()
 
 	return (0);
 }
+*/

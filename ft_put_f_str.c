@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/17 18:03:52 by rgero            ###   ########.fr       */
+/*   Updated: 2019/12/25 16:13:00 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,34 @@ int	ft_put_binary_str(unsigned int n, char **s)
 	return (0);
 }
 
+int	ft_put_f_sep(t_spec *s_args)
+{
+	char	*pointer;
+	int		i;
+	int		j;
+
+	if ((pointer = ft_strchr(s_args->output_raw, '.')) && s_args->flags[5] == 39 && THOUSAND_SEP_LEN > 0)
+	{
+		i = THOUSAND_SEP_LEN * ((pointer - s_args->output_raw) / 3 );
+		if (!(s_args->output = (char *)malloc(sizeof(char) * (ft_strlen(s_args->output_raw) + i + 1))))
+			return (-1);
+		ft_strcpy(&s_args->output[ft_strlen(s_args->output_raw) + i], pointer);
+		j = 0;
+		i = pointer - s_args->output_raw;
+		while (--i >= 0)
+		{
+			if (j++ % 3 == 0 && j > 2)
+			{
+				ft_strncpy(&s_args->output_raw[i + 1 - THOUSAND_SEP_LEN], THOUSAND_SEP, THOUSAND_SEP_LEN);
+				i = i - THOUSAND_SEP_LEN;
+			}
+			s_args->output_raw[i] = s_args->output_raw[i + j / 3];
+		}
+	}
+	else if (!(s_args->output = ft_strdup(s_args->output_raw)))
+		return (-1);
+	return (0);
+}
 
 int	ft_put_f_str(float n, t_spec *s_args)
 {
@@ -64,7 +92,8 @@ int	ft_put_f_str(float n, t_spec *s_args)
 	i = 0;
 	while (++i <= power)
 		ft_swap(&tmp_m, i, i + 1);
-	s_args->output_raw = ft_strnew(1);
+   
+	s_args->output_raw = ft_conv_binary(tmp_m);
 /*	n = n * (n < 0 ? -1 : 1);
 	i = ft_nbr_len(n, 10);
 	i = i + (s_args->flags[5] == 39 ? THOUSAND_SEP_LEN * (i / 3 ) : 0);
