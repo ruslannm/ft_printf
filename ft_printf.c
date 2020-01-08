@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2019/11/27 16:11:26 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/08 17:59:45 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,10 @@ char	*ft_get_str(char *s, t_spec **s_args)
 				i = i + s_args[j]->len;
 				j++;
 				*/
-				tmp = ft_strjoin(ret, s_args[j]->output);
+				if (s_args[j]->output)
+					tmp = ft_strjoin(ret, s_args[j]->output);
+				else
+					tmp = ft_strdup(ret);				
 				free(ret);
 				ret = tmp;
 				i = i + s_args[j++]->len;

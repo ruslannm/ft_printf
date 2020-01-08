@@ -6,12 +6,12 @@ CC="gcc"
 CFLAGS="-Wall -Wextra -Werror -g"
 
 SRC_PATH="./"
-SRC_NAME="ft_bigop_sum.c"
+SRC_NAME="main.c"
 
-INC_PATH="./libft/"
+INC_PATH="./"
 
 
-LIB_PATH="libft/"
-LIB_NAME="libft.a"
+LIB_PATH="/"
+LIB_NAME="libftprintf.a"
 
-$CC $CFLAGS $SRC_NAME -I $INC_PATH   -o $NAME  -L $LIB_PATH -lft
+$CC $CFLAGS $SRC_NAME -I $INC_PATH   -o $NAME  -L "./libft/" -lft  
