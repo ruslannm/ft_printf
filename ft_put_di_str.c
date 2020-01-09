@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/16 15:17:13 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/09 17:03:00 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ int	ft_putoutput(t_spec *s_args)
 	if (!(output = (char*)malloc(len[3] + 1)))
 		return (-1);
 	output[len[3]] = '\0';
+	if (s_args->flags[1])
+		while (len[4] < len[3] - len[1] - len[2])
+			output[len[4]++] = '0';
 	if (s_args->flags[2] == 0)
 		while (len[4] < len[3] - len[1] - len[2])
 			output[len[4]++] = ' ';

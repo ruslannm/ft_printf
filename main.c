@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/08 17:51:53 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/09 17:03:38 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ int main(void)
 	//lc->thousands_sep = "f[";//lc->thousands_sep;
 	
 //	printf("printf position %%1$i=%%i");
-	i = ft_printf("%%|%%%%|%%%%%%|%%abc%%def%%ghi%%");
+	i = ft_printf("%23d|%-23d|%+23d|% 23d|%023d", 0, 0, 0, 0, 0);
+//	i = ft_printf("%023d", 0);
+
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("%%|%%%%|%%%%%%|%%abc%%def%%ghi%%");
-	printf("\nres=%i=lib\n", i);
+	i = printf("%23d|%-23d|%+23d|% 23d|%023d", 0, 0, 0, 0, 0);
+	printf("\nres=%i=li\n", i);
 
 /*
 	i = ft_printf("int(o)=%#-15.10o, int(o)=%#15.10o, int(x)=%#15.10x=my", 55555, 77777, 77777);
@@ -52,7 +54,7 @@ int main(void)
 	printf("\nres=%i=lib\n", i);
 
 */
-double d = 123.14f;
+/*double d = 123.14f;
 
 	i = ft_printf("f(f)=%f=my", d);
 	write(1, "\nres=", 5);
@@ -61,7 +63,7 @@ double d = 123.14f;
 
 	i = printf("f(f)=%f=li", d);
 	printf("\nres=%i=lib\n", i);
-
+*/
 /*	printf(", res=%i\nlib:\n", i);
 	i = printf("int(i)=%i,int(d)=%d,char(c)=%c, str(c)=%s", 15, 25, 'a', "str");
 	printf(", res=%i\nlib:\n", i);

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/05 15:02:38 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/09 17:00:29 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,20 @@ void	ft_put_flag(t_spec *s_args, char c)
 {
 	if (c == '#')
 		s_args->flags[0] = c;
-	else if (c == '0')
+	else if (c == '0' && s_args->flags[2] == 0)
 		s_args->flags[1] = c;
 	else if (c == '-')
+	{
 		s_args->flags[2] = c;
-	else if (c == ' ')
+		s_args->flags[1] = 0;
+	}
+	else if (c == ' ' && s_args->flags[4] == 0)
 		s_args->flags[3] = c;
 	else if (c == '+')
+	{
 		s_args->flags[4] = c;
+		s_args->flags[3] = 0;
+	}
 	else if (c == 39)
 		s_args->flags[5] = c;
 }
