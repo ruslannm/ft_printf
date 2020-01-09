@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/08 17:59:45 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/09 16:28:16 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ char	*ft_get_str(char *s, t_spec **s_args)
 			}			
 		else
 			{
+				if (s[i] == '%')
+					i++;
 				tmp = ft_strcjoin(ret, s[i]);
 				free(ret);
 				ret = tmp;
