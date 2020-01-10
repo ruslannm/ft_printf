@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/10 15:05:51 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/10 15:32:24 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,20 @@ int main(void)
 	//lc->thousands_sep = "f[";//lc->thousands_sep;
 	
 //	printf("printf position %%1$i=%%i");
-	i = ft_printf("%1.d|%-1.d|%+1.d|% 1.d|%01.d", 0, 0, 0, 0, 0);
-//	i = ft_printf("%.d|", 0);
+/*
+	trace.txt
+	KO
+	line 108
+*/
+
+//	i = ft_printf("%-+23d|%- 23d|%-023d|%+ 23d|%+023d|% 023d|%-+ 023d", 0, 0, 0, 0, 0, 0, 0);
+	i = ft_printf("|%+023d|% 023d|", 0, 0);
 
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("%1.d|%-1.d|%+1.d|% 1.d|%01.d", 0, 0, 0, 0, 0);
+	i = printf("%-+23d|%- 23d|%-023d|%+ 23d|%+023d|% 023d|%-+ 023d", 0, 0, 0, 0, 0, 0, 0);
 	printf("\nres=%i=li\n", i);
 
 /*
