@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/10 15:01:50 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/10 15:07:32 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	ft_put_di_str(intmax_t n, t_spec *s_args)
 
 	n = n * (n < 0 ? -1 : 1);
 	i = ft_nbr_len(n, 10);
-	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0)
+	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0 )
 		i = 0;
 	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
 		return (-1);
