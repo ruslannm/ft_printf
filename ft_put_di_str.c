@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/09 17:03:00 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/10 15:01:50 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,27 @@ void	ft_putsign(t_spec *s_args)
 int	ft_put_di_str(intmax_t n, t_spec *s_args)
 {
 	int 	i;
+
+	n = n * (n < 0 ? -1 : 1);
+	i = ft_nbr_len(n, 10);
+	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0)
+		i = 0;
+	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
+		return (-1);
+	s_args->output_raw[i] = '\0';
+	while (--i >= 0)
+	{
+		s_args->output_raw[i] = n % 10 + '0';
+		n = n / 10;
+	}
+	return (0);
+}
+
+/*
+
+int	ft_put_di_str(intmax_t n, t_spec *s_args)
+{
+	int 	i;
 	int		j;
 
 	n = n * (n < 0 ? -1 : 1);
@@ -139,5 +160,7 @@ int	ft_put_di_str(intmax_t n, t_spec *s_args)
 		s_args->output_raw[i] = n % 10 + '0';
 		n = n / 10;
 	}
+	if s_args->output_raw[i]
 	return (0);
 }
+*/

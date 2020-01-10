@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/09 17:00:29 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/10 14:49:24 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ int	ft_parse_precision(char *s, t_spec *s_args, int *i)
 			*i = *i + 1;
 		}
 		else 
-			return (-1);
+		{
+			s_args->precision = 0;
+			s_args->precision_ini = 1;
+		}	
 	}
 	return (0);
 }
