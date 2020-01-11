@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/06 18:13:54 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 12:13:40 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ int	ft_put_u_str(uintmax_t n, t_spec *s_args)
 
 	i = ft_get_udigit(n, 10);
 	i = i + (s_args->flags[5] == 39 ? THOUSAND_SEP_LEN * (i / 3 ) : 0);
-	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
+	if (!(s_args->output_raw = ft_strnew(i)))
 		return (-1);
-	s_args->output_raw[i] = '\0';
 	j = 0;
 	while (--i >= 0)
 	{
@@ -57,9 +56,8 @@ int	ft_put_oxX_str(uintmax_t n, t_spec *s_args)
 
 	base = (s_args->conversion == 'o' ? 8 : 16);
 	i = ft_get_udigit(n, base);
-	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
+	if (!(s_args->output_raw = ft_strnew(i)))
 		return (-1);
-	s_args->output_raw[i] = '\0';
 	j = 0;
 	while (--i >= 0)
 	{
@@ -82,9 +80,8 @@ int	ft_put_p_str(char *s, t_spec *s_args)
 	base = 16;
 	p = (long)s;
 	i = ft_get_udigit(p, base);
-	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
+	if (!(s_args->output_raw = ft_strnew(i)))
 		return (-1);
-	s_args->output_raw[i] = '\0';
 	j = 0;
 	while (--i >= 0)
 	{
