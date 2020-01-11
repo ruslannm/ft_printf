@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 11:40:34 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 15:09:05 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "libft.h"
+# include <limits.h>
 
 # define THOUSAND_SEP ","
 # define THOUSAND_SEP_LEN 1

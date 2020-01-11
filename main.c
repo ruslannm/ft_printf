@@ -6,13 +6,14 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 15:00:21 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 15:13:42 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_printf.h"
 #include <locale.h>
+#include <limits.h>
 
 int main(void)
 {
@@ -29,14 +30,14 @@ int main(void)
 	line 143
 */
 
-//	i = ft_printf("|%01.d", 0);
-	i = ft_printf("|%01.d|",0);
+//	i = ft_printf("%23.ld|%-23.ld|%+23.ld|% 23.ld|%023.ld", LLONG_MIN, LLONG_MIN, LLONG_MIN, LLONG_MIN, LLONG_MIN);
+	i = ft_printf("%023.ld|", LLONG_MIN);
 
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("|%01.d|",0);
+	i = printf("%23.ld|%-23.ld|%+23.ld|% 23.ld|%023.ld", LONG_MIN, LONG_MIN, LONG_MIN, LONG_MIN, LONG_MIN);
 	printf("\nres=%i=li\n", i);
 
 /*
