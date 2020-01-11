@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 12:13:40 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 12:51:58 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,25 @@ static int	ft_get_udigit(uintmax_t n, int base)
 	return (i);
 }
 
+int	ft_put_u_str(uintmax_t n, t_spec *s_args)
+{
+	int 	i;
+
+	i = ft_get_udigit(n, 10);
+	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0 )
+		i = 0;
+	if (!(s_args->output_raw = ft_strnew(i)))
+		return (-1);
+	s_args->output_raw[i] = '\0';
+	while (--i >= 0)
+	{
+		s_args->output_raw[i] = n % 10 + '0';
+		n = n / 10;
+	}
+	return (0);
+}
+
+/*
 int	ft_put_u_str(uintmax_t n, t_spec *s_args)
 {
 	int 	i;
@@ -47,6 +66,8 @@ int	ft_put_u_str(uintmax_t n, t_spec *s_args)
 	}
 	return (0);
 }
+*/
+
 
 int	ft_put_oxX_str(uintmax_t n, t_spec *s_args)
 {
