@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 16:57:23 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 17:00:32 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,11 @@ int	ft_put_xX_str(uintmax_t n, t_spec *s_args)
 
 	base = (s_args->conversion == 'o' ? 8 : 16);
 	i = ft_get_udigit(n, base);
-	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0 && !s_args->flags[0])
+/*	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0 && !s_args->flags[0])
 		i = 0;
 	if (s_args->conversion != 'o' && n == 0 && s_args->precision_ini == 1 && s_args->precision == 0)// && !s_args->flags[0])
 		i = 0;
-	if (s_args->conversion == 'o' && s_args->flags[0])
-		i++;
+*/
 	if (!(s_args->output_raw = ft_strnew(i)))
 		return (-1);
 	while (--i >= 0)

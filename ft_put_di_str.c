@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 15:02:50 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 17:02:46 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	ft_get_len_output(t_spec *s_args)
 	if (s_args->conversion == 'o' && s_args->flags[1] && len[0] == 0)
 		len[0] = 1;
 	len[1] = (len[0] < s_args->precision ? s_args->precision : len[0]);
-//	if (s_args->output_raw && ((ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#') || s_args->conversion == 'p'))
-//		len[2] = 2;
-//	else
-//		len[2] = (s_args->sign ? 1 : 0);
-	len[2] = (s_args->sign ? 1 : 0);
+	if (s_args->output_raw && ((ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#') || s_args->conversion == 'p'))
+		len[2] = 2;
+	else
+		len[2] = (s_args->sign ? 1 : 0);
+//	len[2] = (s_args->sign ? 1 : 0);
 	len[3] = (len[1] + len[2] < s_args->width ? s_args->width : len[1] + len[2]);
 	s_args->output_len[0] = len[0];
 	s_args->output_len[1] = len[1];
