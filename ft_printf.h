@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/25 16:06:58 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 11:40:34 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_spec
 	char	*type;
 	char	*output_raw;
 	char	*output;
-	int		output_len[6];
+	int		output_len[5];
 	char	sign;
 	char	*before;
 	char	*after;
