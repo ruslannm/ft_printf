@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 14:33:53 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 15:00:21 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int main(void)
 	line 143
 */
 
-//	i = ft_printf("%.o|%-.o|%#.o|%0.o", 0U, 0U, 0U, 0U);
-	i = ft_printf("%.o|%-.o|%#.o|%0.o", 0U, 0U, 0U, 0U);
+//	i = ft_printf("|%01.d", 0);
+	i = ft_printf("|%01.d|",0);
 
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("%.o|%-.o|%#.o|%0.o", 0U, 0U, 0U, 0U);
+	i = printf("|%01.d|",0);
 	printf("\nres=%i=li\n", i);
 
 /*
