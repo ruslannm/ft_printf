@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 17:02:46 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 17:33:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_get_len_output(t_spec *s_args)
 	if (s_args->conversion == 'o' && s_args->flags[1] && len[0] == 0)
 		len[0] = 1;
 	len[1] = (len[0] < s_args->precision ? s_args->precision : len[0]);
-	if (s_args->output_raw && ((ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#') || s_args->conversion == 'p'))
+	if (ft_strcmp(s_args->output_raw, "0") && ft_strlen(s_args->output_raw) && ((ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#') || s_args->conversion == 'p'))
 		len[2] = 2;
 	else
 		len[2] = (s_args->sign ? 1 : 0);
@@ -114,7 +114,7 @@ int	ft_putoutput_xX(t_spec *s_args)
 	}
 	if (s_args->flags[1])
 	{
-		while (len[4] < len[3] - len[1] - len[2])
+		while (len[4] < len[3] - len[1])
 			output[len[4]++] = '0';
 	}
 	while (len[1]-- - len[0] > 0)
