@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 15:46:36 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 16:12:51 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ int main(void)
 /*
 	trace.txt
 	KO
-	line 3932
+	line 4580
 */
 
 //	i = ft_printf("%#1.o|%01.o", 0U, 0U);
-	i = ft_printf("%#o|", UINT_MAX);
+	i = ft_printf("%#.x|", 0U);
 
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("%#o|", UINT_MAX);
+	i = printf("%#.x|", 0U);
 	printf("\nres=%i=li\n", i);
 
 /*
