@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 12:51:58 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/11 13:15:46 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,12 @@ int	ft_put_u_str(uintmax_t n, t_spec *s_args)
 int	ft_put_oxX_str(uintmax_t n, t_spec *s_args)
 {
 	int i;
-	int	j;
 	int	base;
 
 	base = (s_args->conversion == 'o' ? 8 : 16);
 	i = ft_get_udigit(n, base);
 	if (!(s_args->output_raw = ft_strnew(i)))
 		return (-1);
-	j = 0;
 	while (--i >= 0)
 	{
 		if (n % base < 10)
@@ -94,7 +92,6 @@ int	ft_put_oxX_str(uintmax_t n, t_spec *s_args)
 int	ft_put_p_str(char *s, t_spec *s_args)
 {
 	int i;
-	int	j;
 	int	base;
 	long p;
 
@@ -103,7 +100,6 @@ int	ft_put_p_str(char *s, t_spec *s_args)
 	i = ft_get_udigit(p, base);
 	if (!(s_args->output_raw = ft_strnew(i)))
 		return (-1);
-	j = 0;
 	while (--i >= 0)
 	{
 		if (p % base < 10)
