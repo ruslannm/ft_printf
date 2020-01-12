@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:09:45 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/17 15:27:15 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 14:35:00 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	ft_parse_conversion(char *s, t_spec *s_args, int *i)
 	if (ft_strchr("cspdiouxXf", s[*i]))
 	{
 		s_args->conversion = s[*i];
+		if (s_args->conversion == 'f' && !s_args->modifier && !s_args->precision_ini)
+			s_args->precision = 6;
 		*i = *i + 1;
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/25 16:01:18 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 14:30:33 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int ft_get_arg_f(t_spec *s_args, va_list args)
 		nb = (double)va_arg(args, double);
 	s_args->sign = (nb < 0 ? '-' : 0);
 	ret = ft_put_f_str((float)nb, s_args);
-	ret = ft_put_f_sep(s_args);
-/*
+	//ret = ft_put_f_sep(s_args);
+	ret = ft_putoutput_f(s_args);
 	ft_putsign(s_args);
 	ft_get_len_output(s_args);
-	ret = (!ret ? ft_putoutput(s_args) : ret);
-*/
+	ret = (!ret ? ft_putoutput_f(s_args) : ret);
+
 	return (ret);	
 }
 

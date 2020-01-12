@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 14:13:24 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 14:26:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int		ft_printf_len(char *format, t_spec **s_args);
 void	ft_putsign(t_spec *s_args);
 int		ft_putoutput(t_spec *s_args);
 int		ft_putoutput_xX(t_spec *s_args);
+int		ft_putoutput_f(t_spec *s_args);
 int		ft_put_u_str(uintmax_t n, t_spec *s_args);
 int		ft_put_o_str(uintmax_t n, t_spec *s_args);
 int		ft_put_xX_str(uintmax_t n, t_spec *s_args);

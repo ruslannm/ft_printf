@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 14:15:13 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 14:27:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ int	ft_put_binary_str(unsigned int n, char **s)
 	return (0);
 }
 
+int	ft_putoutput_f(t_spec *s_args)
+{
+	if (!(s_args->output = ft_strdup(s_args->output_raw)))
+		return (-1);
+	return (0);
+}
+
+/*
 int	ft_put_f_sep(t_spec *s_args)
 {
 	char	*pointer;
@@ -99,6 +107,7 @@ int	ft_put_f_sep(t_spec *s_args)
 		return (-1);
 	return (0);
 }
+*/
 
 int	ft_put_f_str(float n, t_spec *s_args)
 {
