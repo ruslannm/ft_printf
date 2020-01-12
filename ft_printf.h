@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 14:26:39 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 15:22:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_spec
 	char	*type;
 	char	*output_raw;
 	char	*output;
+	char	*output_dec;
 	int		output_len[5];
 	char	sign;
 	char	output_c_raw;
@@ -100,11 +101,12 @@ int		ft_put_c_str(unsigned char n, t_spec *s_args);
 int		ft_put_s_str(char *s, t_spec *s_args);
 int		ft_put_p_str(char *s, t_spec *s_args);
 void	ft_get_len_output(t_spec *s_args);
+void	ft_get_len_output_f(t_spec *s_args);
 int		ft_nbr_len(intmax_t n, int base);
 int		ft_put_f_str(float n, t_spec *s_args);
 int		ft_get_arg_f(t_spec *s_args, va_list args);
 char	*ft_conv_binary(char *binary);
-int		ft_put_f_sep(t_spec *s_args);
+//int		ft_put_f_sep(t_spec *s_args);
 int		ft_get_width_diff(t_spec **s_args);
 int		ft_shift(char **s, int i);
 

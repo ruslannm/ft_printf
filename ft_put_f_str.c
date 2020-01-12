@@ -6,13 +6,13 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 14:27:39 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 16:19:03 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
+/*
 void	ft_swap(char **s, int i, int j)
 {
 	int c_tmp;
@@ -23,7 +23,7 @@ void	ft_swap(char **s, int i, int j)
 	s_tmp[i] = s_tmp[j];
 	s_tmp[j] = c_tmp;
 }
-
+*/
 int	ft_shift(char **s, int i)
 {
 	char *s_tmp;
@@ -44,8 +44,8 @@ int	ft_shift(char **s, int i)
 		while (j--)
 			s_new[j] = '0';
 		s_new[1] = '.';
-		s_tmp[1 - i] = '1';
-		ft_strcpy(&s_tmp[2 - i], &s_tmp[2]);
+		s_new[1 - i] = '1';
+		ft_strcpy(&s_new[2 - i], &s_tmp[2]);
 		free(*s);
 		*s = s_new;
 	}
@@ -71,10 +71,67 @@ int	ft_put_binary_str(unsigned int n, char **s)
 	return (0);
 }
 
+void	ft_get_len_output_f(t_spec *s_args)
+{
+	char	*pointer;
+	int	len[7];
+
+	len[5] = ft_strlen(s_args->output_raw);
+	pointer = ft_strchr(s_args->output_raw, '.');
+	len[0] = pointer - s_args->output_raw;  // integer part
+	len[6] = len[5] - len[0] - 1; //decimal part
+	if (len[6] > s_args->precision)
+		len[1] = s_args->precision;
+	len[2] = (s_args->sign ? 1 : 0);
+	len[3] = (len[0] + len[1] + 1 < s_args->width ? s_args->width : len[0] + len[1] + 1);
+	s_args->output_len[0] = len[0];
+	s_args->output_len[1] = len[1];
+	s_args->output_len[2] = len[2];
+	s_args->output_len[3] = len[3];
+	s_args->output_len[4] = 0;
+}
+
 int	ft_putoutput_f(t_spec *s_args)
 {
+	char	*tmp;
+	int		*len;
+
+	len = s_args->output_len;
+	//if (!(tmp = ft_strnew(s_args->output_len[0] + 1 + s_args->output_len[1])))
+	if (!(tmp = ft_strnew(len[3])))
+		return (-1);
+	
+	if (s_args->flags[1])
+	{
+		if (len[2] == 1)
+		{
+			tmp[len[4]++] = s_args->sign;
+			len[2] = 0;
+		}
+		while (len[4] < len[3] - len[1] - len[2])
+			tmp[len[4]++] = '0';
+	}
+	if (s_args->flags[2] == 0)
+		while (len[4] < len[3] - len[0] - len[1] - len[2] -1)
+			tmp[len[4]++] = ' ';
+	if (len[2])
+		tmp[len[4]++] = s_args->sign;
+	//while (len[1]-- - len[0] > 0)
+	//	tmp[len[4]++] = '0';
+	ft_strncpy(&tmp[len[4]], s_args->output_raw, len[0]);
+	len[4] += s_args->output_len[0];
+	tmp[len[4]++] = '.';
+	ft_strncpy(&tmp[len[4]], &s_args->output_raw[len[0] + 1], len[1]);
+	s_args->output = tmp;
+	/*
 	if (!(s_args->output = ft_strdup(s_args->output_raw)))
 		return (-1);
+	s_args->output[s_args->output_len[0]] = '\0';
+	if (!(s_args->output_dec = ft_strnew(s_args->output_len[1] + 1)))
+		return (-1);
+	s_args->output_dec[0] = '.';
+	ft_strncpy(&s_args->output_dec[1], &s_args->output_raw[s_args->output_len[0] + 1], s_args->output_len[1]);
+	*/
 	return (0);
 }
 

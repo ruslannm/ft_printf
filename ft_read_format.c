@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 11:03:04 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 15:21:17 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_spec	*ft_new_spec(int start)
 	ret->len = 0;
 	ret->type = NULL;
 	ret->output = NULL;
+	ret->output_dec = NULL;
 	ret->sign = 0;
 	return (ret);
 }
