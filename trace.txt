@@ -6098,23 +6098,23 @@ test: "%p", NULL
 ⟹  [OK]
 ----------------------------------
 test: "%p", "Random string"
-  > expected: |0x1040bdfa8|, ret = 11
-  >   actual: |0x1040bdfa8|, ret = 11
+  > expected: |0x10abe1fa8|, ret = 11
+  >   actual: |0x10abe1fa8|, ret = 11
 ⟹  [OK]
 ----------------------------------
 test: "%5p", "Random string"
-  > expected: |0x1040bdfa8|, ret = 11
-  >   actual: |0x1040bdfa8|, ret = 11
+  > expected: |0x10abe1fa8|, ret = 11
+  >   actual: |0x10abe1fa8|, ret = 11
 ⟹  [OK]
 ----------------------------------
 test: "%30p", "Random string"
-  > expected: |                   0x1040bdfa8|, ret = 30
-  >   actual: |                   0x1040bdfa8|, ret = 30
+  > expected: |                   0x10abe1fa8|, ret = 30
+  >   actual: |                   0x10abe1fa8|, ret = 30
 ⟹  [OK]
 ----------------------------------
 test: "%-30p", "Random string"
-  > expected: |0x1040bdfa8                   |, ret = 30
-  >   actual: |0x1040bdfa8                   |, ret = 30
+  > expected: |0x10abe1fa8                   |, ret = 30
+  >   actual: |0x10abe1fa8                   |, ret = 30
 ⟹  [OK]
 ----------------------------------
 test: "%p", &printf
@@ -6249,13 +6249,13 @@ test: "%5f|%-5f|%+5f|% 5f|%#5f|%05f", INFINITY, INFINITY, INFINITY, INFINITY, IN
 ⟹  [SIGA]
 ----------------------------------
 test: "%1f|%-1f|%+1f|% 1f|%#1f|%01f", INFINITY, INFINITY, INFINITY, INFINITY, INFINITY, INFINITY
-⟹  [SEGV]
+⟹  [SIGA]
 ----------------------------------
 test: "%.f|%-.f|%+.f|% .f|%#.f|%0.f", INFINITY, INFINITY, INFINITY, INFINITY, INFINITY, INFINITY
 ⟹  [SIGA]
 ----------------------------------
 test: "%.8f|%-.8f|%+.8f|% .8f|%#.8f|%0.8f", INFINITY, INFINITY, INFINITY, INFINITY, INFINITY, INFINITY
-⟹  [SIGA]
+⟹  [SEGV]
 ----------------------------------
 test: "%5.8f|%-5.8f|%+5.8f|% 5.8f|%#5.8f|%05.8f", INFINITY, INFINITY, INFINITY, INFINITY, INFINITY, INFINITY
 ⟹  [SIGA]
@@ -6273,7 +6273,7 @@ test: "%f|%-f|%+f|% f|%#f|%0f", -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INF
 ⟹  [SIGA]
 ----------------------------------
 test: "%5f|%-5f|%+5f|% 5f|%#5f|%05f", -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY
-⟹  [SEGV]
+⟹  [SIGA]
 ----------------------------------
 test: "%1f|%-1f|%+1f|% 1f|%#1f|%01f", -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY
 ⟹  [SIGA]
@@ -6282,10 +6282,10 @@ test: "%.f|%-.f|%+.f|% .f|%#.f|%0.f", -INFINITY, -INFINITY, -INFINITY, -INFINITY
 ⟹  [SIGA]
 ----------------------------------
 test: "%.8f|%-.8f|%+.8f|% .8f|%#.8f|%0.8f", -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY
-⟹  [SIGA]
+⟹  [SEGV]
 ----------------------------------
 test: "%5.8f|%-5.8f|%+5.8f|% 5.8f|%#5.8f|%05.8f", -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY
-⟹  [SEGV]
+⟹  [SIGA]
 ----------------------------------
 test: "%15.8f|%-15.8f|%+15.8f|% 15.8f|%#15.8f|%015.8f", -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY
 ⟹  [SEGV]
@@ -6294,7 +6294,7 @@ test: "%-+8.14f|%- 8.14f|%-#8.14f|%-08.14f|%-+#8.14f|%-+ #08.14f", -INFINITY, -I
 ⟹  [SIGA]
 ----------------------------------
 test: "%+8.14f|%+ 8.14f|%+-8.14f|%+#8.14f|%+08.14f|%+ -#08.14f", -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY, -INFINITY
-⟹  [SEGV]
+⟹  [SIGA]
 ----------------------------------
 test: "%f|%-f|%+f|% f|%#f|%0f", 42., 42., 42., 42., 42., 42.
   > expected: |42.000000|42.000000|+42.000000| 42.000000|42.000000|42.000000|, ret = 61
@@ -6432,7 +6432,7 @@ test: "%+8.14f|%+ 8.14f|%+-8.14f|%+#8.14f|%+08.14f|%+ -#08.14f", -42., -42., -42
 ⟹  [KO]
 ----------------------------------
 test: "%f|%-f|%+f|% f|%#f|%0f", DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX
-⟹  [SIGA]
+⟹  [SEGV]
 ----------------------------------
 test: "%5f|%-5f|%+5f|% 5f|%#5f|%05f", DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX
 ⟹  [SIGA]
@@ -6441,19 +6441,19 @@ test: "%1f|%-1f|%+1f|% 1f|%#1f|%01f", DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MA
 ⟹  [SIGA]
 ----------------------------------
 test: "%.f|%-.f|%+.f|% .f|%#.f|%0.f", DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX
-⟹  [SEGV]
+⟹  [SIGA]
 ----------------------------------
 test: "%.8f|%-.8f|%+.8f|% .8f|%#.8f|%0.8f", DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX
-⟹  [SEGV]
+⟹  [SIGA]
 ----------------------------------
 test: "%5.8f|%-5.8f|%+5.8f|% 5.8f|%#5.8f|%05.8f", DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX
 ⟹  [SEGV]
 ----------------------------------
 test: "%15.8f|%-15.8f|%+15.8f|% 15.8f|%#15.8f|%015.8f", DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX
-⟹  [SIGA]
+⟹  [SEGV]
 ----------------------------------
 test: "%-+8.14f|%- 8.14f|%-#8.14f|%-08.14f|%-+#8.14f|%-+ #08.14f", DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX
-⟹  [SEGV]
+⟹  [SIGA]
 ----------------------------------
 test: "%+8.14f|%+ 8.14f|%+-8.14f|%+#8.14f|%+08.14f|%+ -#08.14f", DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX, DBL_MAX
 ⟹  [SIGA]
@@ -6504,13 +6504,13 @@ test: "%+8.14f|%+ 8.14f|%+-8.14f|%+#8.14f|%+08.14f|%+ -#08.14f", DBL_MIN, DBL_MI
 ⟹  [KO]
 ----------------------------------
 test: "%Lf|%-Lf|%+Lf|% Lf|%#Lf|%0Lf", 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L
-⟹  [SIGA]
+⟹  [SEGV]
 ----------------------------------
 test: "%5Lf|%-5Lf|%+5Lf|% 5Lf|%#5Lf|%05Lf", 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L
 ⟹  [SEGV]
 ----------------------------------
 test: "%1Lf|%-1Lf|%+1Lf|% 1Lf|%#1Lf|%01Lf", 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L
-⟹  [SEGV]
+⟹  [SIGA]
 ----------------------------------
 test: "%.Lf|%-.Lf|%+.Lf|% .Lf|%#.Lf|%0.Lf", 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L
 ⟹  [SIGA]
@@ -6528,7 +6528,7 @@ test: "%-+8.14Lf|%- 8.14Lf|%-#8.14Lf|%-08.14Lf|%-+#8.14Lf|%-+ #08.14Lf", 12.847e
 ⟹  [SIGA]
 ----------------------------------
 test: "%+8.14Lf|%+ 8.14Lf|%+-8.14Lf|%+#8.14Lf|%+08.14Lf|%+ -#08.14Lf", 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L, 12.847e451L
-⟹  [SIGA]
+⟹  [SEGV]
 ----------------------------------
 test: "%Lf", LDBL_MAX
 ⟹  [SIGA]

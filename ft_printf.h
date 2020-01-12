@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 11:26:33 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 13:37:27 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 # include "libft.h"
 # include <limits.h>
 
-# define THOUSAND_SEP ","
-# define THOUSAND_SEP_LEN 1
+#define		THOUSAND_SEP ","
+
+#define		THOUSAND_SEP_LEN 1
 typedef struct s_spec
 {
 	int		position;
