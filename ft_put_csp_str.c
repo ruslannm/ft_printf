@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:46:29 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/06 17:51:55 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 12:46:58 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,17 @@ int	ft_put_c_str(unsigned char n, t_spec *s_args)
 
 int	ft_put_s_str(char *s, t_spec *s_args)
 {
-	if (!(s_args->output_raw = ft_strdup(s)))
-		return (-1);
+	if (!s)
+	{
+		if (!(s_args->output_raw = ft_strdup("(null)")))
+			return (-1);
+	}
+	else
+	{
+		if (!(s_args->output_raw = ft_strdup(s)))
+			return (-1);
+	}
+	if (s_args->precision_ini && (size_t)s_args->precision < ft_strlen(s_args->output_raw))
+		s_args->output_raw[s_args->precision] = '\0';
 	return (0);
 }

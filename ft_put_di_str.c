@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 11:49:31 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 12:57:37 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,47 @@ void	ft_get_len_output(t_spec *s_args)
 	len[0] = ft_strlen(s_args->output_raw);
 	if (s_args->conversion == 'o' && s_args->flags[1] && len[0] == 0)
 		len[0] = 1;
-	if (len[0] < s_args->precision)
+/*	if (len[0] < s_args->precision)
+		len[1] = s_args->precision;
+	else
+		len[1] = len[0];
+*/	
+/*	if (len[0] < s_args->precision)
 		len[1] = s_args->precision;
 	else
 	{
-		if (s_args->conversion == 'o' && s_args->precision)
+		if (s_args->conversion == 's' && s_args->precision)
 			len[1] = s_args->precision;
 		else
 			len[1] = len[0];
 	}
+*/
+/*
+	len[1] = len[0];
+	if (s_args->conversion == 's')
+	{
+		if (len[0] > s_args->precision && s_args->precision_ini)
+			len[1] = s_args->precision;
+	}
+	else
+	{
+		if (len[0] < s_args->precision)
+			len[1] = s_args->precision;
+	}
+*/
 //	len[1] = (len[0] < s_args->precision ? s_args->precision : len[0]);
-	
+	len[1] = len[0];
+
+		if (s_args->conversion != 's' && len[0] < s_args->precision)
+			len[1] = s_args->precision;
+
+
 	if (ft_strcmp(s_args->output_raw, "0") && ft_strlen(s_args->output_raw) && ((ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#') || s_args->conversion == 'p'))
 		len[2] = 2;
 	else
 		len[2] = (s_args->sign ? 1 : 0);
 //	len[2] = (s_args->sign ? 1 : 0);
+	//if (s_args->conversion == 's' && s_args->)
 	len[3] = (len[1] + len[2] < s_args->width ? s_args->width : len[1] + len[2]);
 	s_args->output_len[0] = len[0];
 	s_args->output_len[1] = len[1];
@@ -93,8 +118,12 @@ int	ft_putoutput(t_spec *s_args)
 		output[len[4]++] = s_args->sign;
 	while (len[1]-- - len[0] > 0)
 		output[len[4]++] = '0';
-	while (len[0]-- > 0)
-		output[len[4]++] = *tmp++;
+	if (len[3] < len[0])
+		while (len[3]-- > 0)
+			output[len[4]++] = *tmp++;
+	else
+		while (len[0]-- > 0)
+			output[len[4]++] = *tmp++;
 	if (s_args->flags[2] != 0)
 		while (len[4] < len[3])
 			output[len[4]++] = ' ';
