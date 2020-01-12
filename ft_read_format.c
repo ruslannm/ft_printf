@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 14:26:31 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 11:03:04 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_spec	*ft_new_spec(int start)
 	ret->flags[5] = 0;
 	ret->width_ini = 0;
 	ret->width = 0;
+	ret->width_diff = 0;
 	ret->precision_ini = 0;
 	ret->precision = 0;
 	ret->modifier = NULL;

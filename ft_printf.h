@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 16:25:04 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 11:00:49 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_spec
 	char	flags[6];  //012345  #0- +'
 	int		width;
 	int		width_ini; //0 - new struct, 1 - exists in format string, -1 * look in args
+	char	width_diff;  //difference for c = 0
 	int		precision;
 	int		precision_ini; //0 - new struct, 1 - exists in format string, -1 * look in args
 	char	*modifier;
@@ -38,6 +39,7 @@ typedef struct s_spec
 	char	*output;
 	int		output_len[5];
 	char	sign;
+	char	output_c_raw;
 	char	*before;
 	char	*after;
 	char	*thousand_sep;
@@ -101,5 +103,6 @@ int		ft_put_f_str(float n, t_spec *s_args);
 int		ft_get_arg_f(t_spec *s_args, va_list args);
 char	*ft_conv_binary(char *binary);
 int		ft_put_f_sep(t_spec *s_args);
+int		ft_get_width_diff(t_spec **s_args);
 
 #endif

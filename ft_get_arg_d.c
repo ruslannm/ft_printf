@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 17:48:53 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 10:56:38 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,12 @@ int	ft_get_arg_c(t_spec *s_args, va_list args)
 	unsigned char	nb;
 
 	nb = (unsigned char)va_arg(args, unsigned int);
-	if (!nb && s_args->width)
-		s_args->width = s_args->width - 1;
+	if (!nb)
+	{
+		if (s_args->width)
+			s_args->width =  s_args->width - 1;
+		s_args->width_diff = 1;
+	}
 	ret = ft_put_c_str(nb, s_args);
 	ft_get_len_output(s_args);
 	ret = (!ret ? ft_putoutput(s_args) : ret);

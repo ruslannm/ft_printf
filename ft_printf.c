@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/09 16:28:16 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 11:12:15 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,21 @@ char	*ft_get_str(char *s, t_spec **s_args)
 	return (ret);
 }
 
+int	ft_get_width_diff(t_spec **s_args)
+{
+	int	ret;
+	int		j;
+
+	ret = 0;
+	j = 0;
+	while (s_args[j])
+	{
+		if (s_args[j]->width_diff)
+			ret++;
+		j++;
+	}
+	return (ret);
+}
 
 int ft_printf(const char *format, ...)
 {
@@ -165,7 +180,7 @@ int ft_printf(const char *format, ...)
 	{
 		output = ft_get_str((char*)format, s_args);
 		ft_putstr(output);
-		ret = ft_strlen(output); //printf_len((char*)format, s_args);
+		ret = ft_strlen(output) + ft_get_width_diff(s_args); //printf_len((char*)format, s_args);
 	}
 	else
 		ret = -1;
