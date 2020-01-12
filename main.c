@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 10:46:01 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 11:42:56 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int main(void)
 */
 
 //	i = ft_printf("%c|%-c|%12c|%-12c", 0, 0, 0, 0); 1           2           3
-	i = ft_printf("1%12c2%-12c3", 0, 0);
+	i = ft_printf("%.5s", "wi32x-3vx++===98234z1esfatr");
 
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("1%12c2%-12c3", 0, 0 );
+	i = printf("%.5s", "wi32x-3vx++===98234z1esfatr");
 	printf("\nres=%i=li\n", i);
 
 /*

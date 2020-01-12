@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 11:00:49 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 11:26:33 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_spec
 	char	flags[6];  //012345  #0- +'
 	int		width;
 	int		width_ini; //0 - new struct, 1 - exists in format string, -1 * look in args
-	char	width_diff;  //difference for c = 0
+	int		width_diff;  //difference for c = 0
 	int		precision;
 	int		precision_ini; //0 - new struct, 1 - exists in format string, -1 * look in args
 	char	*modifier;
