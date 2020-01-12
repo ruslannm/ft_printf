@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 12:57:37 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 13:02:35 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_get_len_output(t_spec *s_args)
 			len[1] = s_args->precision;
 
 
-	if (ft_strcmp(s_args->output_raw, "0") && ft_strlen(s_args->output_raw) && ((ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#') || s_args->conversion == 'p'))
+	if ((ft_strcmp(s_args->output_raw, "0") && ft_strlen(s_args->output_raw) && (ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#')) || s_args->conversion == 'p')
 		len[2] = 2;
 	else
 		len[2] = (s_args->sign ? 1 : 0);
