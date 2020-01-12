@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 13:37:27 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 14:13:24 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int		ft_get_arg_f(t_spec *s_args, va_list args);
 char	*ft_conv_binary(char *binary);
 int		ft_put_f_sep(t_spec *s_args);
 int		ft_get_width_diff(t_spec **s_args);
+int		ft_shift(char **s, int i);
 
 #endif
