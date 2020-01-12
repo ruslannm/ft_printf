@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 16:19:03 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/12 16:39:04 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,17 @@ int	ft_shift(char **s, int i)
 int	ft_put_binary_str(unsigned int n, char **s)
 {
 	int 	i;
+	int		j;
 	char	*tmp;
 
 	i = ft_nbr_len(n, 2);
-	if (!(tmp = ft_strnew(i + 1)))
+	if (!(tmp = ft_strnew(i)))
 		return (-1);
-	tmp[i] = '\0';
-	while (--i >= 0)
+	j = 23;
+	while (--j >= 0)
 	{
-		tmp[i] = n % 2 + '0';
+		if (j <= i)
+			tmp[j] = n % 2 + '0';
 		n = n / 2;
 	}
 	*s = tmp;
