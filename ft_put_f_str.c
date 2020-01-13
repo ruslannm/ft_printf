@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/13 16:03:33 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/13 17:44:49 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,46 @@ int	ft_put_f_sep(t_spec *s_args)
 }
 */
 
+int	ft_roundup_diff(char **str, int presision)
+{
+	char	*ret;
+	
+	if (!(ret = ft_strnew(presision + 2)))
+		return (-1);
+	ft_strcpy(ret, "0.");
+	ret[2 + --presision] = '1';
+	while(presision-- > 0)
+		ret[2 + presision] = '0';
+	*str = ret;
+	return (1);
+}
+
 int	ft_roundup(char **str, t_spec *s_args)
 {
-	int 
+	int		presision;
+	int		len[3];
+	char	*tmp;
+	char	*pointer;
+	char	*round_diff;
+
+	tmp = *str;
+	len[2]  = ft_strlen(tmp);
+	pointer = ft_strchr(tmp, '.');
+	len[0] = pointer - tmp;
+	len[1] = len[2] - len[0] - 1;
+	presision = s_args->precision;
+	if (presision < len[1])
+	{
+		if (ft_strchr("56789", pointer[1 + presision]))
+		{
+			if (ft_roundup_diff(&round_diff, presision) == -1)
+				return (-1);
+			pointer = ft_sum_decimal_place(tmp, round_diff, 10);
+			free (tmp);
+			*str = pointer;
+		}
+	}
+	return (0);
 }
 
 int	ft_put_f_str(float n, t_spec *s_args)
@@ -195,7 +232,11 @@ int	ft_put_f_str(float n, t_spec *s_args)
 	//while (++i <= power)
 	//	ft_swap(&tmp_m, i, i + 1);
 	ft_shift(&tmp_m, power);
-	s_args->output_raw = ft_conv_binary(tmp_m);
+	free(m);
+	m = ft_conv_binary(tmp_m);
+	ft_roundup(&m, s_args);
+	s_args->output_raw = m;
+
 /*	n = n * (n < 0 ? -1 : 1);
 	i = ft_nbr_len(n, 10);
 	i = i + (s_args->flags[5] == 39 ? THOUSAND_SEP_LEN * (i / 3 ) : 0);
