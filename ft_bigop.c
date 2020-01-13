@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/25 15:25:11 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/13 15:55:54 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ int 	ft_div_int(char *s1, char *s2)
 	char	*s;
 	
 	ret = 1;
-	while (ret < 10)
+	while (ret <= 10)
 	{
 		s = ft_mul(s2, ret);
 		if (ft_strcmp_nb(s, s1) > 0)
@@ -370,6 +370,11 @@ int main()
 	char *tmp;
 	
 	//ret = NULL;
+ 	int i;
+
+   i = ft_div_int("2320", "256");
+   printf("i=%i\n", i);
+
 	ret = ft_sum("99", "99", 10);
 	printf("res_sum=%s=\n", ret);
 	ret = ft_sum_decimal_place("0.625", "0.615", 10);

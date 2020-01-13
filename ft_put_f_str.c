@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 16:39:04 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/13 16:03:33 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,11 @@ int	ft_put_f_sep(t_spec *s_args)
 	return (0);
 }
 */
+
+int	ft_roundup(char **str, t_spec *s_args)
+{
+	int 
+}
 
 int	ft_put_f_str(float n, t_spec *s_args)
 {
