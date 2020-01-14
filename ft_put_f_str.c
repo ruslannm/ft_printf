@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/14 15:08:13 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/14 16:03:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,21 @@ void	ft_get_len_output_f(t_spec *s_args)
 	len[5] = ft_strlen(s_args->output_raw);
 	pointer = ft_strchr(s_args->output_raw, '.');
 	len[0] = pointer - s_args->output_raw;  // integer part
-	len[6] = len[5] - len[0] - 1; //decimal part
-	if (len[6] > s_args->precision)
-		len[1] = s_args->precision;
+	len[6] = len[5] - len[0]; //decimal part includes point
+	if (s_args->precision_ini && !s_args->precision)
+		len[1] = (s_args->flags[0] ? 1 : 0);
+	else
+	{	
+		len[1] = 1 + (len[6] > s_args->precision ? s_args->precision : len[6]);
+		/*
+		if (len[6] > s_args->precision)
+			len[1] = s_args->precision;
+		else
+			len[1] = len[6]		
+			*/
+	}
 	len[2] = (s_args->sign ? 1 : 0);
-	len[3] = (len[0] + len[1] + 1 < s_args->width ? s_args->width : len[0] + len[1] + 1);
+	len[3] = (len[0] + len[1] < s_args->width ? s_args->width : len[0] + len[1]);
 	s_args->output_len[0] = len[0];
 	s_args->output_len[1] = len[1];
 	s_args->output_len[2] = len[2];
@@ -110,20 +120,23 @@ int	ft_putoutput_f(t_spec *s_args)
 			tmp[len[4]++] = s_args->sign;
 			len[2] = 0;
 		}
-		while (len[4] < len[3] - len[0] - len[1] - len[2] - 1)
+		while (len[4] < len[3] - len[0] - len[1] - len[2])
 			tmp[len[4]++] = '0';
 	}
 	if (s_args->flags[2] == 0)
-		while (len[4] < len[3] - len[0] - len[1] - len[2] -1)
+		while (len[4] < len[3] - len[0] - len[1] - len[2])
 			tmp[len[4]++] = ' ';
 	if (len[2])
 		tmp[len[4]++] = s_args->sign;
 	//while (len[1]-- - len[0] > 0)
 	//	tmp[len[4]++] = '0';
 	ft_strncpy(&tmp[len[4]], s_args->output_raw, len[0]);
-	len[4] += s_args->output_len[0];
-	tmp[len[4]++] = '.';
-	ft_strncpy(&tmp[len[4]], &s_args->output_raw[len[0] + 1], len[1]);
+	len[4] += len[0];
+	ft_strncpy(&tmp[len[4]], &s_args->output_raw[len[0]], len[1]);
+	len[4] += len[1];
+	if (s_args->flags[2] != 0)
+		while (len[4] < len[3])
+			tmp[len[4]++] = ' ';
 	s_args->output = tmp;
 	/*
 	if (!(s_args->output = ft_strdup(s_args->output_raw)))

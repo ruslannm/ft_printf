@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 15:21:17 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/14 16:08:20 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ int	ft_parse_format(char *s, t_spec *s_args, int start)
 		return (-1);
 	if (s[i] && ft_parse_conversion(s, s_args, &i) == -1)
 		return (-1);
+	if (s_args->conversion == 'f')
+	{
+		if  (s_args->precision_ini && !s_args->precision)
+			s_args->flags[1] = 0;
+	}
+	else if (s_args->precision_ini)
+		s_args->flags[1] = 0;
+
 	s_args->len = i;
 	if (ft_check_format(s_args) == -1)
 		return (-1);
