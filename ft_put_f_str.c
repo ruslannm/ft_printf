@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/13 17:44:49 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/14 15:08:13 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	ft_putoutput_f(t_spec *s_args)
 			tmp[len[4]++] = s_args->sign;
 			len[2] = 0;
 		}
-		while (len[4] < len[3] - len[1] - len[2])
+		while (len[4] < len[3] - len[0] - len[1] - len[2] - 1)
 			tmp[len[4]++] = '0';
 	}
 	if (s_args->flags[2] == 0)

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 15:43:48 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/14 14:58:47 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	ft_parse_width(char *s, t_spec *s_args, int *i)
 		s_args->width_ini = -1;
 		*i = *i + 1;
 	}
+	if (!s_args->width_ini && s_args->flags[1])
+		s_args->flags[1] = 0;
 	return (0);
 }
 
