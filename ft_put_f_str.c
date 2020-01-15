@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/14 17:54:21 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/15 15:40:43 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_put_binary_str(unsigned int n, char **s)
 	j = 23;
 	while (--j >= 0)
 	{
-		if (j <= i)
+		if (j < i)   // if (j <= i)  
 			tmp[j] = n % 2 + '0';
 		n = n / 2;
 	}
@@ -230,6 +230,7 @@ int	ft_roundup(char **str, t_spec *s_args)
 			free (tmp);
 			*str = pointer;
 		}
+		pointer[1 + presision] = '\0';
 	}
 	return (0);
 }
@@ -246,12 +247,13 @@ int	ft_put_f_str(float n, t_spec *s_args)
 	u_d = (union u_double)n;
 	power = u_d.f_parts.e - 127;
 	ft_put_binary_str(u_d.f_parts.m, &m);
-	tmp_m = ft_strnew(23 + 3);
+	tmp_m = ft_strnew(23 + 2);
 	ft_strcpy(tmp_m, "1.");
 	i = ft_strlen(m);
 	while (i < 23)
 		tmp_m[24 - i++] = '0';
-	ft_strcpy(&tmp_m[25 - i], m);
+	ft_strcpy(&tmp_m[1 + i], m); 
+	//ft_strcpy(&tmp_m[25 - i], m); //
 	i = 0;
 	//while (++i <= power)
 	//	ft_swap(&tmp_m, i, i + 1);
