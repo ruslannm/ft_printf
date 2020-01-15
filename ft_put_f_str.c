@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/15 15:40:43 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/15 16:25:20 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,32 @@ int	ft_roundup_diff(char **str, int presision)
 	return (1);
 }
 
+int	ft_add_precision(char **str, t_spec *s_args)
+{
+	int		add_presision;
+	int		len[3];
+	char	*tmp;
+	char	*pointer;
+	char	*ret;
+
+	tmp = *str;
+	len[2]  = ft_strlen(tmp);
+	pointer = ft_strchr(tmp, '.');
+	len[0] = pointer - tmp;
+	len[1] = len[2] - len[0] - 1;
+	add_presision = s_args->precision - len[1];
+	if (add_presision > 0)
+	{
+		if (!(ret = ft_strnew(add_presision + len[2])))
+			return (-1);
+		ft_strcpy(ret, tmp);
+		while (add_presision)
+			ret[len[2] + --add_presision] = '0';
+		*str = ret;
+	}
+	return (0);
+}
+
 int	ft_roundup(char **str, t_spec *s_args)
 {
 	int		presision;
@@ -233,6 +259,8 @@ int	ft_roundup(char **str, t_spec *s_args)
 		pointer[1 + presision] = '\0';
 	}
 	return (0);
+//	ft_add_precision(char &str, s_args);
+//	return (ft_add_precision(&str, s_args) == 0 ? 0 : -1);
 }
 
 int	ft_put_f_str(float n, t_spec *s_args)
@@ -261,6 +289,7 @@ int	ft_put_f_str(float n, t_spec *s_args)
 	free(m);
 	m = ft_conv_binary(tmp_m);
 	ft_roundup(&m, s_args);
+	ft_add_precision(&m, s_args);
 	s_args->output_raw = m;
 
 /*	n = n * (n < 0 ? -1 : 1);
