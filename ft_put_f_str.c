@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/15 16:25:20 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/15 16:44:33 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,8 @@ int	ft_put_f_str(float n, t_spec *s_args)
 	m = NULL;
 	u_d = (union u_double)n;
 	power = u_d.f_parts.e - 127;
+	if (u_d.f_parts.s)
+		s_args->sign = '-';
 	ft_put_binary_str(u_d.f_parts.m, &m);
 	tmp_m = ft_strnew(23 + 2);
 	ft_strcpy(tmp_m, "1.");
