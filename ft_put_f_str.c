@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/15 16:44:33 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/15 18:07:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ void	ft_get_len_output_f(t_spec *s_args)
 	int	len[8];
 
 	len[5] = ft_strlen(s_args->output_raw);
-	pointer = ft_strchr(s_args->output_raw, '.');
-	len[0] = pointer - s_args->output_raw;  // integer part
+	if (!(pointer = ft_strchr(s_args->output_raw, '.')))
+		len[0] = len[5];
+	else 
+		len[0] = pointer - s_args->output_raw;  // integer part
 	len[6] = len[5] - len[0]; //decimal part includes point
 	len[7] = 0; //tmp
 	if (s_args->precision_ini && !s_args->precision)
@@ -276,6 +278,24 @@ int	ft_put_f_str(float n, t_spec *s_args)
 	power = u_d.f_parts.e - 127;
 	if (u_d.f_parts.s)
 		s_args->sign = '-';
+	if (power == 128)
+	{
+		if (u_d.f_parts.m == 0)
+			s_args->output_raw = ft_strdup("inf");
+		else
+		{
+			s_args->output_raw = ft_strdup("nan");
+			s_args->flags[3] = 0;
+			s_args->flags[4] = 0;
+			s_args->sign = 0;
+		}
+		s_args->precision = 0;
+		s_args->precision_ini = 1;
+		s_args->flags[0] = 0;
+		s_args->flags[1] = 0;
+
+		return (0);
+	}
 	ft_put_binary_str(u_d.f_parts.m, &m);
 	tmp_m = ft_strnew(23 + 2);
 	ft_strcpy(tmp_m, "1.");
