@@ -6,11 +6,25 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/15 18:07:14 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/16 16:45:07 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_mantissa_len(unsigned long int n, int base)
+{
+	int i;
+
+	i = 1;
+	while (n / base > 0)
+	{
+		n = n / base;
+		i++;
+	}
+	return (i);
+}
+
 
 /*
 void	ft_swap(char **s, int i, int j)
@@ -53,16 +67,16 @@ int	ft_shift(char **s, int i)
 }
 
 
-int	ft_put_binary_str(unsigned int n, char **s)
+int	ft_put_binary_str(unsigned long int n, char **s)
 {
 	int 	i;
 	int		j;
 	char	*tmp;
 
-	i = ft_nbr_len(n, 2);
+	i = ft_mantissa_len(n, 2);
 	if (!(tmp = ft_strnew(i)))
 		return (-1);
-	j = 23;
+	j = 64;//23;
 	while (--j >= 0)
 	{
 		if (j < i)   // if (j <= i)  
@@ -265,7 +279,7 @@ int	ft_roundup(char **str, t_spec *s_args)
 //	return (ft_add_precision(&str, s_args) == 0 ? 0 : -1);
 }
 
-int	ft_put_f_str(float n, t_spec *s_args)
+int	ft_put_f_str(long double n, t_spec *s_args)
 {
 	union u_double	u_d;
 	int	power;
@@ -275,10 +289,19 @@ int	ft_put_f_str(float n, t_spec *s_args)
 
 	m = NULL;
 	u_d = (union u_double)n;
-	power = u_d.f_parts.e - 127;
+	if (u_d.f_parts.e == 0 && u_d.f_parts.m == 0)
+	{
+		if (u_d.f_parts.s)
+			s_args->sign = '-';
+		s_args->output_raw = ft_strdup("0.000000");
+		s_args->flags[0] = 0;
+		s_args->flags[1] = 0;
+		return (0);
+	}
+	power = u_d.f_parts.e - 16383;//1023;//127;
 	if (u_d.f_parts.s)
 		s_args->sign = '-';
-	if (power == 128)
+	if (power == 16383)//1024) //128)
 	{
 		if (u_d.f_parts.m == 0)
 			s_args->output_raw = ft_strdup("inf");
@@ -297,12 +320,12 @@ int	ft_put_f_str(float n, t_spec *s_args)
 		return (0);
 	}
 	ft_put_binary_str(u_d.f_parts.m, &m);
-	tmp_m = ft_strnew(23 + 2);
+	tmp_m = ft_strnew(64 + 2); //23 + 2);
 	ft_strcpy(tmp_m, "1.");
 	i = ft_strlen(m);
-	while (i < 23)
-		tmp_m[24 - i++] = '0';
-	ft_strcpy(&tmp_m[1 + i], m); 
+	while (i < 64) //23)
+		tmp_m[65 - i++] = '0'; //tmp_m[24 - i++] = '0';
+	ft_strcpy(&tmp_m[2], m); 
 	//ft_strcpy(&tmp_m[25 - i], m); //
 	i = 0;
 	//while (++i <= power)

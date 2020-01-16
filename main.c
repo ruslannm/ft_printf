@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/15 17:55:08 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/16 16:10:51 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <locale.h>
 #include <limits.h>
 #include <math.h>
+#include <float.h>
 
 int main(void)
 {
@@ -32,13 +33,13 @@ int main(void)
                       
 */
 //	i = ft_printf("%c|%-c|%12c|%-12c", 0, 0, 0, 0); 1           2           3
-	i = ft_printf("|%f|", INFINITY);
+ 	i = ft_printf("|%f|", DBL_MAX);
 
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("|%f|", INFINITY);
+	i = printf("|%f|", DBL_MAX);
 	printf("\nres=%i=li\n", i);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/14 17:44:46 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/16 15:41:19 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,19 @@ typedef struct		s_stack
 	struct s_stack	*next;
 }					t_stack;
 
+/*
+**   23
+**    8
+**    1
+*/
+
 union u_double 
 {	
-	float f; 
+	long double f; 
 	struct 
 	{ 
-		unsigned int m : 23; 
-		unsigned int e : 8;
+		unsigned long int m : 64; 
+		unsigned int e : 15; 
 		unsigned int s : 1; 
 	} 		f_parts; 
 };
@@ -103,7 +109,7 @@ int		ft_put_p_str(char *s, t_spec *s_args);
 void	ft_get_len_output(t_spec *s_args);
 void	ft_get_len_output_f(t_spec *s_args);
 int		ft_nbr_len(intmax_t n, int base);
-int		ft_put_f_str(float n, t_spec *s_args);
+int		ft_put_f_str(long double n, t_spec *s_args);
 int		ft_get_arg_f(t_spec *s_args, va_list args);
 char	*ft_conv_binary(char *binary);
 //int		ft_put_f_sep(t_spec *s_args);
