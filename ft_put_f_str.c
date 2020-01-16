@@ -38,17 +38,49 @@ void	ft_swap(char **s, int i, int j)
 	s_tmp[j] = c_tmp;
 }
 */
+
+int	*ft_float_len(char *str)
+{
+	char	*point;
+	int		*len;
+
+	if (!(len = (int*)malloc(sizeof(int) * 5)))
+		return (NULL);
+	len[0] = ft_strlen(str);
+	point = ft_strchr(str, '.');
+	len[1] = point - str;
+	len[2] = len[0] - len[1] - 1;
+	len[3] = 0;
+	len[4] = 0;
+	return (len);
+}
+
 int	ft_shift(char **s, int i)
 {
 	char *s_tmp;
 	char *s_new;
 	int j;
+	int *len;
 
 	s_tmp = *s;
+	len = ft_float_len(s_tmp);
 	if (i > 0)
 	{
-		ft_strncpy(&s_tmp[1], &s_tmp[2], i);
-		s_tmp[i + 1] = '.';
+		len[3] = len[0] + (i > len[2] ? i - len[2] : 0); 
+		if (!(s_new = ft_strnew(len[3])))
+			return (-1);
+		s_new[0] = '1';
+		ft_strncpy(&s_new[1], &s_tmp[2], i);
+		if (i > len[2])
+		{
+			s_new[len[3]] = '.';
+			len[4] = i - len[2];
+			while (len[3]-- >= len[0])
+				s_new[len[3]] = '0';
+		}
+		free(*s);
+		*s = s_new;
+		write(1, s_new, len[3]);
 	}
 	else if (i < 0)
 	{

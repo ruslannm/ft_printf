@@ -33,6 +33,7 @@ int main(void)
                       
 */
 //	i = ft_printf("%c|%-c|%12c|%-12c", 0, 0, 0, 0); 1           2           3
+
  	i = ft_printf("|%f|", DBL_MAX);
 
 	write(1, "\nres=", 5);
