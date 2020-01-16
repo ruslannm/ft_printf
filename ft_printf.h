@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include "libft.h"
 # include <limits.h>
+# include <stdint.h>  // for debian
 
 #define		THOUSAND_SEP ","
 
