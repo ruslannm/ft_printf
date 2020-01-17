@@ -117,5 +117,6 @@ char	*ft_conv_binary(char *binary);
 int		ft_get_width_diff(t_spec **s_args);
 int		ft_shift(char **s, int i);
 char	*ft_sum_decimal_place(char *s1, char *s2, int base);
+int	ft_shift(char **s, int i);
 
 #endif

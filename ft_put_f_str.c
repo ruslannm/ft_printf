@@ -70,17 +70,23 @@ int	ft_shift(char **s, int i)
 		if (!(s_new = ft_strnew(len[3])))
 			return (-1);
 		s_new[0] = '1';
-		ft_strncpy(&s_new[1], &s_tmp[2], i);
 		if (i > len[2])
 		{
-			s_new[len[3]] = '.';
-			len[4] = i - len[2];
-			while (len[3]-- >= len[0])
-				s_new[len[3]] = '0';
+			ft_strncpy(&s_new[1], &s_tmp[2], len[2]);
+			s_new[--len[3]] = '.';
+			while (i-- > len[2])
+				s_new[--len[3]] = '0';
 		}
+		else
+		{
+			ft_strncpy(&s_new[1], &s_tmp[2], i);
+			s_new[i + len[1]] = '.';
+			ft_strncpy(&s_new[i + 2], &s_tmp[i + 2], len[2] - i);
+		}
+		
 		free(*s);
 		*s = s_new;
-		write(1, s_new, len[3]);
+		//write(1, s_new, len[3]);
 	}
 	else if (i < 0)
 	{
