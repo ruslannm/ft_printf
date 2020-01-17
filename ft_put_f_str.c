@@ -59,7 +59,6 @@ int	ft_shift(char **s, int i)
 {
 	char *s_tmp;
 	char *s_new;
-	int j;
 	int *len;
 
 	s_tmp = *s;
@@ -69,7 +68,7 @@ int	ft_shift(char **s, int i)
 		len[3] = len[0] + (i > len[2] ? i - len[2] : 0); 
 		if (!(s_new = ft_strnew(len[3])))
 			return (-1);
-		s_new[0] = '1';
+		ft_strncpy(s_new, s_tmp, len[1]);
 		if (i > len[2])
 		{
 			ft_strncpy(&s_new[1], &s_tmp[2], len[2]);
@@ -79,25 +78,34 @@ int	ft_shift(char **s, int i)
 		}
 		else
 		{
-			ft_strncpy(&s_new[1], &s_tmp[2], i);
+			ft_strncpy(&s_new[len[1]], &s_tmp[len[1] + 1], i);
 			s_new[i + len[1]] = '.';
-			ft_strncpy(&s_new[i + 2], &s_tmp[i + 2], len[2] - i);
+			ft_strncpy(&s_new[i + len[1] + 1], &s_tmp[i + len[1] + 1], len[2] - i);
 		}
-		
 		free(*s);
 		*s = s_new;
-		//write(1, s_new, len[3]);
 	}
 	else if (i < 0)
 	{
-		j = ft_strlen(s_tmp) - i;
-		if (!(s_new = ft_strnew(j)))
+		len[3] = len[0] + (-i >= len[1]? - i - len[1] + 1 : 0); 
+		if (!(s_new = ft_strnew(len[3])))
 			return (-1);
-		while (j--)
-			s_new[j] = '0';
-		s_new[1] = '.';
-		s_new[1 - i] = '1';
-		ft_strcpy(&s_new[2 - i], &s_tmp[2]);
+		//ft_strncpy(s_new, s_tmp, len[1]);
+		if (-i >= len[1])
+		{
+			ft_strncpy(s_new, "0.", 2);
+			ft_strncpy(&s_new[2 - i - len[1]], s_tmp, len[1]);
+			ft_strncpy(&s_new[2 - i], &s_tmp[len[1] + 1], len[2]);
+			while (len[1] + i++ < 0)
+				s_new[2 - i - len[1]] = '0';
+		}
+		else
+		{
+			ft_strncpy(s_new, s_tmp, len[1] + i);
+			s_new[i + len[1]] = '.';
+			ft_strncpy(&s_new[i + len[1] + 1], &s_tmp[i + len[1]], - i);
+			ft_strncpy(&s_new[len[1] + 1], &s_tmp[len[1] + 1], len[2]);
+		}
 		free(*s);
 		*s = s_new;
 	}

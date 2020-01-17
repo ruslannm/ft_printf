@@ -36,8 +36,8 @@ int main(void)
 
 	char *str;
 
-	str = ft_strdup("1.2345");
-	ft_shift(&str, 6);
+	str = ft_strdup("1.23456");
+	ft_shift(&str, -10);
 	printf("%s|\n", str);
 	return (0);
  	i = ft_printf("|%f|", DBL_MAX);
