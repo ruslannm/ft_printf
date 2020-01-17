@@ -112,11 +112,12 @@ void	ft_get_len_output_f(t_spec *s_args);
 int		ft_nbr_len(intmax_t n, int base);
 int		ft_put_f_str(long double n, t_spec *s_args);
 int		ft_get_arg_f(t_spec *s_args, va_list args);
-char	*ft_conv_binary(char *binary);
+int		ft_conv_bin2dec(char **str);
 //int		ft_put_f_sep(t_spec *s_args);
 int		ft_get_width_diff(t_spec **s_args);
 int		ft_shift(char **s, int i);
 char	*ft_sum_decimal_place(char *s1, char *s2, int base);
 int	ft_shift(char **s, int i);
+int	ft_put_binary_str(unsigned long int n, char **s);
 
 #endif

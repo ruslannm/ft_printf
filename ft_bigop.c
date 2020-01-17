@@ -66,7 +66,7 @@ char	*ft_sum(char *s1, char *s2, int base)
 		i++;
 	}
 	if (carry)
-		s[s_len[0] - i] = carry;
+		s[s_len[0] - i] = carry + '0';
 	else
 	{
 		ft_memmove(s, s + 1, s_len[0] - 1);
@@ -347,21 +347,24 @@ char	*ft_conv_bin_dec_place(char *binary)
 	return (ret);
 }
 
-char	*ft_conv_binary(char *binary)
+int	ft_conv_bin2dec(char **str)
 {
+	char	*tmp;
 	char	*ret;
 	char	*pointer;
 	char	*int_part;
 	char	*dec_part;
 
-	ret = ft_strdup(binary);
+	tmp = *str;
+	ret = ft_strdup(tmp);
 	pointer = ft_strchr(ret, '.');
 	dec_part = ft_conv_bin_dec_place(pointer + 1);
 	*pointer = '\0';
 	int_part = ft_conv_bin_int(ret);
 	free(ret);
 	ret = ft_strjoin(int_part, dec_part + 1);
-	return (ret);
+	*str = ret;
+	return (0);
 }
 /*
 int main()

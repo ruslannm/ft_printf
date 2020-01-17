@@ -47,9 +47,16 @@ int	*ft_float_len(char *str)
 	if (!(len = (int*)malloc(sizeof(int) * 5)))
 		return (NULL);
 	len[0] = ft_strlen(str);
-	point = ft_strchr(str, '.');
-	len[1] = point - str;
-	len[2] = len[0] - len[1] - 1;
+	if (!(point = ft_strchr(str, '.')))
+	{
+		len[1] = len[0];
+		len[2] = 0;
+	}
+	else
+	{
+		len[1] = point - str;
+		len[2] = len[0] - len[1] - 1;
+	}
 	len[3] = 0;
 	len[4] = 0;
 	return (len);
@@ -115,20 +122,28 @@ int	ft_shift(char **s, int i)
 
 int	ft_put_binary_str(unsigned long int n, char **s)
 {
-	int 	i;
 	int		j;
 	char	*tmp;
+	char	c;
 
-	i = ft_mantissa_len(n, 2);
-	if (!(tmp = ft_strnew(i)))
+	if (!(tmp = ft_strnew(64)))
 		return (-1);
-	j = 64;//23;
-	while (--j >= 0)
+	j = 0;
+	while (n > 0)
 	{
-		if (j < i)   // if (j <= i)  
-			tmp[j] = n % 2 + '0';
+		tmp[j++] = n % 2 + '0';
 		n = n / 2;
+		//j--;
 	}
+	while (j < 64)
+		tmp[j++] = '0';
+	while(j-- > 32)
+	{
+		c = tmp[j];
+		tmp[j] = tmp[63 - j];
+		tmp[63 - j] = c;
+	}
+	ft_shift(&tmp, -63);
 	*s = tmp;
 	return (0);
 }
@@ -330,8 +345,6 @@ int	ft_put_f_str(long double n, t_spec *s_args)
 	union u_double	u_d;
 	int	power;
 	char	*m;
-	char	*tmp_m;
-	int i;
 
 	m = NULL;
 	u_d = (union u_double)n;
@@ -366,19 +379,16 @@ int	ft_put_f_str(long double n, t_spec *s_args)
 		return (0);
 	}
 	ft_put_binary_str(u_d.f_parts.m, &m);
-	tmp_m = ft_strnew(64 + 2); //23 + 2);
+/*	tmp_m = ft_strnew(64 + 2); //23 + 2);
 	ft_strcpy(tmp_m, "1.");
 	i = ft_strlen(m);
 	while (i < 64) //23)
 		tmp_m[65 - i++] = '0'; //tmp_m[24 - i++] = '0';
 	ft_strcpy(&tmp_m[2], m); 
 	//ft_strcpy(&tmp_m[25 - i], m); //
-	i = 0;
-	//while (++i <= power)
-	//	ft_swap(&tmp_m, i, i + 1);
-	ft_shift(&tmp_m, power);
-	free(m);
-	m = ft_conv_binary(tmp_m);
+*/
+	ft_shift(&m, power);
+	ft_conv_bin2dec(&m);
 	ft_roundup(&m, s_args);
 	ft_add_precision(&m, s_args);
 	s_args->output_raw = m;

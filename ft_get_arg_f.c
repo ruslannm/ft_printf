@@ -26,7 +26,6 @@ int ft_get_arg_f(t_spec *s_args, va_list args)
 	else
 		nb = (double)va_arg(args, double);
 //	if (nb == "NaN")
-
 	ft_putsign(s_args);
 	ret = ft_put_f_str((float)nb, s_args);
 	ft_get_len_output_f(s_args);
