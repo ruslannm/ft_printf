@@ -33,14 +33,18 @@ int main(void)
                       
 */
 //	i = ft_printf("%c|%-c|%12c|%-12c", 0, 0, 0, 0); 1           2           3
+/*
+	char *str;
+	char *s1;
+	char *s2;
 
-/*	char *str;
+	s1 = ft_strdup("0.23456");
+	s2 = ft_strdup("0.80001");
 
-	str = ft_strdup("1.23456");
-	ft_shift(&str, -10);
+	str = ft_sum_float(s1, s2, 10);
 	printf("%s|\n", str);
 	return (0);
- */
+*/
  	i = ft_printf("|%f|", DBL_MAX);
 
 	write(1, "\nres=", 5);

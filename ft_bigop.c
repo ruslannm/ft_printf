@@ -44,7 +44,7 @@ static int	ft_get_digit(char *s, int s_len, int i)
 	else
 		return (s[s_len - i] - '0');
 }
-
+/*
 char	*ft_sum(char *s1, char *s2, int base)
 {
 	int 	carry;
@@ -74,16 +74,50 @@ char	*ft_sum(char *s1, char *s2, int base)
 	}
 	return (s);
 }
+*/
 
-char	*ft_sum_decimal_place(char *s1, char *s2, int base)
+char	*ft_sum_int(char *s1, char *s2, int base)
+{
+	int 	carry;
+	int		*len[3];
+	int		i;
+	char	*s;
+	int		s_len;
+
+	len[1] = ft_float_len(s1);
+	len[2] = ft_float_len(s2);
+	s_len = 1 + (len[1][1] > len[2][1] ? len[1][1] : len[2][1]);
+	carry = 0;
+	if (!(s = ft_strnew(s_len + 1)))
+		return (NULL);
+	i = 1;
+	while (i <= len[1][1] || i <= len[2][1])	
+	{
+		s[s_len - i]  = (ft_get_digit(s1, len[1][1], i) + ft_get_digit(s2, len[2][1], i) + carry) % base + '0';
+		carry = (ft_get_digit(s1, len[1][1], i) + ft_get_digit(s2, len[2][1], i) + carry) / base;
+		i++;
+	}
+	if (carry)
+		s[s_len - i] = carry + '0';
+	else
+	{
+		ft_memmove(s, s + 1, s_len - 1);
+		s[s_len - 1] = '\0';
+	}
+	free(len[1]);
+	free(len[2]);
+	return (s);
+}
+
+char	*ft_sum_decimal(char *s1, char *s2, int base)
 {
 	int 	carry;
 	int		s_len[3];
 	int		i;
 	char	*s;
 
-	s1 = ft_strchr(s1, '.') + 1;
-	s2 = ft_strchr(s2, '.') + 1;
+//	s1 = ft_strchr(s1, '.') + 1;
+//	s2 = ft_strchr(s2, '.') + 1;
 	s_len[1] = ft_strlen(s1);
 	s_len[2] = ft_strlen(s2);
 	s_len[0] = 2 + (s_len[1] > s_len[2] ? s_len[1] : s_len[2]);
@@ -102,6 +136,24 @@ char	*ft_sum_decimal_place(char *s1, char *s2, int base)
 	return (s);
 }
 
+char	*ft_sum_float(char *s1, char *s2, int base)
+{
+	int	*len[4];
+	char	*s3;
+	char	*s4;
+	char	*s5;
+	char	*ret;
+
+	len[1] = ft_float_len(s1);
+	len[2] = ft_float_len(s2);
+	s3 = ft_sum_decimal(&s1[len[1][1] +1 ], &s2[len[2][1] + 1], base);
+	s4 = ft_sum_int(s1, s2, base);
+	s5 = ft_sum_int(s3, s4, base);
+	len[3] = ft_float_len(s3);
+	if (!(ret = ft_strjoin(s5, &s3[len[3][1]])))
+		return (NULL);
+	return (ret);
+}
 
 char	*ft_sub(char *s1, char *s2)
 {
@@ -309,7 +361,7 @@ char	*ft_conv_bin_int(char *binary)
 		if (binary[i] == '1')
 		{
 			tmp2 = ft_pow(2, max_power - i);
-			tmp = ft_sum(ret, tmp2, 10);
+			tmp = ft_sum_int(ret, tmp2, 10);
 			free(tmp2);
 			free(ret);
 			ret = tmp;
@@ -337,7 +389,7 @@ char	*ft_conv_bin_dec_place(char *binary)
 			tmp = ft_pow(2, i);
 			tmp2 = ft_div("1", tmp, 10);
 			free(tmp);
-			tmp = ft_sum_decimal_place(ret, tmp2, 10);
+			tmp = ft_sum_decimal(ft_strchr(ret, '.') + 1, ft_strchr(tmp2, '.') + 1, 10);
 			free(tmp2);
 			free(ret);
 			ret = tmp;

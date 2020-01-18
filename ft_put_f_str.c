@@ -312,28 +312,26 @@ int	ft_add_precision(char **str, t_spec *s_args)
 int	ft_roundup(char **str, t_spec *s_args)
 {
 	int		presision;
-	int		len[3];
+	int		*len;
 	char	*tmp;
-	char	*pointer;
+	char	*ret;
 	char	*round_diff;
 
 	tmp = *str;
-	len[2]  = ft_strlen(tmp);
-	pointer = ft_strchr(tmp, '.');
-	len[0] = pointer - tmp;
-	len[1] = len[2] - len[0] - 1;
+	len = ft_float_len(tmp);
 	presision = s_args->precision;
-	if (presision < len[1])
+	if (presision < len[2])
 	{
-		if (ft_strchr("56789", pointer[1 + presision]))
+		if (ft_strchr("56789", tmp[len[1] + 1 + presision]))
 		{
+			round_diff = NULL;
 			if (ft_roundup_diff(&round_diff, presision) == -1)
 				return (-1);
-			pointer = ft_sum_decimal_place(tmp, round_diff, 10);
+			ret = ft_sum_float(tmp, round_diff, 10);
 			free (tmp);
-			*str = pointer;
+			*str = ret;
 		}
-		pointer[1 + presision] = '\0';
+		ret[len[1] + 1 + presision] = '\0';
 	}
 	return (0);
 //	ft_add_precision(char &str, s_args);

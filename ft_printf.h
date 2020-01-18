@@ -116,8 +116,10 @@ int		ft_conv_bin2dec(char **str);
 //int		ft_put_f_sep(t_spec *s_args);
 int		ft_get_width_diff(t_spec **s_args);
 int		ft_shift(char **s, int i);
-char	*ft_sum_decimal_place(char *s1, char *s2, int base);
+char	*ft_sum_decimal(char *s1, char *s2, int base);
 int	ft_shift(char **s, int i);
 int	ft_put_binary_str(unsigned long int n, char **s);
+char	*ft_sum_float(char *s1, char *s2, int base);
+int	*ft_float_len(char *str);
 
 #endif
