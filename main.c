@@ -45,13 +45,13 @@ int main(void)
 	printf("%s|\n", str);
 	return (0);
 */
- 	i = ft_printf("%10c", '1');
+ 	i = ft_printf("%0+10d|", 42);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
-	i = printf("%10c", '1');
-	printf("res=%i=li\n", i);
+	i = printf("%0+10d|", 42);
+	printf("\nres=%i=li\n", i);
 
 /*
 	i = ft_printf("int(o)=%#-15.10o, int(o)=%#15.10o, int(x)=%#15.10x=my", 55555, 77777, 77777);

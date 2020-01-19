@@ -16,7 +16,9 @@ int ft_get_arg_f(t_spec *s_args, va_list args)
 {
 	int 		ret;
 	long double	nb;
+	char	*str;
 
+	ret = 0;
 	if (!s_args->modifier)
 		nb = (long double)va_arg(args, double);
 	else if ('l' == s_args->modifier)
@@ -26,10 +28,10 @@ int ft_get_arg_f(t_spec *s_args, va_list args)
 	else
 		nb = (double)va_arg(args, double);
 //	if (nb == "NaN")
-	ft_putsign(s_args);
-	ret = ft_put_f_str((long double)nb, s_args);
-	ft_get_len_output_f(s_args);
-	ret = (!ret ? ft_putoutput_f(s_args) : ret);
+	ft_set_sign(s_args);
+	str = ft_get_f_str((long double)nb, s_args);
+	ft_get_len_output_f(s_args, str);
+	ret = (!ret ? ft_put_output_f(s_args, str) : ret);
 
 	return (ret);	
 }

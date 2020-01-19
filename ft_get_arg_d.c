@@ -72,7 +72,8 @@ int	ft_get_arg_oxX(t_spec *s_args, va_list args)
 	int			ret;
 	uintmax_t	nb;
 	char		*str;
-
+	
+	ret = 0;
 	if (!s_args->modifier)
 		nb = (unsigned int)va_arg(args, unsigned int);
 	else if ('h' == s_args->modifier)
@@ -108,7 +109,7 @@ int	ft_get_arg_c(t_spec *s_args, va_list args)
 			s_args->width =  s_args->width - 1;
 		s_args->width_diff = 1;
 	}
-	if (!(str = ft_get_c_str(nb, s_args)))
+	if (!(str = ft_get_c_str(nb)))
 		return (-1);
 	ft_get_len_output(s_args, str);
 	ret = (!ret ? ft_put_output(s_args, str) : ret);
@@ -144,8 +145,7 @@ int	ft_get_arg_p(t_spec *s_args, va_list args)
 	ret = 0;
 	s = (char *)va_arg(args, char*);
 	str = ft_get_p_str(s);
-	ft_get_len_output(s_args);
+	ft_get_len_output(s_args, str);
 	ret = ft_put_output_xX(s_args, str);
-*/
 	return (ret);	
 }

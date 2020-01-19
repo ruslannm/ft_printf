@@ -100,9 +100,10 @@ int	ft_put_output(t_spec *s_args, char *str)
 	if (len[3] < len[0])
 		str[len[3]] = '\0';
 	ft_putstr_fd(str, s_args->fd);
-	i = i + (len[3] < len[0] ? len[3] : len[0]);
-	while (i++ < len[3])
+	i = -1 + i + (len[3] < len[0] ? len[3] : len[0]);
+	while (++i < len[3])
 		ft_putchar_fd(' ', s_args->fd);
+	s_args->len = (s_args->len >= 0 ? s_args->len + len[3] : -1);
 	return (0);
 }
 

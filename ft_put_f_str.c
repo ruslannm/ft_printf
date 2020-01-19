@@ -148,16 +148,16 @@ int	ft_put_binary_str(unsigned long int n, char **s)
 	return (0);
 }
 
-void	ft_get_len_output_f(t_spec *s_args)
+void	ft_get_len_output_f(t_spec *s_args, char *str)
 {
 	char	*pointer;
 	int	len[8];
 
-	len[5] = ft_strlen(s_args->output_raw);
-	if (!(pointer = ft_strchr(s_args->output_raw, '.')))
+	len[5] = ft_strlen(str);
+	if (!(pointer = ft_strchr(str, '.')))
 		len[0] = len[5];
 	else 
-		len[0] = pointer - s_args->output_raw;  // integer part
+		len[0] = pointer - str;  // integer part
 	len[6] = len[5] - len[0]; //decimal part includes point
 	len[7] = 0; //tmp
 	if (s_args->precision_ini && !s_args->precision)
@@ -189,7 +189,7 @@ void	ft_get_len_output_f(t_spec *s_args)
 	s_args->output_len[5] = len[7];
 }
 
-int	ft_putoutput_f(t_spec *s_args)
+int	ft_put_output_f(t_spec *s_args, char *str)
 {
 	char	*tmp;
 	int		*len;
@@ -235,6 +235,7 @@ int	ft_putoutput_f(t_spec *s_args)
 	s_args->output_dec[0] = '.';
 	ft_strncpy(&s_args->output_dec[1], &s_args->output_raw[s_args->output_len[0] + 1], s_args->output_len[1]);
 	*/
+	ft_putstr_fd(str, s_args->fd);
 	return (0);
 }
 
@@ -338,7 +339,7 @@ int	ft_roundup(char **str, t_spec *s_args)
 //	return (ft_add_precision(&str, s_args) == 0 ? 0 : -1);
 }
 
-int	ft_put_f_str(long double n, t_spec *s_args)
+char	*ft_get_f_str(long double n, t_spec *s_args)
 {
 	union u_double	u_d;
 	int	power;
@@ -377,37 +378,9 @@ int	ft_put_f_str(long double n, t_spec *s_args)
 		return (0);
 	}
 	ft_put_binary_str(u_d.f_parts.m, &m);
-/*	tmp_m = ft_strnew(64 + 2); //23 + 2);
-	ft_strcpy(tmp_m, "1.");
-	i = ft_strlen(m);
-	while (i < 64) //23)
-		tmp_m[65 - i++] = '0'; //tmp_m[24 - i++] = '0';
-	ft_strcpy(&tmp_m[2], m); 
-	//ft_strcpy(&tmp_m[25 - i], m); //
-*/
 	ft_shift(&m, power);
 	ft_conv_bin2dec(&m);
 	ft_roundup(&m, s_args);
 	ft_add_precision(&m, s_args);
-	s_args->output_raw = m;
-
-/*	n = n * (n < 0 ? -1 : 1);
-	i = ft_nbr_len(n, 10);
-	i = i + (s_args->flags[5] == 39 ? THOUSAND_SEP_LEN * (i / 3 ) : 0);
-	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
-		return (-1);
-	s_args->output_raw[i] = '\0';
-	j = 0;
-	while (--i >= 0)
-	{
-		if (j++ % 3 == 0 && j > 2 && s_args->flags[5] == 39 && THOUSAND_SEP_LEN > 0)
-		{
-			ft_strncpy(&s_args->output_raw[i + 1 - THOUSAND_SEP_LEN], THOUSAND_SEP, THOUSAND_SEP_LEN);
-			i = i - THOUSAND_SEP_LEN;
-		}
-		s_args->output_raw[i] = n % 10 + '0';
-		n = n / 10;
-	}
-	*/
-	return (0);
+	return (m);
 }

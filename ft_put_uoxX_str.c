@@ -70,7 +70,7 @@ int	ft_put_u_str(uintmax_t n, t_spec *s_args)
 }
 */
 
-char	*ft_put_o_str(uintmax_t n, t_spec *s_args)
+char	*ft_get_o_str(uintmax_t n, t_spec *s_args)
 {
 	int i;
 	int	base;

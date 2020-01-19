@@ -45,7 +45,10 @@ int	ft_parse_format(t_spec *s_args, va_list args)
 		}
 	}
 	else
+	{
+		s_args->start = s_args->start + i;
 		ft_read_args(s_args, args);
+	}
 	return (0);
 }
 
@@ -96,7 +99,7 @@ int	ft_parse(t_spec *s_args, va_list args)
 			if (-1 == ft_parse_format(s_args, args))
 				break;
 			else
-				i = s_args->start;			
+				i = s_args->start - 1;			
 		}
 		else
 		{

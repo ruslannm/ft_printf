@@ -12,14 +12,14 @@
 
 #include "ft_printf.h"
 
-char	*ft_get_c_str(unsigned char n, t_spec *s_args)
+char	*ft_get_c_str(unsigned char n)
 {
 	char	*ret;
 	
 	if (!(ret = ft_strnew(2)))
-		return (-1);
+		return (NULL);
 	ret[0] = n;
-	return (0);
+	return (ret);
 }
 /*
 char	*ft_get_s_str(char *s, t_spec *s_args)
