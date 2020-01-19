@@ -67,5 +67,5 @@ int	ft_parse_percent(char *s, int i)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }

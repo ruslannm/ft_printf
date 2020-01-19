@@ -26,7 +26,7 @@ int	ft_parse_format(t_spec *s_args, va_list args)
 	i = ft_parse_modifier(s, s_args, i);
 	i = ft_parse_conversion(s, s_args, i);
 	percent = ft_parse_percent(s, 0);
-	if (s_args->conversion && percent && percent < i)
+	if (s_args->conversion && percent >= 0 && percent < i)
 	{
 		ft_putchar_fd('%', s_args->fd);
 		s_args->start = s_args->start + percent + 1;
@@ -35,12 +35,12 @@ int	ft_parse_format(t_spec *s_args, va_list args)
 	}
 	if (ft_check_format(s_args) == -1)
 	{
-		if (!percent)
+		if (-1 == percent)
 			return (-1);
 		else
 		{
 			ft_putchar_fd('%', s_args->fd);
-			s_args->start = s_args->start + percent;
+			s_args->start = s_args->start + percent + 1;
 			s_args->len = s_args->len + 1;
 		}
 	}

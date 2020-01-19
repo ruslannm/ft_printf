@@ -74,6 +74,16 @@ int	ft_put_sign(t_spec *s_args, int i)
 	return (i);
 }
 
+int	ft_putchar_s_fd(char c, int i, int j, int fd)
+{
+	while (i < j)
+	{
+		ft_putchar_fd(c, fd);
+		i++;
+	}
+	return (i);
+}
+
 int	ft_put_output(t_spec *s_args, char *str)
 {
 	int		*len;
@@ -84,65 +94,21 @@ int	ft_put_output(t_spec *s_args, char *str)
 	if (s_args->flags[1])
 	{
 		i = ft_put_sign(s_args, i);
-		while (i++ < len[3] - len[1] - len[2])
-			ft_putchar_fd('0', s_args->fd);
+		i = ft_putchar_s_fd('0', i, len[3] - len[1] - len[2], s_args->fd);
 	}
 	if (s_args->flags[2] == 0)
-		while (i++ < len[3] - len[1] - len[2])
-			ft_putchar_fd(' ', s_args->fd);
+		i = ft_putchar_s_fd(' ', i, len[3] - len[1] - len[2], s_args->fd);
 	if (len[2])
 		i = ft_put_sign(s_args, i);
-	while (len[1]-- - len[0] > 0)
-	{
-		ft_putchar_fd('0', s_args->fd);
-		i++;
-	}
+	i = ft_putchar_s_fd('0', i, i + len[1] - len[0], s_args->fd);
 	if (len[3] < len[0])
 		str[len[3]] = '\0';
 	ft_putstr_fd(str, s_args->fd);
-	i = -1 + i + (len[3] < len[0] ? len[3] : len[0]);
-	while (++i < len[3])
-		ft_putchar_fd(' ', s_args->fd);
+	i = i + (len[3] < len[0] ? len[3] : len[0]);
+	i = ft_putchar_s_fd(' ', i, len[3], s_args->fd);
 	s_args->len = (s_args->len >= 0 ? s_args->len + len[3] : -1);
 	return (0);
 }
-
-int	ft_put_output_xX(t_spec *s_args, char *str)
-{
-	int		*len;
-	char	*tmp;
-	char	*output;
-
-	len = s_args->output_len;
-	tmp = str;
-	if (!(output = ft_strnew(len[3])))
-		return (-1);
-	if (s_args->flags[2] == 0 && s_args->flags[1] == 0)
-	{
-		while (len[4] < len[3] - len[1] - len[2])
-			output[len[4]++] = ' ';
-	}
-	if (len[2])
-	{
-		output[len[4]++] = '0';
-		output[len[4]++] = (s_args->conversion == 'p' ? 'x' : s_args->conversion);
-	}
-	if (s_args->flags[1])
-	{
-		while (len[4] < len[3] - len[1])
-			output[len[4]++] = '0';
-	}
-	while (len[1]-- - len[0] > 0)
-		output[len[4]++] = '0';
-	while (len[0]-- > 0)
-		output[len[4]++] = *tmp++;
-	if (s_args->flags[2] != 0)
-		while (len[4] < len[3])
-			output[len[4]++] = ' ';
-	s_args->output = output;
-	return (0);
-}
-
 
 void	ft_set_sign(t_spec *s_args)
 {
@@ -175,32 +141,3 @@ char	*ft_get_di_str(intmax_t n, t_spec *s_args)
 	}
 	return (str);
 }
-
-/*
-
-int	ft_put_di_str(intmax_t n, t_spec *s_args)
-{
-	int 	i;
-	int		j;
-
-	n = n * (n < 0 ? -1 : 1);
-	i = ft_nbr_len(n, 10);
-	i = i + (s_args->flags[5] == 39 ? THOUSAND_SEP_LEN * (i / 3 ) : 0);
-	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * (i + 1))))
-		return (-1);
-	s_args->output_raw[i] = '\0';
-	j = 0;
-	while (--i >= 0)
-	{
-		if (j++ % 3 == 0 && j > 2 && s_args->flags[5] == 39 && THOUSAND_SEP_LEN > 0)
-		{
-			ft_strncpy(&s_args->output_raw[i + 1 - THOUSAND_SEP_LEN], THOUSAND_SEP, THOUSAND_SEP_LEN);
-			i = i - THOUSAND_SEP_LEN;
-		}
-		s_args->output_raw[i] = n % 10 + '0';
-		n = n / 10;
-	}
-	if s_args->output_raw[i]
-	return (0);
-}
-*/

@@ -107,7 +107,7 @@ int		ft_get_arg_p(t_spec *s_args, va_list args);
 int		ft_printf_len(char *format, t_spec **s_args);
 void	ft_set_sign(t_spec *s_args);
 int		ft_put_output(t_spec *s_args, char *str);
-int		ft_put_output_xX(t_spec *s_args, char *str);
+//int		ft_put_output_xX(t_spec *s_args, char *str);
 int		ft_put_output_f(t_spec *s_args, char *str);
 char	*ft_get_u_str(uintmax_t n, t_spec *s_args);
 char	*ft_get_o_str(uintmax_t n, t_spec *s_args);

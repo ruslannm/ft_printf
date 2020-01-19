@@ -174,7 +174,7 @@ int ft_printf(const char *format, ...)
 	va_start(args, format);
 	ret = 0;
 	s_args = NULL;
-	if (-1 == ft_new_spec(&s_args, (char*)format, 0, 0))
+	if (-1 == ft_new_spec(&s_args, (char*)format, 0, 1))
 		return (-1);
 	ret = ft_parse(s_args, args);
 	return (ret);
