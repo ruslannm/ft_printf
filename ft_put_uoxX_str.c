@@ -25,23 +25,24 @@ static int	ft_get_udigit(uintmax_t n, int base)
 	return (i);
 }
 
-int	ft_put_u_str(uintmax_t n, t_spec *s_args)
+char	*ft_get_u_str(uintmax_t n, t_spec *s_args)
 {
 	int 	i;
+	char	*str;
 
 	i = ft_get_udigit(n, 10);
 	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0 )
 		i = 0;
 	if (s_args->precision_ini == 1)
 		s_args->flags[1] = 0;
-	if (!(s_args->output_raw = ft_strnew(i)))
-		return (-1);
+	if (!(str = ft_strnew(i)))
+		return (NULL);
 	while (--i >= 0)
 	{
-		s_args->output_raw[i] = n % 10 + '0';
+		str[i] = n % 10 + '0';
 		n = n / 10;
 	}
-	return (0);
+	return (str);
 }
 
 /*
@@ -69,10 +70,11 @@ int	ft_put_u_str(uintmax_t n, t_spec *s_args)
 }
 */
 
-int	ft_put_o_str(uintmax_t n, t_spec *s_args)
+char	*ft_put_o_str(uintmax_t n, t_spec *s_args)
 {
 	int i;
 	int	base;
+	char	*str;
 
 	base = (s_args->conversion == 'o' ? 8 : 16);
 	i = ft_get_udigit(n, base);
@@ -80,20 +82,21 @@ int	ft_put_o_str(uintmax_t n, t_spec *s_args)
 		i = 0;
 	if (s_args->flags[0] && (!i || n))
 		i++;
-	if (!(s_args->output_raw = ft_strnew(i)))
-		return (-1);
+	if (!(str = ft_strnew(i)))
+		return (NULL);
 	while (--i >= 0)
 	{
-		s_args->output_raw[i] = n % base + '0';
+		str[i] = n % base + '0';
 		n = n / base;
 	}
-	return (0);
+	return (str);
 }
 
-int	ft_put_xX_str(uintmax_t n, t_spec *s_args)
+char	*ft_get_xX_str(uintmax_t n, t_spec *s_args)
 {
 	int i;
 	int	base;
+	char	*str;
 
 	base = (s_args->conversion == 'o' ? 8 : 16);
 	i = ft_get_udigit(n, base);
@@ -103,39 +106,39 @@ int	ft_put_xX_str(uintmax_t n, t_spec *s_args)
 	if (s_args->conversion != 'o' && n == 0 && s_args->precision_ini == 1 && s_args->precision == 0)// && !s_args->flags[0])
 		i = 0;
 */
-	if (!(s_args->output_raw = ft_strnew(i)))
-		return (-1);
+	if (!(str = ft_strnew(i)))
+		return (NULL);
 	while (--i >= 0)
 	{
 		if (n % base < 10)
-			s_args->output_raw[i] = n % base + '0';
+			str[i] = n % base + '0';
 		else
-			s_args->output_raw[i] = n % base - 10 + (s_args->conversion == 'x' ? 'a' : 'A');
+			str[i] = n % base - 10 + (s_args->conversion == 'x' ? 'a' : 'A');
 		n = n / base;
 	}
-	
-
-	return (0);
+	return (str);
 }
 
-int	ft_put_p_str(char *s, t_spec *s_args)
+char	*ft_get_p_str(char *s)
 {
 	int i;
 	int	base;
 	long p;
+	char	*ret;
 
 	base = 16;
 	p = (long)s;
+	free(s);
 	i = ft_get_udigit(p, base);
-	if (!(s_args->output_raw = ft_strnew(i)))
-		return (-1);
+	if (!(ret = ft_strnew(i)))
+		return (NULL);
 	while (--i >= 0)
 	{
 		if (p % base < 10)
-			s_args->output_raw[i] = p % base + '0';
+			ret[i] = p % base + '0';
 		else
-			s_args->output_raw[i] = p % base - 10 + 'a';
+			ret[i] = p % base - 10 + 'a';
 		p = p / base;
 	}
-	return (0);
+	return (ret);
 }

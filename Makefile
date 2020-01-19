@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/01/16 14:50:26 by rgero            ###   ########.fr        #
+#    Updated: 2019/12/25 15:23:15 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = ft_printf
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
+#CFLAGS = -g
 
 SRC_PATH = ./
 SRC_NAME = main.c ft_printf.c ft_read_format.c ft_parse_fields.c \

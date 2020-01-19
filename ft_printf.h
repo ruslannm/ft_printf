@@ -23,8 +23,11 @@
 #define		THOUSAND_SEP ","
 
 #define		THOUSAND_SEP_LEN 1
+
 typedef struct s_spec
 {
+	int		fd;
+	char	*format;
 	int		position;
 	char	flags[6];  //012345  #0- +'
 	int		width;
@@ -32,7 +35,7 @@ typedef struct s_spec
 	int		width_diff;  //difference for c = 0
 	int		precision;
 	int		precision_ini; //0 - new struct, 1 - exists in format string, -1 * look in args
-	char	*modifier;
+	char	modifier;
 	char	conversion;
 	int		start;
 	int		len;
@@ -74,22 +77,27 @@ union u_double
 };
 
 int		ft_printf(const char * restrict format, ...);
+/*
 void	ft_parse(int *i, const char *str, va_list args, int *p);
+*/
+int		ft_parse(t_spec *s_args, va_list args);
+int	ft_new_spec(t_spec **s_args, char *format, int start, int fd);
 void	ft_flag_int(va_list args, int *p);
 void	ft_flag_char(va_list args, int *p);
 void	ft_flag_str(va_list args, int *p);
 
-t_spec	**ft_read_format(char *s);
-int		ft_read_args(t_spec **s_args, va_list args);
+//t_spec	**ft_read_format(char *s);
+int		ft_read_args(t_spec *s_args, va_list args);
 int		ft_parse_position(char *s, t_spec *s_args, int *i);
-int		ft_parse_flags(char *s, t_spec *s_args, int *i);
-int		ft_parse_width(char *s, t_spec *s_args, int *i);
-int		ft_parse_precision(char *s, t_spec *s_args, int *i);
-int		ft_parse_modifier(char *s, t_spec *s_args, int *i);
-int		ft_parse_conversion(char *s, t_spec *s_args, int *i);
+int		ft_parse_flags(char *s, t_spec *s_args, int i);
+int		ft_parse_width(char *s, t_spec *s_args, int i);
+int		ft_parse_precision(char *s, t_spec *s_args, int i);
+int		ft_parse_modifier(char *s, t_spec *s_args, int i);
+int		ft_parse_conversion(char *s, t_spec *s_args, int i);
+int		ft_parse_percent(char *s, int i);
 int		ft_check_format(t_spec *s_args);
 int		ft_check_position(t_spec **s_args);
-int		ft_put_di_str(intmax_t n, t_spec *s_args);
+char	*ft_get_di_str(intmax_t n, t_spec *s_args);
 int		ft_get_arg_d(t_spec *s_args, va_list args);
 int		ft_get_arg_u(t_spec *s_args, va_list args);
 int		ft_get_arg_oxX(t_spec *s_args, va_list args);
@@ -97,17 +105,17 @@ int		ft_get_arg_c(t_spec *s_args, va_list args);
 int		ft_get_arg_s(t_spec *s_args, va_list args);
 int		ft_get_arg_p(t_spec *s_args, va_list args);
 int		ft_printf_len(char *format, t_spec **s_args);
-void	ft_putsign(t_spec *s_args);
-int		ft_putoutput(t_spec *s_args);
-int		ft_putoutput_xX(t_spec *s_args);
-int		ft_putoutput_f(t_spec *s_args);
-int		ft_put_u_str(uintmax_t n, t_spec *s_args);
-int		ft_put_o_str(uintmax_t n, t_spec *s_args);
-int		ft_put_xX_str(uintmax_t n, t_spec *s_args);
-int		ft_put_c_str(unsigned char n, t_spec *s_args);
-int		ft_put_s_str(char *s, t_spec *s_args);
-int		ft_put_p_str(char *s, t_spec *s_args);
-void	ft_get_len_output(t_spec *s_args);
+void	ft_set_sign(t_spec *s_args);
+int		ft_put_output(t_spec *s_args, char *str);
+int		ft_put_output_xX(t_spec *s_args, char *str);
+int		ft_put_output_f(t_spec *s_args, char *str);
+char	*ft_get_u_str(uintmax_t n, t_spec *s_args);
+char	*ft_get_o_str(uintmax_t n, t_spec *s_args);
+char	*ft_get_xX_str(uintmax_t n, t_spec *s_args);
+//int		ft_get_c_str(unsigned char n, t_spec *s_args);
+//int		ft_get_s_str(char *s, t_spec *s_args);
+char	*ft_get_p_str(char *s);
+void	ft_get_len_output(t_spec *s_args, char *str);
 void	ft_get_len_output_f(t_spec *s_args);
 int		ft_nbr_len(intmax_t n, int base);
 int		ft_put_f_str(long double n, t_spec *s_args);

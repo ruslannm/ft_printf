@@ -12,83 +12,105 @@
 
 #include "ft_printf.h"
 
-int	ft_parse_format(char *s, t_spec *s_args, int start)
+int	ft_parse_format(t_spec *s_args, va_list args)
 {
 	int		i;
+	char	*s;
+	int		percent;
 
+	s = s_args->format + s_args->start;
 	i = 0;
-	if (s[i] != '\0')
-		ft_parse_position(s, s_args, &i);
-	if (s[i] && ft_parse_flags(s, s_args, &i) == -1)
-		return (-1);
-	if (s[i] != '\0')
-		ft_parse_width(s, s_args, &i);
-	if (s[i] != '\0')
-		ft_parse_precision(s, s_args, &i);
-	if (s[i] && ft_parse_modifier(s, s_args, &i) == -1)
-		return (-1);
-	if (s[i] && ft_parse_conversion(s, s_args, &i) == -1)
-		return (-1);
-	if (s_args->conversion == 'f')
+	i = ft_parse_flags(s, s_args, i);
+	i = ft_parse_width(s, s_args, i);
+	i = ft_parse_precision(s, s_args, i);
+	i = ft_parse_modifier(s, s_args, i);
+	i = ft_parse_conversion(s, s_args, i);
+	percent = ft_parse_percent(s, 0);
+	if (s_args->conversion && percent && percent < i)
 	{
-		if  (s_args->precision_ini && !s_args->precision)
-			s_args->flags[1] = 0;
+		ft_putchar_fd('%', s_args->fd);
+		s_args->start = s_args->start + percent + 1;
+		s_args->len = s_args->len + 1;
+		return (0);
 	}
-	else if (s_args->precision_ini)
-		s_args->flags[1] = 0;
-
-	s_args->len = i;
 	if (ft_check_format(s_args) == -1)
-		return (-1);
-	return (start + i);
+	{
+		if (!percent)
+			return (-1);
+		else
+		{
+			ft_putchar_fd('%', s_args->fd);
+			s_args->start = s_args->start + percent;
+			s_args->len = s_args->len + 1;
+		}
+	}
+	else
+		ft_read_args(s_args, args);
+	return (0);
 }
 
-t_spec	*ft_new_spec(int start)
+int	ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 {
-	t_spec	*ret;
-
-	if (!(ret = (t_spec*)malloc(sizeof(t_spec))))
-		return (NULL);
-	ret->position = 0;
-	ret->flags[0] = 0;
-	ret->flags[1] = 0;
-	ret->flags[2] = 0;
-	ret->flags[3] = 0;
-	ret->flags[4] = 0;
-	ret->flags[5] = 0;
-	ret->width_ini = 0;
-	ret->width = 0;
-	ret->width_diff = 0;
-	ret->precision_ini = 0;
-	ret->precision = 0;
-	ret->modifier = NULL;
-	ret->conversion = 0;
-	ret->start = start;
-	ret->len = 0;
-	ret->type = NULL;
-	ret->output = NULL;
-	ret->output_dec = NULL;
-	ret->sign = 0;
-	return (ret);
+	if (!*s_args)
+	{
+		if (!(*s_args = (t_spec*)malloc(sizeof(t_spec))))
+			return (-1);
+		(*s_args)->len = 0;
+		(*s_args)->fd = fd;
+		if (!((*s_args)->format = ft_strdup(format)))
+			return (-1);
+	}
+	(*s_args)->position = 0;
+	(*s_args)->flags[0] = 0;
+	(*s_args)->flags[1] = 0;
+	(*s_args)->flags[2] = 0;
+	(*s_args)->flags[3] = 0;
+	(*s_args)->flags[4] = 0;
+	(*s_args)->flags[5] = 0;
+	(*s_args)->width_ini = 0;
+	(*s_args)->width = 0;
+	(*s_args)->width_diff = 0;
+	(*s_args)->precision_ini = 0;
+	(*s_args)->precision = 0;
+	(*s_args)->modifier = 0;  //TODO free
+	(*s_args)->conversion = 0;
+	(*s_args)->start = start;
+//	ft_strdel(&((*s_args)->type)); //TODO free
+//	ft_strdel(&((*s_args)->output)); //TODO free
+	(*s_args)->sign = 0;
+	return (0);
 }
 
-t_spec **ft_ini_s_args(char *s)
+int	ft_parse(t_spec *s_args, va_list args)
 {
-	int	count_args;
-	int i;
-	t_spec	**ret;
+	int		i;
+	char	*s;
 
-	count_args = 0;
 	i = -1;
+	s = s_args->format;
 	while (s[++i] != '\0')
-		if (s[i] == '%' && s[i + 1] && s[i + 1] != '%')
-					count_args++;
-	if (!(ret = (t_spec**)malloc(sizeof(t_spec*) * (count_args + 1))))
-		return (NULL);
-	ret[count_args] = NULL;
-	return (ret);
+	{
+		if (s[i] == '%')
+		{
+			ft_new_spec(&s_args, NULL, i + 1, 0);
+			if (-1 == ft_parse_format(s_args, args))
+				break;
+			else
+				i = s_args->start;			
+		}
+		else
+		{
+			ft_putchar_fd(s[i], s_args->fd);
+			if (s_args->len >= 0) 
+				s_args->len = s_args->len + 1;
+		}
+	}
+	if (-1 == s_args->len)
+		return (-1);
+	return (s_args->len + s_args->width_diff);
 }
 
+/*
 
 t_spec	**ft_read_format(char *s)
 {
@@ -123,3 +145,4 @@ t_spec	**ft_read_format(char *s)
 		}
 	return (ret);
 }
+*/

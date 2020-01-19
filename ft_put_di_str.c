@@ -35,110 +35,85 @@ int	ft_nbr_len(intmax_t n, int base)
 ** 4 - counter
 */
 
-void	ft_get_len_output(t_spec *s_args)
+void	ft_get_len_output(t_spec *s_args, char *str)
 {
 	int	len[4];
 
-	len[0] = ft_strlen(s_args->output_raw);
+	len[0] = ft_strlen(str);
 	if (s_args->conversion == 'o' && s_args->flags[1] && len[0] == 0)
 		len[0] = 1;
-/*	if (len[0] < s_args->precision)
-		len[1] = s_args->precision;
-	else
-		len[1] = len[0];
-*/	
-/*	if (len[0] < s_args->precision)
-		len[1] = s_args->precision;
-	else
-	{
-		if (s_args->conversion == 's' && s_args->precision)
-			len[1] = s_args->precision;
-		else
-			len[1] = len[0];
-	}
-*/
-/*
 	len[1] = len[0];
-	if (s_args->conversion == 's')
-	{
-		if (len[0] > s_args->precision && s_args->precision_ini)
-			len[1] = s_args->precision;
-	}
-	else
-	{
-		if (len[0] < s_args->precision)
-			len[1] = s_args->precision;
-	}
-*/
-//	len[1] = (len[0] < s_args->precision ? s_args->precision : len[0]);
-	len[1] = len[0];
-
 	if (s_args->conversion != 's' && len[0] < s_args->precision)
 		len[1] = s_args->precision;
-
-
-	if ((ft_strcmp(s_args->output_raw, "0") && ft_strlen(s_args->output_raw) && (ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#')) || s_args->conversion == 'p')
+	if ((ft_strcmp(str, "0") && ft_strlen(str) && (ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#')) || s_args->conversion == 'p')
 		len[2] = 2;
 	else
 		len[2] = (s_args->sign ? 1 : 0);
-//	len[2] = (s_args->sign ? 1 : 0);
-	//if (s_args->conversion == 's' && s_args->)
 	len[3] = (len[1] + len[2] < s_args->width ? s_args->width : len[1] + len[2]);
 	s_args->output_len[0] = len[0];
 	s_args->output_len[1] = len[1];
 	s_args->output_len[2] = len[2];
 	s_args->output_len[3] = len[3];
-	s_args->output_len[4] = 0;
 }
 
-int	ft_putoutput(t_spec *s_args)
+int	ft_put_sign(t_spec *s_args, int i)
+{
+		if (1 == s_args->output_len[2])
+		{
+			ft_putchar_fd(s_args->sign, s_args->fd);
+			i++;
+			s_args->output_len[2] = 0;
+		}
+		else if (2 == s_args->output_len[2])
+		{
+			ft_putchar_fd('0', s_args->fd);
+			ft_putchar_fd((s_args->conversion == 'p' ? 'x' : s_args->conversion), s_args->fd);
+			i = i + 2;
+			s_args->output_len[2] = 0;
+		}
+	return (i);
+}
+
+int	ft_put_output(t_spec *s_args, char *str)
 {
 	int		*len;
-	char	*tmp;
-	char	*output;
+	int		i;
 
+	i = 0;
 	len = s_args->output_len;
-	tmp = s_args->output_raw;
-	if (!(output = ft_strnew(len[3])))
-		return (-1);
 	if (s_args->flags[1])
 	{
-		if (len[2] == 1)
-		{
-			output[len[4]++] = s_args->sign;
-			len[2] = 0;
-		}
-		while (len[4] < len[3] - len[1] - len[2])
-			output[len[4]++] = '0';
+		i = ft_put_sign(s_args, i);
+		while (i++ < len[3] - len[1] - len[2])
+			ft_putchar_fd('0', s_args->fd);
 	}
 	if (s_args->flags[2] == 0)
-		while (len[4] < len[3] - len[1] - len[2])
-			output[len[4]++] = ' ';
+		while (i++ < len[3] - len[1] - len[2])
+			ft_putchar_fd(' ', s_args->fd);
 	if (len[2])
-		output[len[4]++] = s_args->sign;
+		i = ft_put_sign(s_args, i);
 	while (len[1]-- - len[0] > 0)
-		output[len[4]++] = '0';
+	{
+		ft_putchar_fd('0', s_args->fd);
+		i++;
+	}
 	if (len[3] < len[0])
-		while (len[3]-- > 0)
-			output[len[4]++] = *tmp++;
-	else
-		while (len[0]-- > 0)
-			output[len[4]++] = *tmp++;
-	if (s_args->flags[2] != 0)
-		while (len[4] < len[3])
-			output[len[4]++] = ' ';
-	s_args->output = output;
+		str[len[3]] = '\0';
+	ft_putstr_fd(str, s_args->fd);
+	i = i + (len[3] < len[0] ? len[3] : len[0]);
+	while (i++ < len[3])
+		ft_putchar_fd(' ', s_args->fd);
 	return (0);
 }
 
-int	ft_putoutput_xX(t_spec *s_args)
+int	ft_put_output_xX(t_spec *s_args, char *str)
 {
 	int		*len;
 	char	*tmp;
 	char	*output;
 
 	len = s_args->output_len;
-	tmp = s_args->output_raw;
+	tmp = str;
 	if (!(output = ft_strnew(len[3])))
 		return (-1);
 	if (s_args->flags[2] == 0 && s_args->flags[1] == 0)
@@ -168,7 +143,7 @@ int	ft_putoutput_xX(t_spec *s_args)
 }
 
 
-void	ft_putsign(t_spec *s_args)
+void	ft_set_sign(t_spec *s_args)
 {
 	if (s_args->sign != '-')
 	{
@@ -179,9 +154,10 @@ void	ft_putsign(t_spec *s_args)
 	}
 }
 
-int	ft_put_di_str(intmax_t n, t_spec *s_args)
+char	*ft_get_di_str(intmax_t n, t_spec *s_args)
 {
 	int 	i;
+	char	*str;
 
 	n = n * (n < 0 ? -1 : 1);
 	i = ft_nbr_len(n, 10);
@@ -189,15 +165,14 @@ int	ft_put_di_str(intmax_t n, t_spec *s_args)
 		i = 0;
 	if (s_args->precision_ini == 1)
 		s_args->flags[1] = 0;
-	if (!(s_args->output_raw = ft_strnew(i)))
-		return (-1);
-	s_args->output_raw[i] = '\0';
+	if (!(str = ft_strnew(i)))
+		return (NULL);
 	while (--i >= 0)
 	{
-		s_args->output_raw[i] = n % 10 + '0';
+		str[i] = n % 10 + '0';
 		n = n / 10;
 	}
-	return (0);
+	return (str);
 }
 
 /*

@@ -169,6 +169,37 @@ int ft_printf(const char *format, ...)
 {
 	int 	ret;
 	va_list args;
+	t_spec	*s_args;
+
+	va_start(args, format);
+	ret = 0;
+	s_args = NULL;
+	if (-1 == ft_new_spec(&s_args, (char*)format, 0, 0))
+		return (-1);
+	ret = ft_parse(s_args, args);
+	return (ret);
+
+/*	if ((s_args = ft_read_format((char *)format)))
+		ret = ft_read_args(s_args, args);
+	if (!ret)
+	{
+		output = ft_get_str((char*)format, s_args);
+		ft_putstr(output);
+		ret = ft_strlen(output) + ft_get_width_diff(s_args); //printf_len((char*)format, s_args);
+	}
+	else
+		ret = -1;
+	return (ret);	
+	*/
+}
+
+
+
+/*
+int ft_printf(const char *format, ...)
+{
+	int 	ret;
+	va_list args;
 	t_spec	**s_args;
 	char	*output;
 
@@ -186,3 +217,4 @@ int ft_printf(const char *format, ...)
 		ret = -1;
 	return (ret);	
 }
+*/

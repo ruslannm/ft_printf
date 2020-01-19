@@ -12,16 +12,17 @@
 
 #include "ft_printf.h"
 
-int	ft_put_c_str(unsigned char n, t_spec *s_args)
+char	*ft_get_c_str(unsigned char n, t_spec *s_args)
 {
-	if (!(s_args->output_raw = (char *)malloc(sizeof(char) * 2)))
+	char	*ret;
+	
+	if (!(ret = ft_strnew(2)))
 		return (-1);
-	s_args->output_raw[1] = '\0';
-	s_args->output_raw[0] = n;
+	ret[0] = n;
 	return (0);
 }
-
-int	ft_put_s_str(char *s, t_spec *s_args)
+/*
+char	*ft_get_s_str(char *s, t_spec *s_args)
 {
 	if (!s)
 	{
@@ -37,3 +38,4 @@ int	ft_put_s_str(char *s, t_spec *s_args)
 		s_args->output_raw[s_args->precision] = '\0';
 	return (0);
 }
+*/

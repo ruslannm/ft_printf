@@ -53,54 +53,38 @@ void	ft_put_flag(t_spec *s_args, char c)
 		s_args->flags[5] = c;
 }
 
-int	ft_parse_flags(char *s, t_spec *s_args, int *i)
+int	ft_parse_flags(char *s, t_spec *s_args, int i)
 {
-	int		ret;
-	int		j;
-
-	j = *i;
-	ret = 0;
-	while (ft_strchr("#0- +'", s[j]))
-		ft_put_flag(s_args, s[j++]);
-	*i  = j;
-	return (ret);
+	while (s[i] && ft_strchr("#0- +'", s[i]))
+		ft_put_flag(s_args, s[i++]);
+	return (i);
 }
 
-int	ft_parse_width(char *s, t_spec *s_args, int *i)
+int	ft_parse_width(char *s, t_spec *s_args, int i)
 {
-	if (ft_isdigit(s[*i]))
+	if (ft_isdigit(s[i]))
 	{
-		s_args->width = ft_atoi(&s[*i]);
+		s_args->width = ft_atoi(&s[i]);
 		s_args->width_ini = 1;
-		while (ft_isdigit(s[*i]))
-			*i = *i + 1;
-	}
-	else if (s[*i] == '*')
-	{
-		s_args->width_ini = -1;
-		*i = *i + 1;
+		while (ft_isdigit(s[i]))
+			i++;
 	}
 	if (!s_args->width_ini && s_args->flags[1])
 		s_args->flags[1] = 0;
-	return (0);
+	return (i);
 }
 
-int	ft_parse_precision(char *s, t_spec *s_args, int *i)
+int	ft_parse_precision(char *s, t_spec *s_args, int i)
 {
-	if (s[*i] == '.')
+	if (s[i] == '.')
 	{
-		*i = *i + 1;
-		if (ft_isdigit(s[*i]))
+		i++;
+		if (ft_isdigit(s[i]))
 		{
-			s_args->precision = ft_atoi(&s[*i]);
+			s_args->precision = ft_atoi(&s[i]);
 			s_args->precision_ini = 1;
-			while (ft_isdigit(s[*i]))
-				*i = *i + 1;
-		}
-		else if (s[*i] == '*')
-		{
-			s_args->precision_ini = -1;
-			*i = *i + 1;
+			while (ft_isdigit(s[i]))
+				i++;
 		}
 		else 
 		{
@@ -108,5 +92,5 @@ int	ft_parse_precision(char *s, t_spec *s_args, int *i)
 			s_args->precision_ini = 1;
 		}	
 	}
-	return (0);
+	return (i);
 }

@@ -19,9 +19,9 @@ int ft_get_arg_f(t_spec *s_args, va_list args)
 
 	if (!s_args->modifier)
 		nb = (long double)va_arg(args, double);
-	else if (!ft_strcmp(s_args->modifier, "l"))
+	else if ('l' == s_args->modifier)
 		nb = (double)va_arg(args, double);
-	else if (!ft_strcmp(s_args->modifier, "L"))
+	else if ('L' == s_args->modifier)
 		nb = (long double)va_arg(args, long double);
 	else
 		nb = (double)va_arg(args, double);

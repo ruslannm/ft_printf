@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 
+/*
 static int	ft_parse_modifier_check_memory(char *s, int i)
 {
 	if (s[i])
@@ -29,36 +30,42 @@ static int	ft_parse_modifier_check_memory(char *s, int i)
 	}
 	return (0);
 }
+*/
 
-int	ft_parse_modifier(char *s, t_spec *s_args, int *i)
+int	ft_parse_modifier(char *s, t_spec *s_args, int i)
 {
-	if (!ft_strncmp(&s[*i], "hh", 2))
-		s_args->modifier = ft_strdup("hh");
-	else if (!ft_strncmp(&s[*i], "ll", 2))
-		s_args->modifier = ft_strdup("ll");
-	else if (s[*i] == 'h')
-		s_args->modifier = ft_strdup("h");
-	else if (s[*i] == 'l')
-		s_args->modifier = ft_strdup("l");
-	else if (s[*i] == 'L')
-		s_args->modifier = ft_strdup("L");
-	if (s_args->modifier)
-		*i = *i + ft_strlen(s_args->modifier);
-	else if (ft_parse_modifier_check_memory(s, *i))
-		return (-1);	
-	return (0);
+	if (!ft_strncmp(&s[i], "hh", 2))
+		s_args->modifier = '1';
+	else if (!ft_strncmp(&s[i], "ll", 2))
+		s_args->modifier = '2';
+	else if (ft_strchr("hlL", s[i]))
+		s_args->modifier = s[i];
+	if (ft_isdigit(s_args->modifier))
+		i = i + 2;
+	else if (ft_isalpha(s_args->modifier))
+		i++;
+	return (i);
 }
 
-int	ft_parse_conversion(char *s, t_spec *s_args, int *i)
+int	ft_parse_conversion(char *s, t_spec *s_args, int i)
 {
-	if (ft_strchr("cspdiouxXf", s[*i]))
+	if (ft_strchr("cspdiouxXf", s[i]))
 	{
-		s_args->conversion = s[*i];
+		s_args->conversion = s[i];
 		if (s_args->conversion == 'f' && !s_args->modifier && !s_args->precision_ini)
 			s_args->precision = 6;
-		*i = *i + 1;
-		return (0);
+		i++;
 	}
-	else 
-		return (-1);
+	return (i);
+}
+
+int	ft_parse_percent(char *s, int i)
+{
+	while (s[i])
+	{
+		if (s[i] == '%')
+			return (i);
+		i++;
+	}
+	return (0);
 }

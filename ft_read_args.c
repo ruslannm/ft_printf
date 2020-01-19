@@ -12,30 +12,24 @@
 
 #include "ft_printf.h"
 
-int		ft_read_args(t_spec **s_args, va_list args)
+int		ft_read_args(t_spec *s_args, va_list args)
 {
-	int	i;
 	int	ret;
 
-	i = -1;
 	ret = 0;
-	while (s_args[++i])
-	{
-		if (ft_strchr("di", s_args[i]->conversion))
-			ret = (ret == -1 ? ret : ft_get_arg_d(s_args[i], args)); 
-		else if (ft_strchr("u", s_args[i]->conversion))
-			ret = (ret == -1 ? ret : ft_get_arg_u(s_args[i], args)); 
-		else if (ft_strchr("oxX", s_args[i]->conversion))
-			ret = (ret == -1 ? ret : ft_get_arg_oxX(s_args[i], args)); 
-		else if (ft_strchr("c", s_args[i]->conversion))
-			ret = (ret == -1 ? ret : ft_get_arg_c(s_args[i], args)); 
-		else if (ft_strchr("s", s_args[i]->conversion))
-			ret = (ret == -1 ? ret : ft_get_arg_s(s_args[i], args)); 
-		else if (ft_strchr("p", s_args[i]->conversion))
-			ret = (ret == -1 ? ret : ft_get_arg_p(s_args[i], args)); 
-		else if (ft_strchr("f", s_args[i]->conversion))
-			ret = (ret == -1 ? ret : ft_get_arg_f(s_args[i], args)); 
-
-	}
+	if (ft_strchr("di", s_args->conversion))
+		ret = (ret == -1 ? ret : ft_get_arg_d(s_args, args)); 
+	else if (ft_strchr("u", s_args->conversion))
+		ret = (ret == -1 ? ret : ft_get_arg_u(s_args, args)); 
+	else if (ft_strchr("oxX", s_args->conversion))
+		ret = (ret == -1 ? ret : ft_get_arg_oxX(s_args, args)); 
+	else if (ft_strchr("c", s_args->conversion))
+		ret = (ret == -1 ? ret : ft_get_arg_c(s_args, args)); 
+	else if (ft_strchr("s", s_args->conversion))
+		ret = (ret == -1 ? ret : ft_get_arg_s(s_args, args)); 
+	else if (ft_strchr("p", s_args->conversion))
+		ret = (ret == -1 ? ret : ft_get_arg_p(s_args, args)); 
+	else if (ft_strchr("f", s_args->conversion))
+		ret = (ret == -1 ? ret : ft_get_arg_f(s_args, args)); 
 	return (ret);
 }
