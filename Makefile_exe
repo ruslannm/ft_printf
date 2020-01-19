@@ -16,11 +16,21 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_PATH = ./
-SRC_NAME = main.c ft_printf.c ft_read_format.c ft_parse_fields.c \
-	ft_parse_conversion.c ft_check_format.c \
-	ft_put_di_str.c ft_put_uoxX_str.c ft_read_args.c ft_get_arg_d.c \
-	ft_printf_len.c ft_put_csp_str.c \
-	ft_get_arg_f.c ft_put_f_str.c ft_bigop.c
+SRC_NAME = 	ft_bigop.c \
+	ft_check_format.c \
+	ft_get_arg_csp.c \
+	ft_get_arg_duoxX.c \
+	ft_get_arg_f.c \
+	ft_get_str_dic.c \
+	ft_parse_conversion.c \
+	ft_parse_fields.c \
+	ft_printf.c \
+	ft_put_str_di.c \
+	ft_put_str_f.c \
+	ft_put_str_uoxX.c \
+	ft_read_args.c \
+	ft_read_format.c \
+	main.c
 
 OBJ_PATH = ./
 OBJ_NAME = $(SRC_NAME:.c=.o)

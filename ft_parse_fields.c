@@ -31,7 +31,7 @@ int	ft_parse_position(char *s, t_spec *s_args, int *i)
 	return (0);
 }
 
-void	ft_put_flag(t_spec *s_args, char c)
+void	ft_set_flag(t_spec *s_args, char c)
 {
 	if (c == '#')
 		s_args->flags[0] = c;
@@ -49,14 +49,12 @@ void	ft_put_flag(t_spec *s_args, char c)
 		s_args->flags[4] = c;
 		s_args->flags[3] = 0;
 	}
-	else if (c == 39)
-		s_args->flags[5] = c;
 }
 
 int	ft_parse_flags(char *s, t_spec *s_args, int i)
 {
 	while (s[i] && ft_strchr("#0- +'", s[i]))
-		ft_put_flag(s_args, s[i++]);
+		ft_set_flag(s_args, s[i++]);
 	return (i);
 }
 

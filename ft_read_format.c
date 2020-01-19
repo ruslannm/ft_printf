@@ -12,6 +12,16 @@
 
 #include "ft_printf.h"
 
+int	ft_parse_format_spec(char *s, t_spec *s_args, int i)
+{
+	i = ft_parse_flags(s, s_args, i);
+	i = ft_parse_width(s, s_args, i);
+	i = ft_parse_precision(s, s_args, i);
+	i = ft_parse_modifier(s, s_args, i);
+	i = ft_parse_conversion(s, s_args, i);
+	return (i);
+}
+
 int	ft_parse_format(t_spec *s_args, va_list args)
 {
 	int		i;
@@ -19,12 +29,7 @@ int	ft_parse_format(t_spec *s_args, va_list args)
 	int		percent;
 
 	s = s_args->format + s_args->start;
-	i = 0;
-	i = ft_parse_flags(s, s_args, i);
-	i = ft_parse_width(s, s_args, i);
-	i = ft_parse_precision(s, s_args, i);
-	i = ft_parse_modifier(s, s_args, i);
-	i = ft_parse_conversion(s, s_args, i);
+	i = ft_parse_format_spec(s, s_args, 0);
 	percent = ft_parse_percent(s, 0);
 	if (s_args->conversion && percent >= 0 && percent < i)
 	{
@@ -69,17 +74,14 @@ int	ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 	(*s_args)->flags[2] = 0;
 	(*s_args)->flags[3] = 0;
 	(*s_args)->flags[4] = 0;
-	(*s_args)->flags[5] = 0;
 	(*s_args)->width_ini = 0;
 	(*s_args)->width = 0;
 	(*s_args)->width_diff = 0;
 	(*s_args)->precision_ini = 0;
 	(*s_args)->precision = 0;
-	(*s_args)->modifier = 0;  //TODO free
+	(*s_args)->modifier = 0; 
 	(*s_args)->conversion = 0;
 	(*s_args)->start = start;
-//	ft_strdel(&((*s_args)->type)); //TODO free
-//	ft_strdel(&((*s_args)->output)); //TODO free
 	(*s_args)->sign = 0;
 	return (0);
 }
@@ -112,40 +114,3 @@ int	ft_parse(t_spec *s_args, va_list args)
 		return (-1);
 	return (s_args->len + s_args->width_diff);
 }
-
-/*
-
-t_spec	**ft_read_format(char *s)
-{
-	int		i;
-	int 	j;
-	t_spec	**ret;
-	int		control;
-
-	if (!(ret = ft_ini_s_args(s)))
-		return (NULL);
-	control = 0;
-	i = -1;
-	j = 0;
-	while (s[++i] != '\0' && !control)
-	{
-		if (s[i] == '%' && s[i + 1] && s[i + 1] != '%')
-		{
-			if (!(ret[j] = ft_new_spec(i)))
-				control = -1;
-			if ((i = ft_parse_format(&s[i + 1], ret[j++], i)) < 0) 
-				control = -1;
-		}
-		else if (s[i] == '%' && s[i + 1] && s[i + 1] == '%')
-			i++;
-	}
-	//ft_check_format(s_args);
-	control = ft_check_position(ret);
-	if (control)
-		{
-			free(ret); //TODO 
-			ret = NULL;
-		}
-	return (ret);
-}
-*/

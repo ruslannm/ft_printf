@@ -65,7 +65,7 @@ int	ft_check_format(t_spec *s_args)
 	}
 	return (ret);
 }
-
+/*
 int		ft_check_position(t_spec **s_args)
 {
 	int	position;
@@ -89,3 +89,4 @@ int		ft_check_position(t_spec **s_args)
 		return (-1);
 	return (0);
 }
+*/

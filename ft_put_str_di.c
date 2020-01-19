@@ -110,34 +110,4 @@ int	ft_put_output(t_spec *s_args, char *str)
 	return (0);
 }
 
-void	ft_set_sign(t_spec *s_args)
-{
-	if (s_args->sign != '-')
-	{
-		if (s_args->flags[4] == '+')
-			s_args->sign = '+';
-		else if (s_args->flags[3] == ' ')
-				s_args->sign = ' ';
-	}
-}
 
-char	*ft_get_di_str(intmax_t n, t_spec *s_args)
-{
-	int 	i;
-	char	*str;
-
-	n = n * (n < 0 ? -1 : 1);
-	i = ft_nbr_len(n, 10);
-	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0 )
-		i = 0;
-	if (s_args->precision_ini == 1)
-		s_args->flags[1] = 0;
-	if (!(str = ft_strnew(i)))
-		return (NULL);
-	while (--i >= 0)
-	{
-		str[i] = n % 10 + '0';
-		n = n / 10;
-	}
-	return (str);
-}

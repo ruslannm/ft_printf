@@ -12,26 +12,6 @@
 
 #include "ft_printf.h"
 
-/*
-static int	ft_parse_modifier_check_memory(char *s, int i)
-{
-	if (s[i])
-	{
-		if (!ft_strncmp(&s[i], "hh", 2))
-			return (1);
-		else if (!ft_strncmp(&s[i], "ll", 2))
-			return (1);
-		else if (s[i] == 'h')
-			return (1);
-		else if (s[i] == 'l')
-			return (1);
-		else if (s[i] == 'L')
-			return (1);
-	}
-	return (0);
-}
-*/
-
 int	ft_parse_modifier(char *s, t_spec *s_args, int i)
 {
 	if (!ft_strncmp(&s[i], "hh", 2))

@@ -20,36 +20,31 @@
 # include <limits.h>
 # include <stdint.h>  // for debian
 
-#define		THOUSAND_SEP ","
-
-#define		THOUSAND_SEP_LEN 1
+/*
+** flags        #0- +
+** width_diff   difference for c = 0
+*/
 
 typedef struct s_spec
 {
 	int		fd;
 	char	*format;
 	int		position;
-	char	flags[6];  //012345  #0- +'
+	char	flags[5]; 
 	int		width;
-	int		width_ini; //0 - new struct, 1 - exists in format string, -1 * look in args
-	int		width_diff;  //difference for c = 0
+	int		width_ini; 
+	int		width_diff;
 	int		precision;
-	int		precision_ini; //0 - new struct, 1 - exists in format string, -1 * look in args
+	int		precision_ini; 
 	char	modifier;
 	char	conversion;
 	int		start;
 	int		len;
-	char	*type;
 	char	*output_raw;
 	char	*output;
 	char	*output_dec;
 	int		output_len[6];
 	char	sign;
-	char	output_c_raw;
-	char	*before;
-	char	*after;
-	char	*thousand_sep;
-	
 }				t_spec;
  
 
