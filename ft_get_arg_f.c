@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/16 16:10:41 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/21 18:32:34 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int ft_get_arg_f(t_spec *s_args, va_list args)
 //	if (nb == "NaN")
 	ft_set_sign(s_args);
 	str = ft_get_f_str((long double)nb, s_args);
+//	ft_get_len_output_f(s_args, str);
 	ft_get_len_output_f(s_args, str);
 	ret = (!ret ? ft_put_output_f(s_args, str) : ret);
 

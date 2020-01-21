@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_f_str.c                                     :+:      :+:    :+:   */
+/*   ft_put_str_f.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/16 16:45:07 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/21 18:59:33 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ void	ft_swap(char **s, int i, int j)
 }
 */
 
+/*
+** 0 - str lenght
+** 1 - int length
+** 2 - point length
+** 3 - dec lenght
+*/
+
 int	*ft_float_len(char *str)
 {
 	char	*point;
@@ -51,13 +58,14 @@ int	*ft_float_len(char *str)
 	{
 		len[1] = len[0];
 		len[2] = 0;
+		len[3] = 0;
 	}
 	else
 	{
 		len[1] = point - str;
-		len[2] = len[0] - len[1] - 1;
+		len[2] = 1;
+ 		len[3] = len[0] - len[1] - len[2];
 	}
-	len[3] = 0;
 	len[4] = 0;
 	return (len);
 }
@@ -148,16 +156,58 @@ int	ft_put_binary_str(unsigned long int n, char **s)
 	return (0);
 }
 
+
+
+
+/*
+**
+** len:
+** 0 - length of integer_part
+** 1 - length of decimal_part
+** 2 - length of sign
+** 3 - lenth of printing string
+** 4 - counter
+** 7 - add printing 0 in precision
+*/
+
 void	ft_get_len_output_f(t_spec *s_args, char *str)
 {
-	char	*pointer;
 	int	len[8];
+	int		*f_len;
 
-	len[5] = ft_strlen(str);
-	if (!(pointer = ft_strchr(str, '.')))
-		len[0] = len[5];
-	else 
-		len[0] = pointer - str;  // integer part
+	f_len = ft_float_len(str);  //0 - len. 1- int. 2 - point 3 - dec without point
+	len[2] = (s_args->sign ? 1 : 0);
+	len[0] = f_len[0];
+	len[1] = f_len[0];
+	if (s_args->precision > f_len[3])
+		len[4] = s_args->precision - f_len[3];
+	else
+		len[4] = 0;
+	if (f_len[1] + f_len[2] + f_len[3] + len[4] < s_args->width)
+		len[3] = s_args->width;
+	else
+		len[3] = f_len[1] + f_len[2] + f_len[3] + len[4]; 	
+	s_args->output_len[0] = len[0];
+	s_args->output_len[1] = len[1];
+	s_args->output_len[2] = len[2];
+	s_args->output_len[3] = len[3];
+	s_args->output_len[4] = len[4];
+/*
+	if (s_args->precision_ini && !s_args->precision)
+		f_len[0] = (s_args->flags[0] ? 1 : 0);
+	else
+	{	
+//		len[1] = len[6];
+		if (s_args->precision_ini && s_args->precision < 7)
+			len[1] = (len[6] > s_args->precision + 1 ? s_args->precision + 1 : len[6]);
+		else if (len[6] < s_args->precision + 1)
+			len[7] = s_args->precision + 1 - len[6];
+	}
+	
+
+
+	
+	len[0] = f_len[0];
 	len[6] = len[5] - len[0]; //decimal part includes point
 	len[7] = 0; //tmp
 	if (s_args->precision_ini && !s_args->precision)
@@ -169,12 +219,6 @@ void	ft_get_len_output_f(t_spec *s_args, char *str)
 			len[1] = (len[6] > s_args->precision + 1 ? s_args->precision + 1 : len[6]);
 		else if (len[6] < s_args->precision + 1)
 			len[7] = s_args->precision + 1 - len[6];
-		/*
-		if (len[6] > s_args->precision)
-			len[1] = s_args->precision;
-		else
-			len[1] = len[6]		
-			*/
 	}
 	if (s_args->sign != '\0')
 		len[2] = 1;
@@ -187,9 +231,39 @@ void	ft_get_len_output_f(t_spec *s_args, char *str)
 	s_args->output_len[3] = len[3];
 	s_args->output_len[4] = 0;
 	s_args->output_len[5] = len[7];
+*/
 }
 
 int	ft_put_output_f(t_spec *s_args, char *str)
+{
+	int		*len;
+	int		i;
+
+	i = 0;
+	len = s_args->output_len;
+	if (s_args->flags[1])
+	{
+		i = ft_put_sign(s_args, i);
+		i = ft_putchar_s_fd('0', i, len[3] - len[1] - len[2], s_args->fd);
+	}
+	if (s_args->flags[2] == 0)
+		i = ft_putchar_s_fd(' ', i, len[3] - len[1] - len[2], s_args->fd);
+	if (len[2])
+		i = ft_put_sign(s_args, i);
+	i = ft_putchar_s_fd('0', i, i + len[1] - len[0], s_args->fd);
+	if (len[3] < len[0])
+		str[len[3]] = '\0';
+	ft_putstr_fd(str, s_args->fd);
+	if (len[4])
+		i = ft_putchar_s_fd('0', i, i + len[4], s_args->fd);
+	i = i + (len[3] < len[0] ? len[3] : len[0]);
+	i = ft_putchar_s_fd(' ', i, len[3], s_args->fd);
+	s_args->len = (s_args->len >= 0 ? s_args->len + len[3] : -1);
+	return (0);
+}
+
+
+int	ft_put_output_f_for_delete(t_spec *s_args, char *str)
 {
 	char	*tmp;
 	int		*len;
@@ -318,6 +392,7 @@ int	ft_roundup(char **str, t_spec *s_args)
 	char	*ret;
 	char	*round_diff;
 
+	ret = NULL;
 	tmp = *str;
 	len = ft_float_len(tmp);
 	presision = s_args->precision;
@@ -332,11 +407,44 @@ int	ft_roundup(char **str, t_spec *s_args)
 			free (tmp);
 			*str = ret;
 		}
-		ret[len[1] + 1 + presision] = '\0';
+		if ((len[1] + 1 + presision) < (int)ft_strlen(*str))
+			(*str)[len[1] + 1 + presision] = '\0';
 	}
 	return (0);
 //	ft_add_precision(char &str, s_args);
 //	return (ft_add_precision(&str, s_args) == 0 ? 0 : -1);
+}
+
+char	*ft_get_str_f_null(t_spec *s_args, int sign)
+{
+	char	*ret;
+
+	if (sign)
+		s_args->sign = '-';
+	//s_args->flags[0] = 0;
+	s_args->flags[1] = 0;
+	ret = ft_strdup("0.000000");
+	return (ret);
+}
+
+char	*ft_get_str_f_naninf(t_spec *s_args, int mantissa)
+{
+	char	*ret;
+
+	if (0 == mantissa)
+		ret = ft_strdup("inf");
+	else
+	{
+		ret = ft_strdup("nan");
+		s_args->flags[3] = 0;
+		s_args->flags[4] = 0;
+		s_args->sign = 0;
+	}
+	s_args->precision = 0;
+	s_args->precision_ini = 1;
+	s_args->flags[0] = 0;
+	s_args->flags[1] = 0;
+	return (ret);
 }
 
 char	*ft_get_f_str(long double n, t_spec *s_args)
@@ -348,35 +456,12 @@ char	*ft_get_f_str(long double n, t_spec *s_args)
 	m = NULL;
 	u_d = (union u_double)n;
 	if (u_d.f_parts.e == 0 && u_d.f_parts.m == 0)
-	{
-		if (u_d.f_parts.s)
-			s_args->sign = '-';
-		s_args->output_raw = ft_strdup("0.000000");
-		s_args->flags[0] = 0;
-		s_args->flags[1] = 0;
-		return (0);
-	}
+		return (ft_get_str_f_null(s_args, u_d.f_parts.s));
 	power = u_d.f_parts.e - 16383;//1023;//127;
 	if (u_d.f_parts.s)
 		s_args->sign = '-';
-	if (power == 16383)//1024) //128)
-	{
-		if (u_d.f_parts.m == 0)
-			s_args->output_raw = ft_strdup("inf");
-		else
-		{
-			s_args->output_raw = ft_strdup("nan");
-			s_args->flags[3] = 0;
-			s_args->flags[4] = 0;
-			s_args->sign = 0;
-		}
-		s_args->precision = 0;
-		s_args->precision_ini = 1;
-		s_args->flags[0] = 0;
-		s_args->flags[1] = 0;
-
-		return (0);
-	}
+	if (power == 16384)//1024) //128)
+		return (ft_get_str_f_naninf(s_args, u_d.f_parts.m));
 	ft_put_binary_str(u_d.f_parts.m, &m);
 	ft_shift(&m, power);
 	ft_conv_bin2dec(&m);

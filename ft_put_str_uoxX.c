@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_uoxX_str.c                                  :+:      :+:    :+:   */
+/*   ft_put_str_uoxX.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/11 17:22:03 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/21 15:56:07 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	*ft_get_xX_str(uintmax_t n, t_spec *s_args)
 	return (str);
 }
 
-char	*ft_get_p_str(char *s)
+char	*ft_get_p_str(char **s)
 {
 	int i;
 	int	base;
@@ -127,8 +127,8 @@ char	*ft_get_p_str(char *s)
 	char	*ret;
 
 	base = 16;
-	p = (long)s;
-	free(s);
+	p = (long)(*s);
+//	free(s);
 	i = ft_get_udigit(p, base);
 	if (!(ret = ft_strnew(i)))
 		return (NULL);
