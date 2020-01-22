@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/21 18:59:33 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/22 20:57:02 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,37 +80,37 @@ int	ft_shift(char **s, int i)
 	len = ft_float_len(s_tmp);
 	if (i > 0)
 	{
-		len[3] = len[0] + (i > len[2] ? i - len[2] : 0); 
-		if (!(s_new = ft_strnew(len[3])))
+		len[4] = len[0] + (i > len[3] ? i - len[3] : 0); 
+		if (!(s_new = ft_strnew(len[4])))
 			return (-1);
 		ft_strncpy(s_new, s_tmp, len[1]);
-		if (i > len[2])
+		if (i > len[3])
 		{
-			ft_strncpy(&s_new[1], &s_tmp[2], len[2]);
-			s_new[--len[3]] = '.';
-			while (i-- > len[2])
-				s_new[--len[3]] = '0';
+			ft_strncpy(&s_new[1], &s_tmp[2], len[3]);
+			s_new[--len[4]] = '.';
+			while (i-- > len[3])
+				s_new[--len[4]] = '0';
 		}
 		else
 		{
 			ft_strncpy(&s_new[len[1]], &s_tmp[len[1] + 1], i);
 			s_new[i + len[1]] = '.';
-			ft_strncpy(&s_new[i + len[1] + 1], &s_tmp[i + len[1] + 1], len[2] - i);
+			ft_strncpy(&s_new[i + len[1] + 1], &s_tmp[i + len[1] + 1], len[3] - i);
 		}
 		free(*s);
 		*s = s_new;
 	}
 	else if (i < 0)
 	{
-		len[3] = len[0] + (-i >= len[1]? - i - len[1] + 1 : 0); 
-		if (!(s_new = ft_strnew(len[3])))
+		len[4] = len[0] + (-i >= len[1]? - i - len[1] + 1 : 0); 
+		if (!(s_new = ft_strnew(len[4])))
 			return (-1);
 		//ft_strncpy(s_new, s_tmp, len[1]);
 		if (-i >= len[1])
 		{
 			ft_strncpy(s_new, "0.", 2);
 			ft_strncpy(&s_new[2 - i - len[1]], s_tmp, len[1]);
-			ft_strncpy(&s_new[2 - i], &s_tmp[len[1] + 1], len[2]);
+			ft_strncpy(&s_new[2 - i], &s_tmp[len[1] + 1], len[3]);
 			while (len[1] + i++ < 0)
 				s_new[2 - i - len[1]] = '0';
 		}
@@ -119,7 +119,7 @@ int	ft_shift(char **s, int i)
 			ft_strncpy(s_new, s_tmp, len[1] + i);
 			s_new[i + len[1]] = '.';
 			ft_strncpy(&s_new[i + len[1] + 1], &s_tmp[i + len[1]], - i);
-			ft_strncpy(&s_new[len[1] + 1], &s_tmp[len[1] + 1], len[2]);
+			ft_strncpy(&s_new[len[1] + 1], &s_tmp[len[1] + 1], len[3]);
 		}
 		free(*s);
 		*s = s_new;
@@ -176,18 +176,28 @@ void	ft_get_len_output_f(t_spec *s_args, char *str)
 	int		*f_len;
 
 	f_len = ft_float_len(str);  //0 - len. 1- int. 2 - point 3 - dec without point
-	len[2] = (s_args->sign ? 1 : 0);
-	len[0] = f_len[0];
-	len[1] = f_len[0];
 	if (s_args->precision > f_len[3])
 		len[4] = s_args->precision - f_len[3];
 	else
+	{
 		len[4] = 0;
-	if (f_len[1] + f_len[2] + f_len[3] + len[4] < s_args->width)
+		if (s_args->precision_ini && !s_args->precision)
+		{
+			if (s_args->flags[0])
+				str[f_len[1] + f_len[2]] = '\0';
+			else
+				str[f_len[1]] = '\0';
+			free(f_len);
+			f_len = ft_float_len(str);
+		}
+	}
+	len[2] = (s_args->sign ? 1 : 0);
+	len[1] = f_len[0];
+	if (f_len[1] + f_len[2] + f_len[3] + len[2] + len[4] < s_args->width)
 		len[3] = s_args->width;
 	else
-		len[3] = f_len[1] + f_len[2] + f_len[3] + len[4]; 	
-	s_args->output_len[0] = len[0];
+		len[3] = f_len[1] + f_len[2] + f_len[3] + len[2] + len[4]; 	
+	s_args->output_len[0] = f_len[0];
 	s_args->output_len[1] = len[1];
 	s_args->output_len[2] = len[2];
 	s_args->output_len[3] = len[3];
@@ -244,10 +254,10 @@ int	ft_put_output_f(t_spec *s_args, char *str)
 	if (s_args->flags[1])
 	{
 		i = ft_put_sign(s_args, i);
-		i = ft_putchar_s_fd('0', i, len[3] - len[1] - len[2], s_args->fd);
+		i = ft_putchar_s_fd('0', i, len[3] - len[1] - len[2] - len[4], s_args->fd);
 	}
 	if (s_args->flags[2] == 0)
-		i = ft_putchar_s_fd(' ', i, len[3] - len[1] - len[2], s_args->fd);
+		i = ft_putchar_s_fd(' ', i, len[3] - len[1] - len[2] - len[4], s_args->fd);
 	if (len[2])
 		i = ft_put_sign(s_args, i);
 	i = ft_putchar_s_fd('0', i, i + len[1] - len[0], s_args->fd);
@@ -422,28 +432,34 @@ char	*ft_get_str_f_null(t_spec *s_args, int sign)
 	if (sign)
 		s_args->sign = '-';
 	//s_args->flags[0] = 0;
-	s_args->flags[1] = 0;
+	//s_args->flags[1] = 0;
 	ret = ft_strdup("0.000000");
 	return (ret);
 }
 
-char	*ft_get_str_f_naninf(t_spec *s_args, int mantissa)
+char	*ft_get_str_f_naninf(t_spec *s_args, unsigned long int mantissa)
 {
 	char	*ret;
+	char	*m;
 
-	if (0 == mantissa)
-		ret = ft_strdup("inf");
-	else
+	m = NULL;
+	ft_put_binary_str(mantissa, &m);
+
+	if (0 == mantissa || 
+	!ft_strcmp(m, "1.100000000000000000000000000000000000000000000000000000000000000"))
 	{
 		ret = ft_strdup("nan");
 		s_args->flags[3] = 0;
 		s_args->flags[4] = 0;
 		s_args->sign = 0;
 	}
+	else
+		ret = ft_strdup("inf");
 	s_args->precision = 0;
 	s_args->precision_ini = 1;
 	s_args->flags[0] = 0;
 	s_args->flags[1] = 0;
+	free(m);
 	return (ret);
 }
 
@@ -466,6 +482,6 @@ char	*ft_get_f_str(long double n, t_spec *s_args)
 	ft_shift(&m, power);
 	ft_conv_bin2dec(&m);
 	ft_roundup(&m, s_args);
-	ft_add_precision(&m, s_args);
+//	ft_add_precision(&m, s_args);
 	return (m);
 }

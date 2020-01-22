@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/21 15:58:56 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/22 16:46:16 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_get_arg_s(t_spec *s_args, va_list args)
 	char	*str;
 
 	ret = 0;
-	str = ft_strdup((char *)va_arg(args, char*));
+	str = (char *)va_arg(args, char*);
 	if (!str)
 	{
 		if (!(str = ft_strdup("(null)")))
@@ -50,7 +50,7 @@ int	ft_get_arg_s(t_spec *s_args, va_list args)
 		str[s_args->precision] = '\0';
 	ft_get_len_output(s_args, str);
 	ret =  ft_put_output(s_args, str);
-	free(str);
+	//free(str);
 	return (ret);	
 }
 
