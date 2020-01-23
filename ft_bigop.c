@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/23 14:50:02 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/23 18:12:45 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,26 @@ char	*ft_put_i_str(int n)
 	return (ret);
 }
 
+
+int	ft_add_power(char **str, int base)
+{
+	char	*ret;
+
+	ret = *str;
+	if (!ret)
+	{
+		if (!(ret = ft_strnew(2)))
+			return (-1);
+		ret[0] = '1';
+		*str = ret;
+		return (0);
+	}
+	*str = ft_mul(ret, base);
+	free (ret);
+	return (0);
+}
+
+
 char	*ft_pow(int base, int power)
 {
 	char	*ret;
@@ -356,18 +376,21 @@ char	*ft_conv_bin_int(char *binary)
 	ret = ft_strdup("0");
 	max_power = ft_strlen(binary) - 1;
 	i = 0;
+	tmp2 = NULL;
 	while (i <= max_power)
 	{
+		ft_add_power(&tmp2, 2);
 		if (binary[i] == '1')
 		{
-			tmp2 = ft_pow(2, max_power - i);
+//			tmp2 = ft_pow(2, max_power - i);
 			tmp = ft_sum_int(ret, tmp2, 10);
-			free(tmp2);
+//			free(tmp2);
 			free(ret);
 			ret = tmp;
 		}
 		i++;
 	}
+	free(tmp2);
 	return (ret);
 }
 
@@ -376,21 +399,24 @@ char	*ft_conv_bin_dec_place(char *binary)
 	char	*ret;
 	char	*tmp;
 	char	*tmp2;
+	char	*s_power;
 	int		max_power;	
 	int		i;
 
 	ret = ft_strdup("0.0");
 	max_power = ft_strlen(binary);
 	i = 1;
+	s_power = NULL;
 	while (i <= max_power)
 	{
+		ft_add_power(&s_power, 2);
 		if (binary[i - 1] == '1')
 		{
-			tmp = ft_pow(2, i);
-			tmp2 = ft_div("1", tmp, 10);
-			free(tmp);
+			//tmp = ft_pow(2, i);
+			tmp2 = ft_div("1", s_power, max_power + 1);
+//			free(tmp);
 			tmp = ft_sum_decimal(ft_strchr(ret, '.') + 1, ft_strchr(tmp2, '.') + 1, 10);
-			free(tmp2);
+//			free(tmp2);
 			free(ret);
 			ret = tmp;
 		}

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/23 16:02:50 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/23 17:51:40 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ int	ft_mantissa_len(unsigned long int n, int base)
 	return (i);
 }
 
+
+int		ft_check_str_zero(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != '0')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 /*
 void	ft_swap(char **s, int i, int j)
@@ -324,16 +338,16 @@ int	ft_put_output_f_for_delete(t_spec *s_args, char *str)
 }
 
 
-int	ft_roundup_diff(char **str, int presision)
+int	ft_roundup_diff(char **str, int precision)
 {
 	char	*ret;
 	
-	if (!(ret = ft_strnew(presision + 2)))
+	if (!(ret = ft_strnew(precision + 2)))
 		return (-1);
 	ft_strcpy(ret, "0.");
-	ret[2 + --presision] = '1';
-	while(presision-- > 0)
-		ret[2 + presision] = '0';
+	ret[2 + --precision] = '1';
+	while(precision-- > 0)
+		ret[2 + precision] = '0';
 	*str = ret;
 	return (1);
 }
@@ -364,9 +378,17 @@ int	ft_add_precision(char **str, t_spec *s_args)
 	return (0);
 }
 */
+
+int	ft_isodd(char c)
+{
+	if ('1' == c || '3' == c || '5' == c || '7' == c || '9' == c)
+		return (1);
+	return (0);
+}
+
 int	ft_roundup(char **str, t_spec *s_args)
 {
-	int		presision;
+	int		precision;
 	int		*len;
 	char	*tmp;
 	char	*ret;
@@ -375,20 +397,23 @@ int	ft_roundup(char **str, t_spec *s_args)
 	ret = NULL;
 	tmp = *str;
 	len = ft_float_len(tmp);
-	presision = s_args->precision;
-	if (presision < len[3])
+	precision = s_args->precision;
+	if (precision < len[3])
 	{
-		if (ft_strchr("56789", tmp[len[1] + 1 + presision]))
+		len[4] = (precision ? precision : - 1);
+		if ((ft_strchr("6789", tmp[len[1] + 1 + precision])) || 
+			('5' == tmp[len[1] + 1 + precision] && 
+			(ft_isodd(tmp[len[1] + 1 + len[4] - 1]) || ft_check_str_zero(&tmp[len[1] + 2 + precision]))))
 		{
 			round_diff = NULL;
-			if (ft_roundup_diff(&round_diff, presision) == -1)
+			if (ft_roundup_diff(&round_diff, precision) == -1)
 				return (-1);
 			ret = ft_sum_float(tmp, round_diff, 10);
 			free (tmp);
 			*str = ret;
 		}
-		if ((len[1] + 1 + presision) < (int)ft_strlen(*str))
-			(*str)[len[1] + 1 + presision] = '\0';
+		if ((len[1] + 1 + precision) < (int)ft_strlen(*str))
+			(*str)[len[1] + 1 + precision] = '\0';
 	}
 	return (0);
 //	ft_add_precision(char &str, s_args);
@@ -407,19 +432,7 @@ char	*ft_get_str_f_null(t_spec *s_args, int sign)
 	return (ret);
 }
 
-int		ft_check_str_zero(char *str)
-{
-	int i;
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] != '0')
-			return (1);
-		i++;
-	}
-	return (0);
-}
 /*
 ** -1 - Error
 **  0 - Inf
