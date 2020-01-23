@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/22 20:57:02 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/23 16:02:50 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	ft_shift(char **s, int i)
 }
 
 
-int	ft_put_binary_str(unsigned long int n, char **s)
+int	ft_get_binary_str(unsigned long int n, char **s, int power)
 {
 	int		j;
 	char	*tmp;
@@ -151,7 +151,7 @@ int	ft_put_binary_str(unsigned long int n, char **s)
 		tmp[j] = tmp[63 - j];
 		tmp[63 - j] = c;
 	}
-	ft_shift(&tmp, -63);
+	ft_shift(&tmp, power); //-63);
 	*s = tmp;
 	return (0);
 }
@@ -323,36 +323,6 @@ int	ft_put_output_f_for_delete(t_spec *s_args, char *str)
 	return (0);
 }
 
-/*
-int	ft_put_f_sep(t_spec *s_args)
-{
-	char	*pointer;
-	int		i;
-	int		j;
-
-	if ((pointer = ft_strchr(s_args->output_raw, '.')) && s_args->flags[5] == 39 && THOUSAND_SEP_LEN > 0)
-	{
-		i = THOUSAND_SEP_LEN * ((pointer - s_args->output_raw) / 3 );
-		if (!(s_args->output = (char *)malloc(sizeof(char) * (ft_strlen(s_args->output_raw) + i + 1))))
-			return (-1);
-		ft_strcpy(&s_args->output[ft_strlen(s_args->output_raw) + i], pointer);
-		j = 0;
-		i = pointer - s_args->output_raw;
-		while (--i >= 0)
-		{
-			if (j++ % 3 == 0 && j > 2)
-			{
-				ft_strncpy(&s_args->output_raw[i + 1 - THOUSAND_SEP_LEN], THOUSAND_SEP, THOUSAND_SEP_LEN);
-				i = i - THOUSAND_SEP_LEN;
-			}
-			s_args->output_raw[i] = s_args->output_raw[i + j / 3];
-		}
-	}
-	else if (!(s_args->output = ft_strdup(s_args->output_raw)))
-		return (-1);
-	return (0);
-}
-*/
 
 int	ft_roundup_diff(char **str, int presision)
 {
@@ -367,7 +337,7 @@ int	ft_roundup_diff(char **str, int presision)
 	*str = ret;
 	return (1);
 }
-
+/*
 int	ft_add_precision(char **str, t_spec *s_args)
 {
 	int		add_presision;
@@ -393,7 +363,7 @@ int	ft_add_precision(char **str, t_spec *s_args)
 	}
 	return (0);
 }
-
+*/
 int	ft_roundup(char **str, t_spec *s_args)
 {
 	int		presision;
@@ -406,7 +376,7 @@ int	ft_roundup(char **str, t_spec *s_args)
 	tmp = *str;
 	len = ft_float_len(tmp);
 	presision = s_args->precision;
-	if (presision < len[2])
+	if (presision < len[3])
 	{
 		if (ft_strchr("56789", tmp[len[1] + 1 + presision]))
 		{
@@ -437,16 +407,52 @@ char	*ft_get_str_f_null(t_spec *s_args, int sign)
 	return (ret);
 }
 
+int		ft_check_str_zero(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != '0')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+/*
+** -1 - Error
+**  0 - Inf
+**	1 - NaN
+*/
+
+
+int		ft_check_mantissa(char *str)
+{
+	if (!ft_strncmp(str, "00", 2))
+		return (ft_check_str_zero(&str[2]));
+	else if (!ft_strncmp(str, "01", 2))
+		return (1);
+	else if (!ft_strncmp(str, "10", 2))
+		return (ft_check_str_zero(&str[2]));
+	else if (!ft_strncmp(str, "11", 2))
+	{
+		if (ft_check_str_zero(&str[2]))
+			return (0);
+		else
+			return (1);		
+	}
+	return (-1);
+}
+
 char	*ft_get_str_f_naninf(t_spec *s_args, unsigned long int mantissa)
 {
 	char	*ret;
 	char	*m;
 
 	m = NULL;
-	ft_put_binary_str(mantissa, &m);
-
-	if (0 == mantissa || 
-	!ft_strcmp(m, "1.100000000000000000000000000000000000000000000000000000000000000"))
+	ft_get_binary_str(mantissa, &m, 0);
+	if (1 == ft_check_mantissa(m))
 	{
 		ret = ft_strdup("nan");
 		s_args->flags[3] = 0;
@@ -478,7 +484,7 @@ char	*ft_get_f_str(long double n, t_spec *s_args)
 		s_args->sign = '-';
 	if (power == 16384)//1024) //128)
 		return (ft_get_str_f_naninf(s_args, u_d.f_parts.m));
-	ft_put_binary_str(u_d.f_parts.m, &m);
+	ft_get_binary_str(u_d.f_parts.m, &m, -63);
 	ft_shift(&m, power);
 	ft_conv_bin2dec(&m);
 	ft_roundup(&m, s_args);
