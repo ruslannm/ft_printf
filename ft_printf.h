@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/23 14:50:06 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/24 18:43:00 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ typedef struct s_spec
 	char	*format;
 	int		position;
 	char	flags[5]; 
-	int		width;
+	unsigned int		width;
 	int		width_ini; 
-	int		width_diff;
-	int		precision;
+	unsigned int		width_diff;
+	unsigned int		precision;
 	int		precision_ini; 
 	char	modifier;
 	char	conversion;
-	int		start;
-	int		len;
-	char	*output_raw;
-	char	*output;
-	char	*output_dec;
-	int		output_len[6];
+	unsigned int		start;
+	long int		len;
+//	char	*output_raw;
+//	char	*output;
+//	char	*output_dec;
+	long int		output_len[6];
 	char	sign;
 }				t_spec;
  
@@ -60,7 +60,20 @@ typedef struct		s_stack
 **    1
 */
 
+/*
 union u_double 
+{	
+	double f; 
+	struct 
+	{ 
+		unsigned long int m : 52; 
+		unsigned int e : 11; 
+		unsigned int s : 1; 
+	} 		f_parts; 
+};
+
+*/
+union u_long_double 
 {	
 	long double f; 
 	struct 
@@ -113,7 +126,8 @@ char	*ft_get_p_str(char **s);
 void	ft_get_len_output(t_spec *s_args, char *str);
 void	ft_get_len_output_f(t_spec *s_args, char *str);
 int		ft_nbr_len(intmax_t n, int base);
-char	*ft_get_f_str(long double n, t_spec *s_args);
+char	*ft_get_f_str(double n, t_spec *s_args);
+char	*ft_get_lf_str(long double n, t_spec *s_args);
 int		ft_get_arg_f(t_spec *s_args, va_list args);
 int		ft_conv_bin2dec(char **str);
 //int		ft_put_f_sep(t_spec *s_args);
@@ -123,7 +137,7 @@ char	*ft_sum_decimal(char *s1, char *s2, int base);
 int	ft_shift(char **s, int i);
 int	ft_get_binary_str(unsigned long int n, char **s, int power);
 char	*ft_sum_float(char *s1, char *s2, int base);
-int	*ft_float_len(char *str);
+long int	*ft_float_len(char *str);
 int	ft_put_sign(t_spec *s_args, int i);
 int	ft_putchar_s_fd(char c, int i, int j, int fd);
 

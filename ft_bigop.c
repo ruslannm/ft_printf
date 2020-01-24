@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/24 14:46:32 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/24 18:44:21 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ char	*ft_sum(char *s1, char *s2, int base)
 char	*ft_sum_int(char *s1, char *s2, int base)
 {
 	int 	carry;
-	int		*len[3];
+	long int		*len[3];
 	int		i;
 	char	*s;
-	int		s_len;
+	long int		s_len;
 
 	len[1] = ft_float_len(s1);
 	len[2] = ft_float_len(s2);
@@ -138,7 +138,7 @@ char	*ft_sum_decimal(char *s1, char *s2, int base)
 
 char	*ft_sum_float(char *s1, char *s2, int base)
 {
-	int	*len[4];
+	long int	*len[4];
 	char	*s3;
 	char	*s4;
 	char	*s5;
@@ -406,7 +406,7 @@ char	*ft_conv_bin_dec_place(char *binary)
 	ret = ft_strdup("0.0");
 	max_power = ft_strlen(binary);
 	i = 1;
-	s_power = NULL;
+	s_power = ft_strdup("1");
 	while (i <= max_power)
 	{
 		ft_add_power(&s_power, 2);

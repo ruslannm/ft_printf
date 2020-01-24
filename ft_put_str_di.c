@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_di_str.c                                    :+:      :+:    :+:   */
+/*   ft_put_str_di.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 13:38:18 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/24 18:37:52 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_nbr_len(intmax_t n, int base)
 
 void	ft_get_len_output(t_spec *s_args, char *str)
 {
-	int	len[4];
+	unsigned int	len[4];
 
 	len[0] = ft_strlen(str);
 	if (s_args->conversion == 'o' && s_args->flags[1] && len[0] == 0)
@@ -86,7 +86,7 @@ int	ft_putchar_s_fd(char c, int i, int j, int fd)
 
 int	ft_put_output(t_spec *s_args, char *str)
 {
-	int		*len;
+	long int		*len;
 	int		i;
 
 	i = 0;

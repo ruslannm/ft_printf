@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 11:12:15 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/24 18:13:31 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_spec *ft_specification(char **s)
 	return (ret);
 }
 */
-
+/*
 char	*ft_get_str(char *s, t_spec **s_args)
 {
 	char	*ret;
@@ -124,11 +124,6 @@ char	*ft_get_str(char *s, t_spec **s_args)
 	{
 		if (s[i] == '%' && s[i + 1] && s[i + 1] != '%')
 			{
-			/*
-				write(1, s_args[j]->output, ft_strlen(s_args[j]->output));
-				i = i + s_args[j]->len;
-				j++;
-				*/
 				if (s_args[j]->output)
 					tmp = ft_strjoin(ret, s_args[j]->output);
 				else
@@ -148,7 +143,7 @@ char	*ft_get_str(char *s, t_spec **s_args)
 	}
 	return (ret);
 }
-
+*/
 int	ft_get_width_diff(t_spec **s_args)
 {
 	int	ret;
