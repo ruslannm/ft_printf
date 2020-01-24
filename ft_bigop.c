@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/23 18:12:45 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/24 14:46:32 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,9 +375,9 @@ char	*ft_conv_bin_int(char *binary)
 
 	ret = ft_strdup("0");
 	max_power = ft_strlen(binary) - 1;
-	i = 0;
+	i = max_power;
 	tmp2 = NULL;
-	while (i <= max_power)
+	while (i >= 0)
 	{
 		ft_add_power(&tmp2, 2);
 		if (binary[i] == '1')
@@ -388,7 +388,7 @@ char	*ft_conv_bin_int(char *binary)
 			free(ret);
 			ret = tmp;
 		}
-		i++;
+		i--;
 	}
 	free(tmp2);
 	return (ret);
