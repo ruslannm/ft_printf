@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 14:21:31 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 17:57:24 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int		ft_conv_bin2dec(char **str);
 //int		ft_put_f_sep(t_spec *s_args);
 int		ft_get_width_diff(t_spec **s_args);
 int		ft_shift(char **s, int i);
+int		ft_shift_int(char **s, int i);
 char	*ft_sum_decimal(char *s1, char *s2, int base);
 int	ft_shift(char **s, int i);
 int	ft_get_binary_str(unsigned long int n, char **s, int power);

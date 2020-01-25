@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 15:01:24 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 17:57:09 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	ft_shift(char **s, int i)
 	char *s_tmp;
 	char *s_new;
 	int *len;
+	int len1_new;
 
 	s_tmp = *s;
 	len = ft_float_len(s_tmp);
@@ -99,19 +100,23 @@ int	ft_shift(char **s, int i)
 		len[4] = len[0] + (i > len[3] ? i - len[3] : 0); 
 		if (!(s_new = ft_strnew(len[4])))
 			return (-1);
-		ft_strncpy(s_new, s_tmp, len[1]);
+		if (1 == len[1] && '0' == s_tmp[0])
+			len1_new = 0;
+		else
+			len1_new = 1;		
+		ft_strncpy(s_new, s_tmp, len1_new);
 		if (i > len[3])
 		{
-			ft_strncpy(&s_new[1], &s_tmp[2], len[3]);
+			ft_strncpy(&s_new[len1_new], &s_tmp[1], len[3]);
 			s_new[--len[4]] = '.';
 			while (i-- > len[3])
 				s_new[--len[4]] = '0';
 		}
 		else
 		{
-			ft_strncpy(&s_new[len[1]], &s_tmp[len[1] + 1], i);
-			s_new[i + len[1]] = '.';
-			ft_strncpy(&s_new[i + len[1] + 1], &s_tmp[i + len[1] + 1], len[3] - i);
+			ft_strncpy(&s_new[len1_new], &s_tmp[len[1] + 1], i);
+			s_new[i + len1_new] = '.';
+			ft_strncpy(&s_new[i + len1_new + 1], &s_tmp[i + len[1] + 1], len[3] - i);
 		}
 		free(*s);
 		*s = s_new;
@@ -143,6 +148,67 @@ int	ft_shift(char **s, int i)
 	return (0);
 }
 
+int	ft_shift_int(char **s, int i)
+{
+	char *s_tmp;
+	char *s_new;
+	int *len;
+	int len1_new;
+
+	s_tmp = *s;
+	len = ft_float_len(s_tmp);
+	if (i > 0)
+	{
+		len[4] = len[0] + (i > len[3] ? i - len[3] : 0); 
+		if (!(s_new = ft_strnew(len[4])))
+			return (-1);
+		if (1 == len[1] && '0' == s_tmp[0])
+			len1_new = 0;
+		else
+			len1_new = 1;		
+		ft_strncpy(s_new, s_tmp, len1_new);
+		if (i > len[3])
+		{
+			ft_strncpy(&s_new[len1_new], &s_tmp[1], len[3]);
+			s_new[--len[4]] = '.';
+			while (i-- > len[3])
+				s_new[--len[4]] = '0';
+		}
+		else
+		{
+			ft_strncpy(&s_new[len1_new], &s_tmp[len[1] + 1], i);
+//			s_new[i + len1_new] = '.';
+//			ft_strncpy(&s_new[i + len1_new + 1], &s_tmp[i + len[1] + 1], len[3] - i);
+		}
+		free(*s);
+		*s = s_new;
+	}
+	else if (i < 0)
+	{
+		len[4] = len[0] + (-i >= len[1]? - i - len[1] + 1 : 0) + (len[2] ? 0 : 1); 
+		if (!(s_new = ft_strnew(len[4])))
+			return (-1);
+		//ft_strncpy(s_new, s_tmp, len[1]);
+		if (-i >= len[1])
+		{
+			ft_strncpy(s_new, "0.", 2);
+			ft_strncpy(&s_new[2 - i - len[1]], s_tmp, len[1]);
+			ft_strncpy(&s_new[2 - i], &s_tmp[len[1] + 1], len[3]);
+			while (len[1] < - i++)
+				s_new[2 - i - len[1]] = '0';
+		}
+		else
+		{
+			ft_strncpy(s_new, s_tmp, len[1] + i);
+			s_new[i + len[1]] = '.';
+			ft_strncpy(&s_new[i + len[1] + 1], &s_tmp[i + len[1]], - i);  //Error
+			ft_strncpy(&s_new[len[1] + 1], &s_tmp[len[1] + 1], len[3]);
+		}
+		free(*s);
+		*s = s_new;
+	}
+	return (0);
+}
 
 int	ft_get_binary_str(unsigned long int n, char **s, int power)
 {
