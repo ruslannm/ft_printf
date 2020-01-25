@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/24 18:37:52 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 15:13:47 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_nbr_len(intmax_t n, int base)
 **
 ** len:
 ** 0 - length of output_raw
-** 1 - the large of precision and len[0]
+** 1 - the large of precision and len[0] for s - min
 ** 2 - length special (1 for sign 2 for xX and p)
 ** 3 - the large of width and len[1] + len [2]
 ** 4 - counter
@@ -37,14 +37,19 @@ int	ft_nbr_len(intmax_t n, int base)
 
 void	ft_get_len_output(t_spec *s_args, char *str)
 {
-	unsigned int	len[4];
+	int	len[4];
 
 	len[0] = ft_strlen(str);
 	if (s_args->conversion == 'o' && s_args->flags[1] && len[0] == 0)
 		len[0] = 1;
 	len[1] = len[0];
-	if (s_args->conversion != 's' && len[0] < s_args->precision)
+	if ('s' != s_args->conversion && len[0] < s_args->precision)
 		len[1] = s_args->precision;
+	if ('s' == s_args->conversion && len[0] > s_args->precision)
+	{
+		len[0] = s_args->precision;
+		len[1] = len[0];
+	}
 	if ((ft_strcmp(str, "0") && ft_strlen(str) && (ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#')) || s_args->conversion == 'p')
 		len[2] = 2;
 	else
@@ -84,9 +89,23 @@ int	ft_putchar_s_fd(char c, int i, int j, int fd)
 	return (i);
 }
 
+void	ft_putstrn_fd(char const *s, int n, int fd)
+{
+	int i;
+
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i] != '\0' && i < n)
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+}
+
 int	ft_put_output(t_spec *s_args, char *str)
 {
-	long int		*len;
+	int		*len;
 	int		i;
 
 	i = 0;
@@ -103,11 +122,12 @@ int	ft_put_output(t_spec *s_args, char *str)
 	i = ft_putchar_s_fd('0', i, i + len[1] - len[0], s_args->fd);
 	if (len[3] < len[0])
 		str[len[3]] = '\0';
-	ft_putstr_fd(str, s_args->fd);
+	if (s_args->conversion == 's' && s_args->precision_ini)
+		ft_putstrn_fd(str, s_args->precision, s_args->fd);
+	else 
+		ft_putstr_fd(str, s_args->fd);
 	i = i + (len[3] < len[0] ? len[3] : len[0]);
 	i = ft_putchar_s_fd(' ', i, len[3], s_args->fd);
 	s_args->len = (s_args->len >= 0 ? s_args->len + len[3] : -1);
 	return (0);
 }
-
-

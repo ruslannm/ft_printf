@@ -6,16 +6,16 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 17:29:52 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/24 18:40:50 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 14:30:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long int	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int			i;
-	int			sign;
-	long long	ret;
-	long long	test;
+	int	i;
+	int	sign;
+	int	ret;
+	int	test;
 
 	ret = 0;
 	sign = 1;

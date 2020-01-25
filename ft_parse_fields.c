@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/14 17:50:27 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 14:46:42 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ int	ft_parse_width(char *s, t_spec *s_args, int i)
 	if (ft_isdigit(s[i]))
 	{
 		s_args->width = ft_atoi(&s[i]);
-		s_args->width_ini = 1;
+		if (s_args->width >= 0)
+			s_args->width_ini = 1;
+		else
+			s_args->width = 0;
 		while (ft_isdigit(s[i]))
 			i++;
 	}
@@ -80,7 +83,10 @@ int	ft_parse_precision(char *s, t_spec *s_args, int i)
 		if (ft_isdigit(s[i]))
 		{
 			s_args->precision = ft_atoi(&s[i]);
-			s_args->precision_ini = 1;
+			if (s_args->precision >= 0)
+				s_args->precision_ini = 1;
+			else
+				s_args->precision = 0;
 			while (ft_isdigit(s[i]))
 				i++;
 		}

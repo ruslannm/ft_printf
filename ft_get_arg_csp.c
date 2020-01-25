@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/22 16:46:16 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 15:02:33 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	ft_get_arg_s(t_spec *s_args, va_list args)
 		if (!(str = ft_strdup("(null)")))
 			return (-1);
 	}
-	if (s_args->precision_ini && (size_t)s_args->precision < ft_strlen(str))
-		str[s_args->precision] = '\0';
+//	if (s_args->precision_ini && (size_t)s_args->precision < ft_strlen(str))
+//		str[s_args->precision] = '\0';
 	ft_get_len_output(s_args, str);
 	ret =  ft_put_output(s_args, str);
 	//free(str);

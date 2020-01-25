@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/24 18:43:00 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 14:21:31 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ typedef struct s_spec
 	char	*format;
 	int		position;
 	char	flags[5]; 
-	unsigned int		width;
+	int		width;
 	int		width_ini; 
-	unsigned int		width_diff;
-	unsigned int		precision;
+	int		width_diff;
+	int		precision;
 	int		precision_ini; 
 	char	modifier;
 	char	conversion;
-	unsigned int		start;
-	long int		len;
+	int		start;
+	int		len;
 //	char	*output_raw;
 //	char	*output;
 //	char	*output_dec;
-	long int		output_len[6];
+	int		output_len[6];
 	char	sign;
 }				t_spec;
  
@@ -137,7 +137,7 @@ char	*ft_sum_decimal(char *s1, char *s2, int base);
 int	ft_shift(char **s, int i);
 int	ft_get_binary_str(unsigned long int n, char **s, int power);
 char	*ft_sum_float(char *s1, char *s2, int base);
-long int	*ft_float_len(char *str);
+int	*ft_float_len(char *str);
 int	ft_put_sign(t_spec *s_args, int i);
 int	ft_putchar_s_fd(char c, int i, int j, int fd);
 

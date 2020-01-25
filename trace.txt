@@ -6041,47 +6041,53 @@ conv_s
 ----------------------------------
 test: "%s|%-s|%23s|%.5s|%.50s|%-23s|%-.5s|%-.50s|%23.5s|%23.50s|%-23.5s|%-23.50s", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
   > expected: |(null)|(null)|                 (null)|(null|(null)|(null)                 |(null|(null)|                  (null|                 (null)|(null                  |(null)                 |, ret = 183
-  >   actual: |(null)|(null)|                 (null)|(null|(null)|(null)                 |(null|(null)|                  (null|                 (null)|(null                  |(null)                 |, ret = 183
-⟹  [OK]
+  >   actual: |(null)|(null)|                       (null)|(null|(null)|(null)                       |(null|(null)|                  (null|                 (null)|(null                  |(null)                 |, ret = 171
+⟹  [KO]
 ----------------------------------
 test: "%s|%-s|%23s|%.5s|%.50s|%-23s|%-.5s|%-.50s|%23.5s|%23.50s|%-23.5s|%-23.50s", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr", "wi32x-3vx++===98234z1esfatr"
-⟹  [BUSE]
+  > expected: |wi32x-3vx++===98234z1esfatr|wi32x-3vx++===98234z1esfatr|wi32x-3vx++===98234z1esfatr|wi32x|wi32x-3vx++===98234z1esfatr|wi32x-3vx++===98234z1esfatr|wi32x|wi32x-3vx++===98234z1esfatr|                  wi32x|wi32x-3vx++===98234z1esfatr|wi32x                  |wi32x-3vx++===98234z1esfatr|, ret = 283
+  >   actual: |wi32x-3vx++===98234z1esfatr|wi32x-3vx++===98234z1esfatr|                       wi32x-3vx++===98234z1esfatr|wi32x|wi32x-3vx++===98234z1esfatr|wi32x-3vx++===98234z1esfatr                       |wi32x|wi32x-3vx++===98234z1esfatr|                  wi32x|wi32x-3vx++===98234z1esfatr|wi32x                  |wi32x-3vx++===98234z1esfatr|, ret = 221
+⟹  [KO]
 ----------------------------------
 test: "%s|%-s|%23s|%.5s|%.50s|%-23s|%-.5s|%-.50s|%23.5s|%23.50s|%-23.5s|%-23.50s","😁", "😁", "😁", "😁", "😁", "😁", "😁", "😁", "😁", "😁", "😁", "😁"
   > expected: |😁|😁|                   😁|😁|😁|😁                   |😁|😁|                   😁|                   😁|😁                   |😁                   |, ret = 173
-  >   actual: |😁|😁|                   😁|😁|😁|😁                   |😁|😁|                   😁|                   😁|😁                   |😁                   |, ret = 173
-⟹  [OK]
+  >   actual: |😁|😁|                       😁|😁|😁|😁                       |😁|😁|                   😁|                   😁|😁                   |😁                   |, ret = 165
+⟹  [KO]
 ----------------------------------
 test: "%s|%-s|%23s|%.5s|%.50s|%-23s|%-.5s|%-.50s|%23.5s|%23.50s|%-23.5s|%-23.50s", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84", "xF0x9Fx98x84"
-⟹  [BUSE]
+  > expected: |xF0x9Fx98x84|xF0x9Fx98x84|           xF0x9Fx98x84|xF0x9|xF0x9Fx98x84|xF0x9Fx98x84           |xF0x9|xF0x9Fx98x84|                  xF0x9|           xF0x9Fx98x84|xF0x9                  |xF0x9Fx98x84           |, ret = 207
+  >   actual: |xF0x9Fx98x84|xF0x9Fx98x84|                       xF0x9Fx98x84|xF0x9|xF0x9Fx98x84|xF0x9Fx98x84                       |xF0x9|xF0x9Fx98x84|                  xF0x9|           xF0x9Fx98x84|xF0x9                  |xF0x9Fx98x84           |, ret = 183
+⟹  [KO]
 ----------------------------------
 test: "This is a %s", "random string"
   > expected: |This is a random string|, ret = 23
-  >   actual: |This is a random string|, ret = 23
-⟹  [OK]
+  >   actual: |This is a random string|, ret = 10
+⟹  [KO]
 ----------------------------------
 test: "This is a %10s", "random string"
   > expected: |This is a random string|, ret = 23
-  >   actual: |This is a random string|, ret = 23
-⟹  [OK]
+  >   actual: |This is a           random string|, ret = 20
+⟹  [KO]
 ----------------------------------
 test: "This is a %.5s", "random string"
-⟹  [BUSE]
+  > expected: |This is a rando|, ret = 15
+  >   actual: |This is a rando|, ret = 15
+⟹  [OK]
 ----------------------------------
 test: "%s %s - %s %s", "string1", "string2", "string3", "string4"
   > expected: |string1 string2 - string3 string4|, ret = 33
-  >   actual: |string1 string2 - string3 string4|, ret = 33
-⟹  [OK]
+  >   actual: |string1 string2 - string3 string4|, ret = 5
+⟹  [KO]
 ----------------------------------
 test: "%s%s%s%s", "string1", "string2", "string3", "string4"
   > expected: |string1string2string3string4|, ret = 28
-  >   actual: |string1string2string3string4|, ret = 28
-⟹  [OK]
+  >   actual: |string1string2string3string4|, ret = 0
+⟹  [KO]
 ----------------------------------
 test:  "%s", "WwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqp"
   > expected: |WwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqp|, ret = 1340
-  >   actual: |WwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqp|, ret = 1340
-⟹  [OK]
+  >   actual: |WwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqpWwyAlxbZGYIJZGzkjomuMGJgEuAZPbUAUimRUBeAAyoSGmhJCGmBOguEdCViaCsqohhsuRGLkoFQNmTZEZQFLEwvHAEctloDFOpLZGQyDDexpPllnNXympcKOxDyygGcWpdzqp|, ret = 0
+⟹  [KO]
 
 
 conv_p
@@ -6092,28 +6098,28 @@ test: "%p", NULL
 ⟹  [OK]
 ----------------------------------
 test: "%p", "Random string"
-  > expected: |0x109fdffa8|, ret = 11
-  >   actual: |0x109fdffa8|, ret = 11
+  > expected: |0x103a5efa8|, ret = 11
+  >   actual: |0x103a5efa8|, ret = 11
 ⟹  [OK]
 ----------------------------------
 test: "%5p", "Random string"
-  > expected: |0x109fdffa8|, ret = 11
-  >   actual: |0x109fdffa8|, ret = 11
+  > expected: |0x103a5efa8|, ret = 11
+  >   actual: |0x103a5efa8|, ret = 11
 ⟹  [OK]
 ----------------------------------
 test: "%30p", "Random string"
-  > expected: |                   0x109fdffa8|, ret = 30
-  >   actual: |                   0x109fdffa8|, ret = 30
+  > expected: |                   0x103a5efa8|, ret = 30
+  >   actual: |                   0x103a5efa8|, ret = 30
 ⟹  [OK]
 ----------------------------------
 test: "%-30p", "Random string"
-  > expected: |0x109fdffa8                   |, ret = 30
-  >   actual: |0x109fdffa8                   |, ret = 30
+  > expected: |0x103a5efa8                   |, ret = 30
+  >   actual: |0x103a5efa8                   |, ret = 30
 ⟹  [OK]
 ----------------------------------
 test: "%p", &printf
-  > expected: |0x7fffa3028180|, ret = 14
-  >   actual: |0x7fffa3028180|, ret = 14
+  > expected: |0x7fffd6a88180|, ret = 14
+  >   actual: |0x7fffd6a88180|, ret = 14
 ⟹  [OK]
 
 
@@ -6659,15 +6665,19 @@ test: "%.1150f|%.1150f|%.1150f|%.1150f", 0x1p-1074, 0x1.ffffffffffffep-1023, 0x1
 ⟹  [TIME]
 ----------------------------------
 test: "%.2147483649f|%2147483649f", 1.0, 1.0
-⟹  [SEGV]
+  > expected: |1.000000|1.000000|, ret = 17
+  >   actual: |1.000000|1.000000|, ret = 17
+⟹  [OK]
 
 
 mix
 ----------------------------------
 test: "abcd%%efg%dgh%u%i%c%s%f", -42, 42u, -56, 'z', "this is a string followed by a float: ", 2.33456
   > expected: |abcd%efg-42gh42-56zthis is a string followed by a float: 2.334560|, ret = 65
-  >   actual: |abcd%efg-42gh42-56zthis is a string followed by a float: 2.334560|, ret = 65
-⟹  [OK]
+  >   actual: |abcd%efg-42gh42-56zthis is a string followed by a float: 2.334560|, ret = 27
+⟹  [KO]
 ----------------------------------
 test: "abcd%%efg%-23.10dgh%42.4u%+2.10i%-22c%.23s%.32f", -42, 42u, -56, 'z', "this is a string followed by a float: ", 2.33456
-⟹  [BUSE]
+  > expected: |abcd%efg-0000000042            gh                                      0042-0000000056z                     this is a string follow2.33456000000000019056756173085887|, ret = 165
+  >   actual: |abcd%efg-0000000042            gh                                      0042-0000000056z                     this is a string follow2.33456000000000019056756173085887|, ret = 165
+⟹  [OK]

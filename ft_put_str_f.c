@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/24 18:45:21 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 15:01:24 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ void	ft_swap(char **s, int i, int j)
 ** 3 - dec lenght
 */
 
-long int	*ft_float_len(char *str)
+int	*ft_float_len(char *str)
 {
 	char	*point;
-	long int		*len;
+	int		*len;
 
-	if (!(len = (long int*)malloc(sizeof(long int) * 5)))
+	if (!(len = (int*)malloc(sizeof(int) * 5)))
 		return (NULL);
 	len[0] = ft_strlen(str);
 	if (!(point = ft_strchr(str, '.')))
@@ -90,7 +90,7 @@ int	ft_shift(char **s, int i)
 {
 	char *s_tmp;
 	char *s_new;
-	long int *len;
+	int *len;
 
 	s_tmp = *s;
 	len = ft_float_len(s_tmp);
@@ -219,11 +219,11 @@ int	ft_get_f_m_binary_str(unsigned long int n, char **s, int power)
 
 void	ft_get_len_output_f(t_spec *s_args, char *str)
 {
-	long int	len[8];
-	long int		*f_len;
+	int	len[8];
+	int	*f_len;
 
 	f_len = ft_float_len(str);  //0 - len. 1- int. 2 - point 3 - dec without point
-	if (s_args->precision > (unsigned int)f_len[3])
+	if (s_args->precision > f_len[3])
 		len[4] = s_args->precision - f_len[3];
 	else
 	{
@@ -240,7 +240,7 @@ void	ft_get_len_output_f(t_spec *s_args, char *str)
 	}
 	len[2] = (s_args->sign ? 1 : 0);
 	len[1] = f_len[0];
-	if ((unsigned)(f_len[1] + f_len[2] + f_len[3] + len[2] + len[4]) < s_args->width)
+	if (f_len[1] + f_len[2] + f_len[3] + len[2] + len[4] < s_args->width)
 		len[3] = s_args->width;
 	else
 		len[3] = f_len[1] + f_len[2] + f_len[3] + len[2] + len[4]; 	
@@ -293,8 +293,8 @@ void	ft_get_len_output_f(t_spec *s_args, char *str)
 
 int	ft_put_output_f(t_spec *s_args, char *str)
 {
-	long int		*len;
-	int		i;
+	int	*len;
+	int	i;
 
 	i = 0;
 	len = s_args->output_len;
@@ -419,8 +419,8 @@ int	ft_isodd(char c)
 
 int	ft_roundup(char **str, t_spec *s_args)
 {
-	unsigned int		precision;
-	long int		*len;
+	int		precision;
+	int		*len;
 	char	*tmp;
 	char	*ret;
 	char	*round_diff;
@@ -429,7 +429,7 @@ int	ft_roundup(char **str, t_spec *s_args)
 	tmp = *str;
 	len = ft_float_len(tmp);
 	precision = s_args->precision;
-	if (precision < (unsigned int)len[3])
+	if (precision < len[3])
 	{
 		len[4] = (precision ? precision : - 1);
 		if ((ft_strchr("6789", tmp[len[1] + 1 + precision])) || 
@@ -443,7 +443,7 @@ int	ft_roundup(char **str, t_spec *s_args)
 			free (tmp);
 			*str = ret;
 		}
-		if (((unsigned int)len[1] + 1 + precision) < (unsigned int)ft_strlen(*str))
+		if ((len[1] + 1 + precision) < (int)ft_strlen(*str))
 			(*str)[len[1] + 1 + precision] = '\0';
 	}
 	return (0);

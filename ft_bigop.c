@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/24 18:44:21 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 14:19:22 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ char	*ft_sum(char *s1, char *s2, int base)
 char	*ft_sum_int(char *s1, char *s2, int base)
 {
 	int 	carry;
-	long int		*len[3];
+	int		*len[3];
 	int		i;
 	char	*s;
-	long int		s_len;
+	int		s_len;
 
 	len[1] = ft_float_len(s1);
 	len[2] = ft_float_len(s2);
@@ -138,7 +138,7 @@ char	*ft_sum_decimal(char *s1, char *s2, int base)
 
 char	*ft_sum_float(char *s1, char *s2, int base)
 {
-	long int	*len[4];
+	int	*len[4];
 	char	*s3;
 	char	*s4;
 	char	*s5;
