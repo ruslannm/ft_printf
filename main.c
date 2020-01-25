@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 16:32:23 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 16:46:22 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ int main(void)
 	printf("%s|\n", str);
 	return (0);
 */
- //	char *s = "random";
+ 	float f = 0.100001;
 
-	 i = ft_printf("%f|", DBL_MIN);
+	 i = ft_printf("%.20f|", f);
 
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
 //	long double d = 1.0 / 3.0;
-	i = printf("%c|%-c|%12c|%-12c", 0, 0, 0, 0);
+	i = printf("%.20f|", f);
 	printf("\nres=%i=li\n", i);
 
 /*
