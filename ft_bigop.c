@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 18:11:09 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 19:13:34 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,7 +408,70 @@ int	ft_max_power(char *str)
 	return (ret);
 }
 
-char *ft_div_dec(char *s1, char *s2, int digit)
+int		ft_iseven(char c)
+{
+	if ('0' == c || '2' == c || '4' == c || '6' == c || '8' == c)
+		return (1);
+	else if ('1' == c || '3' == c || '5' == c || '7' == c || '9' == c)
+		return (0);
+	return (- 1);
+}
+
+
+char	ft_div_2_algo(char c0, char c)
+{
+	if (1 == ft_iseven(c0))
+	{
+		if ('0' == c || '1' == c)
+			return ('0');
+		else if ('2' == c || '3' == c)
+			return ('1');
+		else if ('4' == c || '5' == c)
+			return ('2');
+		else if ('6' == c || '7' == c)
+			return ('3');
+		return ('4');
+	}
+	else
+	{
+		if ('0' == c || '1' == c)
+			return ('5');
+		else if ('2' == c || '3' == c)
+			return ('6');
+		else if ('4' == c || '5' == c)
+			return ('7');
+		else if ('6' == c || '7' == c)
+			return ('8');
+		return ('9');
+	}
+}
+
+char *ft_div_2(char *str)
+{
+	int	len;
+	int	len_new;
+	char	*ret;
+	int		i;
+
+	len = ft_strlen(str);
+	len_new = len;
+	if (0 == ft_iseven(str[len - 1]))
+		len_new = len_new + 2;
+	ret = ft_strnew(len_new);
+	i = 0;
+	while (i < len)
+	{
+		if (0 == i)
+			ret[i] = ft_div_2_algo('0', str[i]);
+		else
+			ret[i] = ft_div_2_algo(str[i - 1], str[i]);
+	}
+	return (ret);
+}
+
+
+
+char *ft_div_2_dec(char *s1)
 {
 	char *ret;
 	int	shift;
@@ -418,10 +481,11 @@ char *ft_div_dec(char *s1, char *s2, int digit)
 	else
 		shift = 0;	
 	ft_shift_int(&s1, shift);
-	ret = ft_div(s1, s2, digit);
+	ret = ft_div_2(s1);
 	ft_shift(&ret, - shift);
 	return (ret);
 }
+
 
 
 char	*ft_conv_bin_dec_place(char *binary)
@@ -442,7 +506,7 @@ char	*ft_conv_bin_dec_place(char *binary)
 	while (i <= max_power)
 	{
 //		ft_add_power(&s_power, 2);
-		tmp2 = ft_div_dec(s_power, "2", max_power + 1);
+		tmp2 = ft_div_2_dec(s_power);
 //		free(s_power);
 		s_power = tmp2;
 		if (binary[i - 1] == '1')
