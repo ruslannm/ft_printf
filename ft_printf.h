@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 17:57:24 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 21:50:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,7 @@ char	*ft_sum_float(char *s1, char *s2, int base);
 int	*ft_float_len(char *str);
 int	ft_put_sign(t_spec *s_args, int i);
 int	ft_putchar_s_fd(char c, int i, int j, int fd);
+char	*ft_mul_str(char *s1, char *s2);
+char *ft_binpow(char *a, int n);
 
 #endif

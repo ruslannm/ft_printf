@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 17:57:09 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 21:46:40 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	ft_shift(char **s, int i)
 		ft_strncpy(s_new, s_tmp, len1_new);
 		if (i > len[3])
 		{
-			ft_strncpy(&s_new[len1_new], &s_tmp[1], len[3]);
+			ft_strncpy(&s_new[len1_new], &s_tmp[len[1] + 1], len[3]);
 			s_new[--len[4]] = '.';
 			while (i-- > len[3])
 				s_new[--len[4]] = '0';
@@ -165,14 +165,16 @@ int	ft_shift_int(char **s, int i)
 		if (1 == len[1] && '0' == s_tmp[0])
 			len1_new = 0;
 		else
-			len1_new = 1;		
+			len1_new = len[1];		
 		ft_strncpy(s_new, s_tmp, len1_new);
 		if (i > len[3])
 		{
 			ft_strncpy(&s_new[len1_new], &s_tmp[1], len[3]);
 			s_new[--len[4]] = '.';
-			while (i-- > len[3])
-				s_new[--len[4]] = '0';
+//			while (i-- > len[3])
+//				s_new[--len[4]] = '0';
+			while (--i)
+				s_new[len[4] - i] = '0';
 		}
 		else
 		{
