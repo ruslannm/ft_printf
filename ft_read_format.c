@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/14 16:08:20 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 15:52:51 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 		if (!(*s_args = (t_spec*)malloc(sizeof(t_spec))))
 			return (-1);
 		(*s_args)->len = 0;
+		(*s_args)->width_diff = 0;
 		(*s_args)->fd = fd;
 		if (!((*s_args)->format = ft_strdup(format)))
 			return (-1);
@@ -76,7 +77,6 @@ int	ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 	(*s_args)->flags[4] = 0;
 	(*s_args)->width_ini = 0;
 	(*s_args)->width = 0;
-	(*s_args)->width_diff = 0;
 	(*s_args)->precision_ini = 0;
 	(*s_args)->precision = 0;
 	(*s_args)->modifier = 0; 
@@ -112,5 +112,6 @@ int	ft_parse(t_spec *s_args, va_list args)
 	}
 	if (-1 == s_args->len)
 		return (-1);
-	return (s_args->len + s_args->width_diff);
+	return (s_args->len);
+//	return (s_args->len + s_args->width_diff);
 }

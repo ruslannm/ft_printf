@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 15:13:47 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/25 15:51:58 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ void	ft_get_len_output(t_spec *s_args, char *str)
 	int	len[4];
 
 	len[0] = ft_strlen(str);
-	if (s_args->conversion == 'o' && s_args->flags[1] && len[0] == 0)
+	if (('c' == s_args->conversion && 0 == len[0]) ||
+	('o' == s_args->conversion && s_args->flags[1] && 0 == len[0]))
 		len[0] = 1;
 	len[1] = len[0];
 	if ('s' != s_args->conversion && len[0] < s_args->precision)
 		len[1] = s_args->precision;
-	if ('s' == s_args->conversion && len[0] > s_args->precision)
+	if ('s' == s_args->conversion && len[0] > s_args->precision && s_args->precision_ini)
 	{
 		len[0] = s_args->precision;
 		len[1] = len[0];
