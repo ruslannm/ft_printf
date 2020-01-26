@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/26 11:26:02 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/26 15:20:19 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,7 @@ int	ft_get_binary_str(unsigned long int n, char **s, int power)
 		tmp[j] = tmp[63 - j];
 		tmp[63 - j] = c;
 	}
+
 	ft_shift(&tmp, power); //-63);
 	*s = tmp;
 	return (0);

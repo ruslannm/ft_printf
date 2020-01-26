@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/26 12:42:37 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/26 17:36:35 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,5 +145,7 @@ char	*ft_mul_str(char *s1, char *s2);
 char *ft_binpow(char *a, int n);
 int	ft_max_power(char *str);
 char *ft_mul_karatsuba(char *x, char *y);
+int ft_intpow(int value, int pow);
+void longmulti(const char *a, const char *b, char *c);
 
 #endif

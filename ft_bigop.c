@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/26 14:40:32 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/26 17:41:12 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -494,43 +494,54 @@ char *ft_mul_karatsuba(char *x, char *y)
 	char *a, *b, *c, *d;
 	char *s1, *s2, *s3, *s4, *s5, *s6;
 	char *ret;
+	int len_max;
 
 	len_x = ft_float_len(x);
 	len_y = ft_float_len(y);
-
+	len_max = (len_x[1] > len_y[1] ? len_x[1] : len_y[1]);
+	len_max = len_max + (len_max % 2 ? 1 : 0);
 	if (1 == len_x[1] || 1 == len_y[1])
 	{
 		ret = ft_mul_str(x, y);
 		return (ret);
 	}
-	if (0 == len_x[1] % 2)
+	if (len_x[1] < len_max / 2)
+	{
+		a = ft_strdup("0");
+		b = ft_strdup(x);
+	}
+	else if (len_x[1] < len_max)
+	{
+		a = ft_strnew(len_x[1] - len_max / 2);
+		ft_strncpy(a, x, len_x[1] - len_max / 2);
+		b = ft_strdup(&x[len_x[1] - len_max / 2]);
+	}
+	else
 	{
 		a = ft_strnew(len_x[1] / 2);
 		ft_strncpy(a, x, len_x[1] / 2);
 		b = ft_strdup(&x[len_x[1] / 2]);
 	}
-	else
+	len_x[1] = len_max / 2 ;
+
+	if (len_y[1] < len_max / 2)
 	{
-		a = ft_strnew((len_x[1] + 1) / 2);
-//		a[0] = '0';
-		ft_strncpy(a, x, len_x[1] / 2);
-		b = ft_strdup(&x[len_x[1] / 2]);
-		len_x[1] = len_x[1] + 1;
+		c = ft_strdup("0");
+		d = ft_strdup(y);
 	}
-	if (0 == len_y[1] % 2)
+	else if (len_y[1] < len_max)
+	{
+		c = ft_strnew(len_y[1] - len_max / 2);
+		ft_strncpy(c, y, len_y[1] - len_max / 2);
+		d = ft_strdup(&y[len_y[1] - len_max / 2]);
+	}
+	else
 	{
 		c = ft_strnew(len_y[1] / 2);
 		ft_strncpy(c, y, len_y[1] / 2);
 		d = ft_strdup(&y[len_y[1] / 2]);
 	}
-	else
-	{
-		c = ft_strnew((len_y[1] + 1) / 2);
-//		c[0] = '0';
-		ft_strncpy(c, y, len_y[1] / 2);
-		d = ft_strdup(&y[len_y[1] / 2]);
-		len_y[1] = len_y[1] + 1;
-	}
+	len_y[1] = len_max / 2 ;
 	
 	s1 = ft_mul_karatsuba(a, c);
 	s2 = ft_mul_karatsuba(b, d);
@@ -547,26 +558,42 @@ char *ft_mul_karatsuba(char *x, char *y)
 }
 
 
+int ft_intpow(int value, int pow)
+{
+	int  result;
+
+	result = 1;
+	while (pow > 0)
+	{
+		if (1 == pow % 2)
+			result = result * value;
+		value = value *value;
+		pow = pow / 2;
+	}
+	return (result);
+}
 
 char *ft_binpow(char *a, int n)
 {
 	char *ret;
-	char *tmp;
+	char tmp[1000000];
 
 	ret = ft_strdup("1");
 	while (n > 0)
 	{
-		if (n % 2 == 1)
+		if (1 == n % 2)
 		{
 //			tmp = ft_mul_str(ret, a);
-			tmp = ft_mul_karatsuba(ret, a);
+//			tmp = ft_mul_karatsuba(ret, a);
+            longmulti(ret, a, tmp);
 			free(ret);
-			ret = tmp; 
+			ret = ft_strdup(tmp); 
 		}
 //		tmp = ft_mul_str(a, a);
-		tmp = ft_mul_karatsuba(a, a);
+//		tmp = ft_mul_karatsuba(a, a);
+        longmulti(a, a, tmp);
 //		free(a);
-		a = tmp;
+		a = ft_strdup(tmp);
 		n = n / 2;
 	}
 	return (ret);
