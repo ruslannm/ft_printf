@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/26 11:30:08 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/26 14:33:26 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ i = printf("%s|", ret);
 ret = ft_binpow("2", 8192); //8192? 4096 2048
 i = printf("%s|", ret);
 	printf("\nres=%i=li\n", i);
-/*ret = ft_mul_str(ret, ret);
-i = printf("%s|", ret);
+//ret = ft_mul_str(ret, ret);
+//ret = ft_mul_karatsuba("2531", "1467");
+ret = ft_mul_karatsuba(ret, ret);
+i = printf("Karatsuba=%s|", ret);
 	printf("\nres=%i=li\n", i);
-*/
  	//float f = 38546.5849;
 	 i = ft_printf("%f|", 5.1);
 

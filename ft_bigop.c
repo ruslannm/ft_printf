@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/26 12:47:44 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/26 14:40:32 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -388,34 +388,161 @@ char	*ft_pow(int base, int power)
 	return (ret);
 }
 
-char *ft_mul_karatsuba(char *x, char *y)
+int	ft_shift_karatsuba(char **s, int i)
 {
-	int	*len, *len_y;
+	char *s_tmp;
+	char *s_new;
+	int *len;
+	int len1_new;
+
+	s_tmp = *s;
+	len = ft_float_len(s_tmp);
+	if (i > 0)
+	{
+		len[4] = len[0] + (i > len[3] ? i - len[3] : 0); 
+		if (!(s_new = ft_strnew(len[4])))
+			return (-1);
+		if (1 == len[1] && '0' == s_tmp[0])
+			len1_new = 0;
+		else
+			len1_new = len[1];		
+		ft_strncpy(s_new, s_tmp, len1_new);
+		if (i > len[3])
+		{
+			ft_strncpy(&s_new[len1_new], &s_tmp[1], len[3]);
+			while (i)
+				s_new[len[4] - i--] = '0';
+		}
+		else
+		{
+			ft_strncpy(&s_new[len1_new], &s_tmp[len[1] + 1], i);
+//			s_new[i + len1_new] = '.';
+//			ft_strncpy(&s_new[i + len1_new + 1], &s_tmp[i + len[1] + 1], len[3] - i);
+		}
+		free(*s);
+		*s = s_new;
+	}
+	else if (i < 0)
+	{
+		len[4] = len[0] + (-i >= len[1]? - i - len[1] + 1 : 0) + (len[2] ? 0 : 1); 
+		if (!(s_new = ft_strnew(len[4])))
+			return (-1);
+		//ft_strncpy(s_new, s_tmp, len[1]);
+		if (-i >= len[1])
+		{
+			ft_strncpy(s_new, "0.", 2);
+			ft_strncpy(&s_new[2 - i - len[1]], s_tmp, len[1]);
+			ft_strncpy(&s_new[2 - i], &s_tmp[len[1] + 1], len[3]);
+			while (len[1] < - i++)
+				s_new[2 - i - len[1]] = '0';
+		}
+		else
+		{
+			ft_strncpy(s_new, s_tmp, len[1] + i);
+			s_new[i + len[1]] = '.';
+			ft_strncpy(&s_new[i + len[1] + 1], &s_tmp[i + len[1]], - i);  //Error
+			ft_strncpy(&s_new[len[1] + 1], &s_tmp[len[1] + 1], len[3]);
+		}
+		free(*s);
+		*s = s_new;
+	}
+	return (0);
+}
+
+
+
+char *ft_mul_karatsuba1(char *x, char *y)
+{
+	int	*len_x, *len_y;
 	char *a, *b, *c, *d;
 	char *s1, *s2, *s3, *s4, *s5;
 	char *ret;
 
-	len = ft_float_len(x);
-	a = ft_strnew(len[1] - 1);
-	ft_strncpy(a, x, len[1] - 1);
-	b = ft_strdup(&x[len[1] - 1]);
-	
+	len_x = ft_float_len(x);
 	len_y = ft_float_len(y);
-	c = ft_strnew(len_y[1] - 1);
-	ft_strncpy(c, y, len_y[1] - 1);
-	d = ft_strdup(&y[len_y[1] - 1]);
+
+	if (1 == len_x[1] || 1 == len_y[1])
+	{
+		ret = ft_mul_str(x, y);
+		return (ret);
+	}
+	a = ft_strnew(len_x[1] / 2);
+	ft_strncpy(a, x, len_x[1] / 2);
+	b = ft_strdup(&x[len_x[1] / 2]);
+	
+	c = ft_strnew(len_y[1] / 2);
+	ft_strncpy(c, y, len_y[1] / 2);
+	d = ft_strdup(&y[len_y[1] / 2]);
 
 	s1 = ft_mul_karatsuba(a, c);
 	s2 = ft_mul_karatsuba(b, d);
 	s3 = ft_mul_karatsuba(a, d);
 	s4 = ft_mul_karatsuba(b, c);
-	s5 = ft_mul_str(s3, s4);
+	s5 = ft_sum_int(s3, s4, 10);
 
-	ft_shift_int(&s1, len[1]);
-	ft_shift_int(&s5, len[1] / 2);
+	ft_shift_karatsuba(&s1, len_x[1]);
+	ft_shift_karatsuba(&s5, len_x[1] / 2);
 
 	ret = ft_sum_int(s1, s2, 10);
 	ret = ft_sum_int(ret, s5, 10);
+	return (ret);
+}
+
+char *ft_mul_karatsuba(char *x, char *y)
+{
+	int	*len_x, *len_y;
+	char *a, *b, *c, *d;
+	char *s1, *s2, *s3, *s4, *s5, *s6;
+	char *ret;
+
+	len_x = ft_float_len(x);
+	len_y = ft_float_len(y);
+
+	if (1 == len_x[1] || 1 == len_y[1])
+	{
+		ret = ft_mul_str(x, y);
+		return (ret);
+	}
+	if (0 == len_x[1] % 2)
+	{
+		a = ft_strnew(len_x[1] / 2);
+		ft_strncpy(a, x, len_x[1] / 2);
+		b = ft_strdup(&x[len_x[1] / 2]);
+	}
+	else
+	{
+		a = ft_strnew((len_x[1] + 1) / 2);
+//		a[0] = '0';
+		ft_strncpy(a, x, len_x[1] / 2);
+		b = ft_strdup(&x[len_x[1] / 2]);
+		len_x[1] = len_x[1] + 1;
+	}
+	if (0 == len_y[1] % 2)
+	{
+		c = ft_strnew(len_y[1] / 2);
+		ft_strncpy(c, y, len_y[1] / 2);
+		d = ft_strdup(&y[len_y[1] / 2]);
+	}
+	else
+	{
+		c = ft_strnew((len_y[1] + 1) / 2);
+//		c[0] = '0';
+		ft_strncpy(c, y, len_y[1] / 2);
+		d = ft_strdup(&y[len_y[1] / 2]);
+		len_y[1] = len_y[1] + 1;
+	}
+	
+	s1 = ft_mul_karatsuba(a, c);
+	s2 = ft_mul_karatsuba(b, d);
+	s3 = ft_sum_int(a, b, 10);
+	s4 = ft_sum_int(c, d, 10);
+	s5 = ft_mul_karatsuba(s3, s4);
+	s6 = ft_sub(s5, s1);
+	s6 = ft_sub(s6, s2);
+	ft_shift_karatsuba(&s1, len_x[1]);
+	ft_shift_karatsuba(&s6, len_x[1] / 2);
+	ret = ft_sum_int(s1, s2, 10);
+	ret = ft_sum_int(ret, s6, 10);
 	return (ret);
 }
 
@@ -431,11 +558,13 @@ char *ft_binpow(char *a, int n)
 	{
 		if (n % 2 == 1)
 		{
-			tmp = ft_mul_str(ret, a);
+//			tmp = ft_mul_str(ret, a);
+			tmp = ft_mul_karatsuba(ret, a);
 			free(ret);
 			ret = tmp; 
 		}
-		tmp = ft_mul_str(a, a);
+//		tmp = ft_mul_str(a, a);
+		tmp = ft_mul_karatsuba(a, a);
 //		free(a);
 		a = tmp;
 		n = n / 2;
@@ -484,10 +613,12 @@ char	*ft_conv_bin_int(char *binary)
 	tmp2 = NULL;
 	while (i >= 0)
 	{
-		ft_add_power(&tmp2, 2);
+		if (tmp2)
+			ft_add_power(&tmp2, 2);
 		if (binary[i] == '1')
 		{
-//			tmp2 = ft_pow(2, max_power - i);
+			if (!tmp2)	
+			tmp2 = ft_binpow("2", max_power - i);
 			tmp = ft_sum_int(ret, tmp2, 10);
 //			free(tmp2);
 			free(ret);
