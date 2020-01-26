@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 21:50:53 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/26 12:42:37 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,7 @@ int	ft_put_sign(t_spec *s_args, int i);
 int	ft_putchar_s_fd(char c, int i, int j, int fd);
 char	*ft_mul_str(char *s1, char *s2);
 char *ft_binpow(char *a, int n);
+int	ft_max_power(char *str);
+char *ft_mul_karatsuba(char *x, char *y);
 
 #endif

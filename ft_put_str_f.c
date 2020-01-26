@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 21:46:40 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/26 11:26:02 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -606,11 +606,34 @@ char	*ft_get_f_str(double n, t_spec *s_args)
 	return (m);
 }
 */
+
+int	ft_get_shift(char *str)
+{
+	int	ret;
+	int max_power;
+	int *len;
+	int	len3;
+
+	len = ft_float_len(str);
+	max_power = ft_max_power(str);
+	if (max_power < len[1])
+		ret = len[1] - max_power + max_power / 2;
+	else if (max_power > len[1])
+	{
+		len3 = max_power - len[1] - len[2];
+		ret = len[1] + (len[1] + len3) / 2;
+	}
+	else
+		ret = 0;
+	return (ret);	
+}
+
 char	*ft_get_lf_str(long double n, t_spec *s_args)
 {
 	union u_long_double	u_d;
 	int	power;
 	char	*m;
+//	int	shift;
 
 	m = NULL;
 	u_d = (union u_long_double)n;
@@ -623,7 +646,12 @@ char	*ft_get_lf_str(long double n, t_spec *s_args)
 		return (ft_get_str_f_naninf(s_args, u_d.f_parts.m));
 	ft_get_binary_str(u_d.f_parts.m, &m, -63);
 	ft_shift(&m, power);
+//	if (0 != (shift = ft_get_shift(m)))
+//		ft_shift(&m, shift);
 	ft_conv_bin2dec(&m);
+//	if (0 != (shift = ft_get_shift(m)))
+//		ft_shift(&m, - shift);
+
 	ft_roundup(&m, s_args);
 //	ft_add_precision(&m, s_args);
 	return (m);

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 22:20:47 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/26 12:47:44 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -388,6 +388,39 @@ char	*ft_pow(int base, int power)
 	return (ret);
 }
 
+char *ft_mul_karatsuba(char *x, char *y)
+{
+	int	*len, *len_y;
+	char *a, *b, *c, *d;
+	char *s1, *s2, *s3, *s4, *s5;
+	char *ret;
+
+	len = ft_float_len(x);
+	a = ft_strnew(len[1] - 1);
+	ft_strncpy(a, x, len[1] - 1);
+	b = ft_strdup(&x[len[1] - 1]);
+	
+	len_y = ft_float_len(y);
+	c = ft_strnew(len_y[1] - 1);
+	ft_strncpy(c, y, len_y[1] - 1);
+	d = ft_strdup(&y[len_y[1] - 1]);
+
+	s1 = ft_mul_karatsuba(a, c);
+	s2 = ft_mul_karatsuba(b, d);
+	s3 = ft_mul_karatsuba(a, d);
+	s4 = ft_mul_karatsuba(b, c);
+	s5 = ft_mul_str(s3, s4);
+
+	ft_shift_int(&s1, len[1]);
+	ft_shift_int(&s5, len[1] / 2);
+
+	ret = ft_sum_int(s1, s2, 10);
+	ret = ft_sum_int(ret, s5, 10);
+	return (ret);
+}
+
+
+
 char *ft_binpow(char *a, int n)
 {
 	char *ret;
@@ -399,8 +432,12 @@ char *ft_binpow(char *a, int n)
 		if (n % 2 == 1)
 		{
 			tmp = ft_mul_str(ret, a);
+			free(ret);
+			ret = tmp; 
 		}
-		ret = ft_mul_str(tmp, tmp);
+		tmp = ft_mul_str(a, a);
+//		free(a);
+		a = tmp;
 		n = n / 2;
 	}
 	return (ret);

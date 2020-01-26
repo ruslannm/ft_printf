@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 22:20:57 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/26 11:30:08 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,24 @@ int main(void)
 char	*ret = ft_mul_str("1234", "3456");
 i = printf("%s|", ret);
 	printf("\nres=%i=li\n", i);
-ret = ft_binpow("2", 5); //8192? 4096 2048
+ret = ft_binpow("2", 8192); //8192? 4096 2048
 i = printf("%s|", ret);
 	printf("\nres=%i=li\n", i);
-ret = ft_mul_str(ret, ret);
+/*ret = ft_mul_str(ret, ret);
 i = printf("%s|", ret);
 	printf("\nres=%i=li\n", i);
-
+*/
  	//float f = 38546.5849;
-/*
-	 i = ft_printf("%Lf|", LDBL_MAX);
+	 i = ft_printf("%f|", 5.1);
 
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 
 //	long double d = 1.0 / 3.0;
-	i = printf("%Lf|", LDBL_MAX);
+/*	i = printf("%Lf|", LDBL_MAX);
 	printf("\nres=%i=li\n", i);
-*/
+	*/
 /*
 	i = ft_printf("int(o)=%#-15.10o, int(o)=%#15.10o, int(x)=%#15.10x=my", 55555, 77777, 77777);
 	write(1, "\nres=", 5);
