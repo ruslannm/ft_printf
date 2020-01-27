@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/27 15:42:18 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/27 17:54:21 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,23 +128,20 @@ void	ft_get_len_output_f(t_spec *s_args, char *str);
 int		ft_nbr_len(intmax_t n, int base);
 void	ft_get_f_str(long double n, t_spec *s_args, char *str);
 int		ft_get_arg_f(t_spec *s_args, va_list args);
-int		ft_conv_bin2dec(char **str);
+void	ft_conv_bin2dec(char *str);
 //int		ft_put_f_sep(t_spec *s_args);
 int		ft_get_width_diff(t_spec **s_args);
-int		ft_shift(char **s, int i);
-int		ft_shift_int(char **s, int i);
-char	*ft_sum_decimal(char *s1, char *s2, int base);
-int	ft_shift(char **s, int i);
-int	ft_get_binary_str(unsigned long int n, char **s, int power);
-char	*ft_sum_float(char *s1, char *s2, int base);
-int	*ft_float_len(char *str);
+void		ft_shift(char *s, int i);
+//int		ft_shift_int(char **s, int i);
+void	ft_sum_decimal(char *s1, char *s2, int base, char *s);
+void	ft_get_binary_str(unsigned long int n, int power, char *s);
+void	ft_sum_float(char *s1, char *s2, int base, char *s);
+void	ft_float_len(char *str, int *len);
 int	ft_put_sign(t_spec *s_args, int i);
 int	ft_putchar_s_fd(char c, int i, int j, int fd);
 char	*ft_mul_str(char *s1, char *s2);
 char *ft_binpow(char *a, int n);
 int	ft_max_power(char *str);
-char *ft_mul_karatsuba(char *x, char *y);
-int ft_intpow(int value, int pow);
 void longmulti(const char *a, const char *b, char *c);
 
 #endif
