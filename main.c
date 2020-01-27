@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/26 17:43:53 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/27 15:33:15 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*ret = ft_mul_str("1234", "3456");
 i = printf("%s|", ret);
 	printf("\nres=%i=li\n", i);
 */
+/*
 char *ret = ft_binpow("2", 16384); //8192? 4096 2048
 i = printf("%s|", ret);
 	printf("\nres=%i=li\n", i);
@@ -57,7 +58,7 @@ i = printf("%s|", ret);
 	int pow = ft_intpow(2, 12);
 i = printf("d=%d|", pow);
 	printf("\nres=%i=li\n", i);
-
+*/
 //ret = ft_mul_str(ret, ret);
 //ret = ft_mul_karatsuba("2531", "1467");
 /*ret = ft_mul_karatsuba(ret, ret);
@@ -67,16 +68,15 @@ i = printf("Karatsuba=%s|", ret);
  */	//float f = 38546.5849;
 
 //	long double d = 1234567890123456789.L;
-	/* i = ft_printf("%f|", DBL_MAX);
+/*	 i = ft_printf("%Lf", LDBL_MAX);
 
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 */
 //	long double d = 1.0 / 3.0;
-//	i = printf("%f|", LDBL_MAX);
-//		i = printf("%f|", DBL_MAX);
-//	printf("\nres=%i=li\n", i);
+	i = printf("%Lf", LDBL_MAX);
+	printf("\nres=%i=li\n", i);
 	
 /*
 	i = ft_printf("int(o)=%#-15.10o, int(o)=%#15.10o, int(x)=%#15.10x=my", 55555, 77777, 77777);

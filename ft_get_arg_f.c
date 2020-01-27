@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/24 18:08:54 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/27 15:41:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int ft_get_arg_f(t_spec *s_args, va_list args)
 	long double	nb;
 //	long double	lnb;
 
-	char	*str;
+	char	str[5000];  // or 50000
 
 	ret = 0;
 	if (!s_args->modifier)
@@ -29,12 +29,8 @@ int ft_get_arg_f(t_spec *s_args, va_list args)
 		nb = (long double)va_arg(args, long double);
 	else
 		nb = (double)va_arg(args, double);
-//	if (nb == "NaN")
 	ft_set_sign(s_args);
-//	if ('L' == s_args->modifier)
-//		str = ft_get_lf_str(lnb, s_args);
-//	else
-	str = ft_get_lf_str(nb, s_args);
+	ft_get_f_str(nb, s_args, str);
 //	ft_get_len_output_f(s_args, str);
 	ft_get_len_output_f(s_args, str);
 	ret = (!ret ? ft_put_output_f(s_args, str) : ret);

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/26 15:20:19 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/27 15:56:26 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,33 +212,29 @@ int	ft_shift_int(char **s, int i)
 	return (0);
 }
 
-int	ft_get_binary_str(unsigned long int n, char **s, int power)
+void	ft_get_binary_str(unsigned long int n, int power, char *str)
 {
 	int		j;
 	char	*tmp;
 	char	c;
 
-	if (!(tmp = ft_strnew(64)))
-		return (-1);
 	j = 0;
+	ft_memset(str, '0', 64);
+	str[64] = '\0';
 	while (n > 0)
 	{
-		tmp[j++] = n % 2 + '0';
+		str[j++] = n % 2 + '0';
 		n = n / 2;
-		//j--;
 	}
-	while (j < 64)
-		tmp[j++] = '0';
+//	while (j < 64)
+//		tmp[j++] = '0';
 	while(j-- > 32)
 	{
-		c = tmp[j];
-		tmp[j] = tmp[63 - j];
-		tmp[63 - j] = c;
+		c = str[j];
+		str[j] = str[63 - j];
+		str[63 - j] = c;
 	}
-
 	ft_shift(&tmp, power); //-63);
-	*s = tmp;
-	return (0);
 }
 
 int	ft_get_f_m_binary_str(unsigned long int n, char **s, int power)
@@ -520,7 +516,7 @@ int	ft_roundup(char **str, t_spec *s_args)
 //	return (ft_add_precision(&str, s_args) == 0 ? 0 : -1);
 }
 
-char	*ft_get_str_f_null(t_spec *s_args, int sign)
+void	ft_get_str_f_null(t_spec *s_args, int sign, char *str)
 {
 	char	*ret;
 
@@ -528,8 +524,7 @@ char	*ft_get_str_f_null(t_spec *s_args, int sign)
 		s_args->sign = '-';
 	//s_args->flags[0] = 0;
 	//s_args->flags[1] = 0;
-	ret = ft_strdup("0.000000");
-	return (ret);
+	ft_strcpy(str, "0.000000");
 }
 
 
@@ -558,13 +553,12 @@ int		ft_check_mantissa(char *str)
 	return (-1);
 }
 
-char	*ft_get_str_f_naninf(t_spec *s_args, unsigned long int mantissa)
+char	*ft_get_str_f_naninf(t_spec *s_args, unsigned long int mantissa, char *str)
 {
 	char	*ret;
-	char	*m;
+	char	m_str[64];
 
-	m = NULL;
-	ft_get_binary_str(mantissa, &m, 0);
+	ft_get_binary_str(mantissa, 0, m_str);
 	if (1 == ft_check_mantissa(m))
 	{
 		ret = ft_strdup("nan");
@@ -629,31 +623,32 @@ int	ft_get_shift(char *str)
 	return (ret);	
 }
 
-char	*ft_get_lf_str(long double n, t_spec *s_args)
+void	ft_get_f_str(long double n, t_spec *s_args, char *str)
 {
 	union u_long_double	u_d;
-	int	power;
+	int		power;
 	char	*m;
 //	int	shift;
 
 	m = NULL;
 	u_d = (union u_long_double)n;
 	if (u_d.f_parts.e == 0 && u_d.f_parts.m == 0)
-		return (ft_get_str_f_null(s_args, u_d.f_parts.s));
+	{
+		ft_get_str_f_null(s_args, u_d.f_parts.s, str);
+		return ;
+	}
 	power = u_d.f_parts.e - 16383;//1023;//127;
 	if (u_d.f_parts.s)
 		s_args->sign = '-';
 	if (power == 16384)//1024) //128)
-		return (ft_get_str_f_naninf(s_args, u_d.f_parts.m));
-	ft_get_binary_str(u_d.f_parts.m, &m, -63);
-	ft_shift(&m, power);
-//	if (0 != (shift = ft_get_shift(m)))
-//		ft_shift(&m, shift);
-	ft_conv_bin2dec(&m);
-//	if (0 != (shift = ft_get_shift(m)))
-//		ft_shift(&m, - shift);
-
-	ft_roundup(&m, s_args);
+	{
+		ft_get_str_f_naninf(s_args, u_d.f_parts.m, str);
+		return ;
+	}
+	ft_get_binary_str(u_d.f_parts.m, str, -63);
+	ft_shift(str, power);
+	ft_conv_bin2dec(str);
+	ft_roundup(str, s_args);
 //	ft_add_precision(&m, s_args);
 	return (m);
 }
