@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/28 15:51:21 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/28 16:56:09 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ void ft_div_by2_frac(char *str)
 	int		i;
 	int		start;
 
-	len = ft_strlen(str);
+	if (1 == (len = ft_strlen(str)))
+	{
+		ft_strcpy(str, "0.5");
+		return;
+	}
 	ft_strcpy(ret, str);
 	start = ft_div_by2_first_digit(str);
 	i = start;
