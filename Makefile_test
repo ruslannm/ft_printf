@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile_exe                                       :+:      :+:    :+:    #
+#    Makefile_test                                      :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/01/28 15:39:58 by rgero            ###   ########.fr        #
+#    Updated: 2020/01/28 15:46:25 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,21 +16,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_PATH = ./
-SRC_NAME = 	ft_check_format.c \
-	ft_get_arg_csp.c \
-	ft_get_arg_duoxX.c \
-	ft_get_arg_f.c \
-	ft_get_str_dic.c \
-	ft_parse_conversion.c \
-	ft_parse_fields.c \
-	ft_printf.c \
-	ft_put_str_di.c \
-	ft_put_str_f.c \
-	ft_put_str_uoxX.c \
-	ft_read_args.c \
-	ft_read_format.c \
-	ft_div_by2.c \
-	main8.c
+SRC_NAME = 	ft_div_by2.c \
+	main_test.c
 
 
 OBJ_PATH = ./

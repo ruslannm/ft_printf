@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/27 18:16:23 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/28 15:41:32 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_float_len(char *str, int *len)
 	}
 	len[4] = 0;
 }
-
+/*
 void	ft_shift(char *str, int i)
 {
 	char s_new[33000];
@@ -124,6 +124,7 @@ void	ft_shift(char *str, int i)
 	}
 	ft_strcpy(str, s_new);
 }
+*/
 void	ft_get_binary_str(unsigned long int n, int power, char *str)
 {
 	int		j;
@@ -145,7 +146,7 @@ void	ft_get_binary_str(unsigned long int n, int power, char *str)
 		str[j] = str[63 - j];
 		str[63 - j] = c;
 	}
-	ft_shift(str, power); //-63);
+//	ft_shift(str, power); //-63);
 }
 
 int	ft_get_f_m_binary_str(unsigned long int n, char **s, int power)
@@ -175,7 +176,7 @@ int	ft_get_f_m_binary_str(unsigned long int n, char **s, int power)
 		tmp[j] = tmp[m_len - j - 1];
 		tmp[m_len - j - 1] = c;
 	}
-	ft_shift(&tmp, power); //-63);
+//	ft_shift(&tmp, power); //-63);
 	*s = tmp;
 	return (0);
 }
