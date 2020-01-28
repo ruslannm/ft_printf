@@ -395,3 +395,38 @@ static int	ft_get_digit(char *s, int s_len, int i)
 	else
 		return (s[s_len - i] - '0');
 }
+
+/*
+static int	ft_get_digit(char *s, int s_len, int i)
+{
+	int	len_str;
+
+	len_str = (int)ft_strlen(s);
+	if (i > s_len) 
+		return (0);
+	else if (s_len >= len_str + i)
+		return (0);
+	else
+		return (s[s_len - i] - '0');
+}
+
+*/
+
+void	ft_sum_float(char *s1, char *s2, int base, char *s)
+{
+	int		len[6][4];
+	char	s3[5000];
+	char	s4[5000];
+	char	s5[5000];
+
+	ft_float_len(s1, len[1]);
+	ft_float_len(s2, len[2]);
+	ft_sum_decimal(&s1[len[1][1] +1 ], &s2[len[2][1] + 1], base, s3);
+	ft_sum_int(s1, s2, base, s4);
+	ft_sum_int(s3, s4, base, s5);
+	ft_float_len(s5, len[5]);
+	ft_float_len(s3, len[3]);
+	ft_strcpy(s, s5);
+	ft_strcpy(s + len[5][1], s3 + len[3][1]);
+}
+

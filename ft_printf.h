@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/28 16:07:27 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/28 19:22:41 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,15 +136,16 @@ void		ft_shift(char *s, int i);
 void	ft_sum_decimal(char *s1, char *s2, int base, char *s);
 void	ft_get_binary_str(unsigned long int n, int power, char *s);
 void	ft_sum_float(char *s1, char *s2, int base, char *s);
-void	ft_float_len(char *str, int *len);
+void	ft_float_len(const char *str, int *len);
 int	ft_put_sign(t_spec *s_args, int i);
 int	ft_putchar_s_fd(char c, int i, int j, int fd);
 //char	*ft_mul_str(char *s1, char *s2);
 //char *ft_binpow(char *a, int n);
-//int	ft_max_power(char *str);
-//void longmulti(const char *a, const char *b, char *c);
+int	ft_max_power(const char *str);
+void longmulti(const char *a, const char *b, char *c);
 void ft_div_by2_frac(char *str);
-void	ft_conv_bin_dec_place(char *str);
+void	ft_conv_bin_fracpart(const char *str, char *fracpart);
+void	ft_conv_bin_intpart(const char *str, char *intpart);
 
 
 #endif

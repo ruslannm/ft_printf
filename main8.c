@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:09:21 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/27 15:39:27 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/28 19:10:19 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void longmulti(const char *a, const char *b, char *c)
  
 	return;
 }
- 
+ /*
 int main()
 {
 	char c[50000];
@@ -210,3 +210,4 @@ int main()
  
 	return 0;
 }
+*/
