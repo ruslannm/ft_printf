@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/28 19:22:41 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/29 15:01:45 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void longmulti(const char *a, const char *b, char *c);
 void ft_div_by2_frac(char *str);
 void	ft_conv_bin_fracpart(const char *str, char *fracpart);
 void	ft_conv_bin_intpart(const char *str, char *intpart);
+void	ft_conv_bin_dec(char *str);
 
 
 #endif

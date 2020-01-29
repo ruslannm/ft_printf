@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/28 20:04:23 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/29 14:53:40 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_float_len(const char *str, int *len)
 }
 
 
-void	ft_sum_int(char *s1, char *s2, int base, char *s)
+void	ft_sum_int(const char *s1, const char *s2, int base, char *s)
 {
 	int 	carry;
 	int		l[3];

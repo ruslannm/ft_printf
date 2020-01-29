@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/28 15:41:32 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/29 15:20:11 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,63 +68,7 @@ void	ft_float_len(char *str, int *len)
 	}
 	len[4] = 0;
 }
-/*
-void	ft_shift(char *str, int i)
-{
-	char s_new[33000];
-	int len[5];
-	int len1_new;
 
-	ft_float_len(str, len);
-	if (i > 0)
-	{
-		len[4] = len[0] + (i > len[3] ? i - len[3] : 0); 
-		s_new[len[4]] = '\0';
-		str[len[4]] = '\0';
-		if (1 == len[1] && '0' == str[0])
-			len1_new = 0;
-		else
-			len1_new = 1;		
-		ft_strncpy(s_new, str, len1_new);
-		if (i > len[3])
-		{
-			ft_strncpy(&s_new[len1_new], &str[len[1] + 1], len[3]);
-			s_new[--len[4]] = '.';
-			while (i-- > len[3])
-				s_new[--len[4]] = '0';
-		}
-		else
-		{
-			ft_strncpy(&s_new[len1_new], &str[len[1] + 1], i);
-			s_new[i + len1_new] = '.';
-			ft_strncpy(&s_new[i + len1_new + 1], &str[i + len[1] + 1], len[3] - i);
-		}
-		ft_strcpy(str, s_new);
-	}
-	else if (i < 0)
-	{
-		len[4] = len[0] + (-i >= len[1]? - i - len[1] + 1 : 0) + (len[2] ? 0 : 1); 
-		s_new[len[4]] = '\0';
-		str[len[4]] = '\0';
-		if (-i >= len[1])
-		{
-			ft_strncpy(s_new, "0.", 2);
-			ft_strncpy(&s_new[2 - i - len[1]], str, len[1]);
-			ft_strncpy(&s_new[2 - i], &str[len[1] + 1], len[3]);
-			while (len[1] < - i++)
-				s_new[2 - i - len[1]] = '0';
-		}
-		else
-		{
-			ft_strncpy(s_new, str, len[1] + i);
-			s_new[i + len[1]] = '.';
-			ft_strncpy(&s_new[i + len[1] + 1], &str[i + len[1]], - i);  //Error
-			ft_strncpy(&s_new[len[1] + 1], &str[len[1] + 1], len[3]);
-		}
-	}
-	ft_strcpy(str, s_new);
-}
-*/
 void	ft_get_binary_str(unsigned long int n, int power, char *str)
 {
 	int		j;
@@ -399,6 +343,6 @@ void	ft_get_f_str(long double n, t_spec *s_args, char *str)
 	}
 	ft_get_binary_str(u_d.f_parts.m, str, -63);
 	ft_shift(str, power);
-	ft_conv_bin2dec(str);
+	ft_conv_bin_dec(str);
 	ft_roundup(str, s_args);
 }
