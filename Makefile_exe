@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/01/28 15:39:58 by rgero            ###   ########.fr        #
+#    Updated: 2020/01/29 16:32:12 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,12 @@ SRC_NAME = 	ft_check_format.c \
 	ft_read_args.c \
 	ft_read_format.c \
 	ft_div_by2.c \
-	main8.c
+	ft_conv_bin_fracpart.c \
+	ft_conv_bin_intpart.c \
+	ft_conv_bin_dec.c \
+	main8.c \
+	main.c
+
 
 
 OBJ_PATH = ./

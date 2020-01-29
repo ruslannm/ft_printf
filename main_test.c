@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 15:53:23 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/29 15:45:35 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/29 16:18:15 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int main(void) {
 	ft_strcpy(s, "111.11");
 	ft_conv_bin_dec(s);
     printf("%s\n", s);
-	ft_strcpy(s, "123.45");
-	ft_shift(s, 5);
+	ft_strcpy(s, "1.2345");
+	ft_shift(s, -2);
     printf("%s\n", s);
 
     return (0);

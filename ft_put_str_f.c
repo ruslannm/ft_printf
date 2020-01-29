@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/29 15:20:11 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/29 17:08:03 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_check_str_zero(char *str)
 ** 2 - point length
 ** 3 - dec lenght
 */
-
+/*
 void	ft_float_len(char *str, int *len)
 {
 	char	*point;
@@ -68,7 +68,7 @@ void	ft_float_len(char *str, int *len)
 	}
 	len[4] = 0;
 }
-
+*/
 void	ft_get_binary_str(unsigned long int n, int power, char *str)
 {
 	int		j;
@@ -90,9 +90,9 @@ void	ft_get_binary_str(unsigned long int n, int power, char *str)
 		str[j] = str[63 - j];
 		str[63 - j] = c;
 	}
-//	ft_shift(str, power); //-63);
+	ft_shift(str, power - 63); //-63);
 }
-
+/*
 int	ft_get_f_m_binary_str(unsigned long int n, char **s, int power)
 {
 	int		j;
@@ -124,7 +124,7 @@ int	ft_get_f_m_binary_str(unsigned long int n, char **s, int power)
 	*s = tmp;
 	return (0);
 }
-
+*/
 
 
 /*
@@ -245,8 +245,6 @@ int	ft_roundup(char *str, t_spec *s_args)
 
 void	ft_get_str_f_null(t_spec *s_args, int sign, char *str)
 {
-	char	*ret;
-
 	if (sign)
 		s_args->sign = '-';
 	//s_args->flags[0] = 0;
@@ -341,7 +339,7 @@ void	ft_get_f_str(long double n, t_spec *s_args, char *str)
 		ft_get_str_f_naninf(s_args, u_d.f_parts.m, str);
 		return ;
 	}
-	ft_get_binary_str(u_d.f_parts.m, str, -63);
+	ft_get_binary_str(u_d.f_parts.m, -63, str);
 	ft_shift(str, power);
 	ft_conv_bin_dec(str);
 	ft_roundup(str, s_args);

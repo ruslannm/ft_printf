@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/27 15:33:15 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/29 17:35:06 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,24 @@ i = printf("Karatsuba=%s|", ret);
  */	//float f = 38546.5849;
 
 //	long double d = 1234567890123456789.L;
-/*	 i = ft_printf("%Lf", LDBL_MAX);
+//	 i = ft_printf("%Lf", LDBL_MAX);
+char s[500];
+ft_strcpy(s, "100");
+ft_shift(s, -1);
+i = ft_printf("%s", s);
+	write(1, "\nres=", 5);
+	ft_putnbr(i);
+	write(1, "=my\n", 4);
+/*
 
+i = ft_printf("%f", 5.0);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 */
 //	long double d = 1.0 / 3.0;
-	i = printf("%Lf", LDBL_MAX);
-	printf("\nres=%i=li\n", i);
+//	i = printf("%Lf", LDBL_MAX);
+//	printf("\nres=%i=li\n", i);
 	
 /*
 	i = ft_printf("int(o)=%#-15.10o, int(o)=%#15.10o, int(x)=%#15.10x=my", 55555, 77777, 77777);
