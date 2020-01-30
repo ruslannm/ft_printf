@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/29 16:45:28 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/30 17:38:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,5 @@ void	ft_conv_bin_fracpart(const char *str, char *fracpart);
 void	ft_conv_bin_intpart(const char *str, char *intpart);
 void	ft_conv_bin_dec(char *str);
 void	ft_sum_fracpart(char *s1, char *s2, int base, char *s);
-void	ft_sum_int(char *s1, char *s2, int base, char *s);
+void	ft_sum_int(const char *s1, const char *s2, int base, char *s);
 #endif

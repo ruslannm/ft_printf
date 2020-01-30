@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/30 16:40:28 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/30 18:41:08 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,26 @@ void	ft_conv_bin_dec(char *str)
 void	ft_sum_float(char *s1, char *s2, int base, char *s)
 {
 	int		len[6][4];
-	char	s1_new[50000];
-	char	s2_new[50000];
-	char	s3_new[50000];
-	char	s_new[50000];
+	char	s1_int[50000];
+	char	s2_int[50000];
+	char	s3[50000];
+	char	s3_int[50000];
+	char	s4_int[50000];
+	char	s5_int[50000];
 
 	ft_float_len(s1, len[1]);
 	ft_float_len(s2, len[2]);
-	ft_sum_fracpart(s1 + len[1][1] + 1, s2 + len[2][1] + 1, base, s3_new);
-	ft_float_len(s3_new, len[3]);
-	ft_strncpy(s1_new, s1, len[1][1]);
-	ft_strncpy(s2_new, s2, len[2][1]);
-	ft_sum_int(s1_new, s2_new, base, s_new);
-	ft_float_len(s_new, len[0]);
-	ft_strncpy(s1_new, s3_new, len[3][1]);
-	ft_strncpy(s2_new, s_new, len[0][1]);
-	ft_sum_int(s1_new, s2_new, base, s_new);
-	ft_float_len(s_new, len[0]);
-	ft_strcpy(s, s_new);
-	ft_strcpy(s + len[0][1], s3_new + len[3][1]);
+	ft_sum_fracpart(s1 + len[1][1] + 1, s2 + len[2][1] + 1, base, s3);
+	ft_float_len(s3, len[3]);
+	ft_strncpy(s3_int, s3, len[3][1]);
+	s3_int[len[3][1]] = '\0';
+	ft_strncpy(s1_int, s1, len[1][1]);
+	s1_int[len[1][1]] = '\0';
+	ft_sum_int(s1_int, s3_int, base, s4_int);
+	ft_strncpy(s2_int, s2, len[2][1]);
+	s2_int[len[2][1]] = '\0';
+	ft_sum_int(s4_int, s2_int, base, s5_int);
+	ft_float_len(s5_int, len[5]);
+	ft_strcpy(s, s5_int);
+	ft_strcpy(s + len[5][1], s3 + len[3][1]);
 }

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/29 14:53:40 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/30 19:01:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ void	ft_sum_int(const char *s1, const char *s2, int base, char *s)
 	i = 1;
 	while (i <= l[1] || i <= l[2])	
 	{
-		j[1] = (l[0] - l[1] < i ? 0 : s1[l[1] - i] - '0');
-		j[2] = (l[0] - l[2] < i ? 0 : s2[l[2] - i] - '0');
-
+		j[1] = (i > l[1] ? 0 : s1[l[1] - i] - '0');
+		j[2] = (i > l[2] ? 0 : s2[l[2] - i] - '0');
 		s[l[0] - i]  = (j[1] + j[2] + carry) % base + '0';
 		carry = (j[1] + j[2] + carry) / base;
 		i++;
@@ -110,6 +109,7 @@ void ft_binpow(char *a, int n)
 void	ft_conv_bin_intpart(const char *str, char *intpart)
 {
 	char	power[5000];
+	char	tmp[5000];
 	int		max_power;	
 	int		i;
 	int		l[3];
@@ -127,7 +127,8 @@ void	ft_conv_bin_intpart(const char *str, char *intpart)
 		{
 			if (power[0] == '\0')	
 				ft_binpow(power, max_power - i);
-			ft_sum_int(intpart, power, 10, intpart);
+			ft_sum_int(intpart, power, 10, tmp);
+			ft_strcpy(intpart, tmp);
 		}
 		i--;
 	}

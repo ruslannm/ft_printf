@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/01/27 14:31:20 by rgero            ###   ########.fr        #
+#    Updated: 2020/01/30 17:36:03 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_PATH = ./
-SRC_NAME = 	ft_bigop.c \
-	ft_check_format.c \
+SRC_NAME = 	ft_check_format.c \
 	ft_get_arg_csp.c \
 	ft_get_arg_duoxX.c \
 	ft_get_arg_f.c \
@@ -30,6 +29,10 @@ SRC_NAME = 	ft_bigop.c \
 	ft_put_str_uoxX.c \
 	ft_read_args.c \
 	ft_read_format.c \
+	ft_div_by2.c \
+	ft_conv_bin_fracpart.c \
+	ft_conv_bin_intpart.c \
+	ft_conv_bin_dec.c \
 	main8.c
 
 OBJ_PATH = ./

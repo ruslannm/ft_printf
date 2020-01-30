@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/30 15:43:07 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/30 18:47:10 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,10 +202,17 @@ int	ft_put_output_f(t_spec *s_args, char *str)
 
 void	ft_roundup_diff(char *str, int precision)
 {
-	ft_strcpy(str, "0.");
-	str[2 + --precision] = '1';
-	while(precision-- > 0)
-		str[2 + precision] = '0';
+	if (precision)
+	{
+		ft_strcpy(str, "0.");
+		str[2 + --precision] = '1';
+	//str[2 + precision--] = '1';
+		while(precision-- > 0)
+			str[2 + precision] = '0';
+	}
+	else
+		ft_strcpy(str, "1.");
+	
 }
 
 int	ft_isodd(char c)
@@ -282,7 +289,7 @@ void	ft_get_str_f_naninf(t_spec *s_args, unsigned long int mantissa, char *str)
 {
 	char	m_str[64];
 
-	ft_get_binary_str(mantissa, 0, m_str);
+	ft_get_binary_str(mantissa, 63, m_str);
 	if (1 == ft_check_mantissa(m_str))
 	{
 		ft_strcpy(str, "nan");
@@ -325,6 +332,7 @@ void	ft_get_f_str(long double n, t_spec *s_args, char *str)
 	union u_long_double	u_d;
 	int		power;
 
+	str[0] = '\0';
 	u_d = (union u_long_double)n;
 	if (u_d.f_parts.e == 0 && u_d.f_parts.m == 0)
 	{
