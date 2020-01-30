@@ -70,13 +70,13 @@ i = printf("Karatsuba=%s|", ret);
 //	long double d = 1234567890123456789.L;
 //	 i = ft_printf("%Lf", LDBL_MAX);
 
-i = ft_printf("%-f|%+f", 123456789123456789., 123456789123456789.);
+i = ft_printf("%-f|%+f", 12345678912., 12345678912.);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
 //	long double d = 1.0 / 3.0;
-	i = printf("%-f|%+f", DBL_MAX, DBL_MAX);
-	printf("\nres=%i=li\n", i);
+//	i = printf("%-f|%+f", DBL_MAX, DBL_MAX);
+//	printf("\nres=%i=li\n", i);
 	
 /*
 	i = ft_printf("int(o)=%#-15.10o, int(o)=%#15.10o, int(x)=%#15.10x=my", 55555, 77777, 77777);

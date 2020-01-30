@@ -44,9 +44,10 @@ void	ft_sum_int(const char *s1, const char *s2, int base, char *s)
 	l[1] = ft_strlen(s1);
 	l[2] = ft_strlen(s2);
 	l[0] = 1 + (l[1] > l[2] ? l[1] : l[2]);
+	s[l[0]] = '\0';
 	carry = 0;
 	i = 1;
-	while (i <= l[1] || i <= l[2])	
+	while (i < l[0])	
 	{
 		j[1] = (i > l[1] ? 0 : s1[l[1] - i] - '0');
 		j[2] = (i > l[2] ? 0 : s2[l[2] - i] - '0');
@@ -115,6 +116,7 @@ void	ft_conv_bin_intpart(const char *str, char *intpart)
 	int		l[3];
 
 	ft_float_len(str, l);
+	//ft_memset(intpart, 0, 100);
 	ft_strcpy(intpart, "0");
 	max_power = l[1] - 1;
 	i = max_power;
@@ -127,6 +129,8 @@ void	ft_conv_bin_intpart(const char *str, char *intpart)
 		{
 			if (power[0] == '\0')	
 				ft_binpow(power, max_power - i);
+			if (i == 10)
+				l[2] = 1;
 			ft_sum_int(intpart, power, 10, tmp);
 			ft_strcpy(intpart, tmp);
 		}
