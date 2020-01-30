@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/28 19:13:53 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/30 16:04:02 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	ft_conv_bin_fracpart(const char *str, char *fracpart)
 		if (i == start)
 		{
 			ft_strcpy(power, "0.5");
-			ft_strcpy(fracpart, "0.5");
+			if (str[i] == '1')
+				ft_strcpy(fracpart, "0.5");
 		}
 		else
 		{

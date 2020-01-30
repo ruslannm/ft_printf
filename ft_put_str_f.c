@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/29 17:08:03 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/30 15:43:07 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,8 +339,7 @@ void	ft_get_f_str(long double n, t_spec *s_args, char *str)
 		ft_get_str_f_naninf(s_args, u_d.f_parts.m, str);
 		return ;
 	}
-	ft_get_binary_str(u_d.f_parts.m, -63, str);
-	ft_shift(str, power);
+	ft_get_binary_str(u_d.f_parts.m, power, str);
 	ft_conv_bin_dec(str);
 	ft_roundup(str, s_args);
 }
