@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 14:35:48 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 18:55:31 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_iseven(char c)
 		return (1);
 	else if ('1' == c || '3' == c || '5' == c || '7' == c || '9' == c)
 		return (0);
-	return (- 1);
+	return (-1);
 }
 
 char	ft_div_by2_algo(char c0, char c)
@@ -49,7 +49,7 @@ char	ft_div_by2_algo(char c0, char c)
 	}
 }
 
-int	ft_div_by2_first_digit(char *str)
+int		ft_div_by2_first_digit(char *str)
 {
 	int i;
 
@@ -63,7 +63,7 @@ int	ft_div_by2_first_digit(char *str)
 	return (i);
 }
 
-void ft_div_by2_frac(char *str)
+void	ft_div_by2_frac(char *str)
 {
 	int		len;
 	char	ret[50000];

@@ -6,15 +6,13 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 15:55:48 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 19:05:17 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft_printf.h"
 
-
-int	ft_mantissa_len(unsigned long int n, int base)
+int		ft_mantissa_len(unsigned long int n, int base)
 {
 	int i;
 
@@ -26,7 +24,6 @@ int	ft_mantissa_len(unsigned long int n, int base)
 	}
 	return (i);
 }
-
 
 int		ft_check_str_zero(char *str)
 {
@@ -42,33 +39,6 @@ int		ft_check_str_zero(char *str)
 	return (0);
 }
 
-/*
-** 0 - str lenght
-** 1 - int length
-** 2 - point length
-** 3 - dec lenght
-*/
-/*
-void	ft_float_len(char *str, int *len)
-{
-	char	*point;
-
-	len[0] = ft_strlen(str);
-	if (!(point = ft_strchr(str, '.')))
-	{
-		len[1] = len[0];
-		len[2] = 0;
-		len[3] = 0;
-	}
-	else
-	{
-		len[1] = point - str;
-		len[2] = 1;
- 		len[3] = len[0] - len[1] - len[2];
-	}
-	len[4] = 0;
-}
-*/
 void	ft_get_binary_str(unsigned long int n, int power, char *str)
 {
 	int		j;
@@ -82,53 +52,16 @@ void	ft_get_binary_str(unsigned long int n, int power, char *str)
 		str[j++] = n % 2 + '0';
 		n = n / 2;
 	}
-//	while (j < 64)
-//		tmp[j++] = '0';
-	while(j-- > 32)
+	while (j-- > 32)
 	{
 		c = str[j];
 		str[j] = str[63 - j];
 		str[63 - j] = c;
 	}
-	ft_shift(str, power - 63); //-63);
+	ft_shift(str, power - 63);
 }
-/*
-int	ft_get_f_m_binary_str(unsigned long int n, char **s, int power)
-{
-	int		j;
-	char	*tmp;
-	char	c;
-	int		m_len;
-
-	m_len = 53;
-
-	if (!(tmp = ft_strnew(m_len)))
-		return (-1);
-	j = 0;
-	while (n > 0)
-	{
-		tmp[j++] = n % 2 + '0';
-		n = n / 2;
-		//j--;
-	}
-	while (j < m_len - 1)
-		tmp[j++] = '0';
-	tmp[j++] = '1';
-	while(j-- > m_len / 2)
-	{
-		c = tmp[j];
-		tmp[j] = tmp[m_len - j - 1];
-		tmp[m_len - j - 1] = c;
-	}
-//	ft_shift(&tmp, power); //-63);
-	*s = tmp;
-	return (0);
-}
-*/
-
 
 /*
-**
 ** len:
 ** 0 - length of integer_part
 ** 1 - length of decimal_part
@@ -143,7 +76,7 @@ void	ft_get_len_output_f(t_spec *s_args, char *str)
 	int	len[8];
 	int	f_len[5];
 
-	ft_float_len(str, f_len);  //0 - len. 1- int. 2 - point 3 - dec without point
+	ft_float_len(str, f_len);
 	if (s_args->precision > f_len[3])
 		len[4] = s_args->precision - f_len[3];
 	else
@@ -163,40 +96,39 @@ void	ft_get_len_output_f(t_spec *s_args, char *str)
 	if (f_len[1] + f_len[2] + f_len[3] + len[2] + len[4] < s_args->width)
 		len[3] = s_args->width;
 	else
-		len[3] = f_len[1] + f_len[2] + f_len[3] + len[2] + len[4]; 	
+		len[3] = f_len[1] + f_len[2] + f_len[3] + len[2] + len[4];
 	s_args->output_len[0] = f_len[0];
 	s_args->output_len[1] = len[1];
 	s_args->output_len[2] = len[2];
 	s_args->output_len[3] = len[3];
 	s_args->output_len[4] = len[4];
-
 }
 
 int	ft_put_output_f(t_spec *s_args, char *str)
 {
-	int	*len;
+	int	*l;
 	int	i;
 
 	i = 0;
-	len = s_args->output_len;
+	l = s_args->output_len;
 	if (s_args->flags[1])
 	{
 		i = ft_put_sign(s_args, i);
-		i = ft_putchar_s_fd('0', i, len[3] - len[1] - len[2] - len[4], s_args->fd);
+		i = ft_putchar_s_fd('0', i, l[3] - l[1] - l[2] - l[4], s_args->fd);
 	}
 	if (s_args->flags[2] == 0)
-		i = ft_putchar_s_fd(' ', i, len[3] - len[1] - len[2] - len[4], s_args->fd);
-	if (len[2])
+		i = ft_putchar_s_fd(' ', i, l[3] - l[1] - l[2] - l[4], s_args->fd);
+	if (l[2])
 		i = ft_put_sign(s_args, i);
-	i = ft_putchar_s_fd('0', i, i + len[1] - len[0], s_args->fd);
-	if (len[3] < len[0])
-		str[len[3]] = '\0';
+	i = ft_putchar_s_fd('0', i, i + l[1] - l[0], s_args->fd);
+	if (l[3] < l[0])
+		str[l[3]] = '\0';
 	ft_putstr_fd(str, s_args->fd);
-	if (len[4])
-		i = ft_putchar_s_fd('0', i, i + len[4], s_args->fd);
-	i = i + (len[3] < len[0] ? len[3] : len[0]);
-	i = ft_putchar_s_fd(' ', i, len[3], s_args->fd);
-	s_args->len = (s_args->len >= 0 ? s_args->len + len[3] : -1);
+	if (l[4])
+		i = ft_putchar_s_fd('0', i, i + l[4], s_args->fd);
+	i = i + (l[3] < l[0] ? l[3] : l[0]);
+	i = ft_putchar_s_fd(' ', i, l[3], s_args->fd);
+	s_args->len = (s_args->len >= 0 ? s_args->len + l[3] : -1);
 	return (0);
 }
 
@@ -206,13 +138,11 @@ void	ft_roundup_diff(char *str, int precision)
 	{
 		ft_strcpy(str, "0.");
 		str[2 + --precision] = '1';
-	//str[2 + precision--] = '1';
-		while(precision-- > 0)
+		while (precision-- > 0)
 			str[2 + precision] = '0';
 	}
 	else
 		ft_strcpy(str, "1.");
-	
 }
 
 int	ft_isodd(char c)
@@ -233,10 +163,11 @@ int	ft_roundup(char *str, t_spec *s_args)
 	precision = s_args->precision;
 	if (precision < len[3])
 	{
-		len[4] = (precision ? precision : - 1);
-		if ((ft_strchr("6789", str[len[1] + 1 + precision])) || 
-			('5' == str[len[1] + 1 + precision] && 
-			(ft_isodd(str[len[1] + 1 + len[4] - 1]) || ft_check_str_zero(&str[len[1] + 2 + precision]))))
+		len[4] = (precision ? precision : -1);
+		if ((ft_strchr("6789", str[len[1] + 1 + precision])) ||
+			('5' == str[len[1] + 1 + precision] &&
+			(ft_isodd(str[len[1] + 1 + len[4] - 1]) ||
+			ft_check_str_zero(&str[len[1] + 2 + precision]))))
 		{
 			ft_roundup_diff(round_diff, precision);
 			ft_sum_float(str, round_diff, 10, ret);
@@ -246,26 +177,20 @@ int	ft_roundup(char *str, t_spec *s_args)
 			str[len[1] + 1 + precision] = '\0';
 	}
 	return (0);
-//	ft_add_precision(char &str, s_args);
-//	return (ft_add_precision(&str, s_args) == 0 ? 0 : -1);
 }
 
 void	ft_get_str_f_null(t_spec *s_args, int sign, char *str)
 {
 	if (sign)
 		s_args->sign = '-';
-	//s_args->flags[0] = 0;
-	//s_args->flags[1] = 0;
 	ft_strcpy(str, "0.000000");
 }
-
 
 /*
 ** -1 - Error
 **  0 - Inf
 **	1 - NaN
 */
-
 
 int		ft_check_mantissa(char *str)
 {
@@ -280,12 +205,13 @@ int		ft_check_mantissa(char *str)
 		if (ft_check_str_zero(&str[2]))
 			return (0);
 		else
-			return (1);		
+			return (1);
 	}
 	return (-1);
 }
 
-void	ft_get_str_f_naninf(t_spec *s_args, unsigned long int mantissa, char *str)
+void	ft_get_str_f_naninf(t_spec *s_args, unsigned long int mantissa,
+		char *str)
 {
 	char	m_str[64];
 
@@ -305,32 +231,10 @@ void	ft_get_str_f_naninf(t_spec *s_args, unsigned long int mantissa, char *str)
 	s_args->flags[1] = 0;
 }
 
-/*
-int	ft_get_shift(char *str)
-{
-	int	ret;
-	int max_power;
-	int *len;
-	int	len3;
-
-	len = ft_float_len(str);
-	max_power = ft_max_power(str);
-	if (max_power < len[1])
-		ret = len[1] - max_power + max_power / 2;
-	else if (max_power > len[1])
-	{
-		len3 = max_power - len[1] - len[2];
-		ret = len[1] + (len[1] + len3) / 2;
-	}
-	else
-		ret = 0;
-	return (ret);	
-}
-*/
 void	ft_get_f_str(long double n, t_spec *s_args, char *str)
 {
 	union u_long_double	u_d;
-	int		power;
+	int					power;
 
 	str[0] = '\0';
 	u_d = (union u_long_double)n;
@@ -339,10 +243,10 @@ void	ft_get_f_str(long double n, t_spec *s_args, char *str)
 		ft_get_str_f_null(s_args, u_d.f_parts.s, str);
 		return ;
 	}
-	power = u_d.f_parts.e - 16383;//1023;//127;
+	power = u_d.f_parts.e - 16383;
 	if (u_d.f_parts.s)
 		s_args->sign = '-';
-	if (power == 16384)//1024) //128)
+	if (power == 16384)
 	{
 		ft_get_str_f_naninf(s_args, u_d.f_parts.m, str);
 		return ;

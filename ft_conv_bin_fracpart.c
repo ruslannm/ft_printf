@@ -6,39 +6,40 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 16:06:51 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 18:54:05 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "ft_printf.h"
 
-void	ft_sum_fracpart(char *s1, char *s2, int base, char *s)
+void	ft_sum_fracpart(const char *s1, const char *s2, int base, char *s)
 {
-	int 	carry;
-	int		l[3];
-	int		i;
-	int		j[3];
+	int	carry;
+	int	l[3][5];
+	int	i;
+	int	j[3];
 
-	l[1] = ft_strlen(s1);
-	l[2] = ft_strlen(s2);
-	l[0] = 2 + (l[1] > l[2] ? l[1] : l[2]);
+	ft_float_len(s1, l[1]);
+	ft_float_len(s2, l[2]);
+	l[0][0] = 2 + (l[1][3] > l[2][3] ? l[1][3] : l[2][3]);
 	carry = 0;
 	i = 1;
-	while (i <= l[1] || i <= l[2])	
+	while (i <= l[0][0] - 2)
 	{
-		j[1] = (l[0] - 2 - l[1] >= i ? 0 : s1[l[0] - 2 - i] - '0');
-		j[2] = (l[0] - 2 - l[2] >= i ? 0 : s2[l[0] - 2 - i] - '0');
-		s[l[0] - i]  = (j[1] + j[2] + carry) % base + '0';
+		j[1] = (l[0][0] - 2 - l[1][3] >= i ? 0 :
+				s1[l[0][0] + l[1][1] - 1 - i] - '0');
+		j[2] = (l[0][0] - 2 - l[2][3] >= i ? 0 :
+				s2[l[0][0] + l[2][1] - 1 - i] - '0');
+		s[l[0][0] - i] = (j[1] + j[2] + carry) % base + '0';
 		carry = (j[1] + j[2] + carry) / base;
 		i++;
 	}
 	s[1] = '.';
 	s[0] = carry + '0';
-	s[l[0]] = '\0';
+	s[l[0][0]] = '\0';
 }
 
-int	ft_max_power(const char *str)
+int		ft_max_power(const char *str)
 {
 	int ret;
 	int i;
@@ -54,35 +55,32 @@ int	ft_max_power(const char *str)
 	return (ret);
 }
 
-void	ft_conv_bin_fracpart(t_spec *s_args, const char *str, char *fracpart)
+void	ft_conv_bin_fracpart(t_spec *s_args, char *stop, const char *str,
+		char *fracpart)
 {
 	char	power[50000];
-	char	stop_precision[50000];
-	int		max_power;	
-	int		i;
-	int 	start;
+	int		l[5];
 
-	ft_roundup_diff(stop_precision, (s_args->precision ? s_args->precision + 1 : 7));
 	ft_strcpy(fracpart, "0.0");
-	start = ft_strchr(str, '.') - str + 1;
-	max_power = ft_max_power(str);
-	i = start;
-	while (i <= max_power)
+	ft_float_len(str, l);
+	l[4] = ft_max_power(str);
+	l[3] = l[1];
+	while (l[3]++ <= l[4])
 	{
-		if (i == start)
+		if (l[3] == l[1] + l[2])
 		{
 			ft_strcpy(power, "0.5");
-			if (str[i] == '1')
+			if (str[l[3]] == '1')
 				ft_strcpy(fracpart, "0.5");
 		}
 		else
 		{
 			ft_div_by2_frac(power);
-			if (str[i] == '1')
-				ft_sum_fracpart(ft_strchr(fracpart, '.') + 1, ft_strchr(power, '.') + 1, 10, fracpart);
+			if (str[l[3]] == '1')
+				ft_sum_fracpart(fracpart, power, 10, fracpart);
 		}
-		if (ft_strncmp(stop_precision, power, (s_args->precision ? s_args->precision + 1 : 7) + 2) > 0)
-			i = max_power;
-		i++;
+		if (ft_strncmp(stop, power,
+			(s_args->precision ? s_args->precision + 1 : 7) + 2) > 0)
+			l[3] = l[4] + 1;
 	}
 }

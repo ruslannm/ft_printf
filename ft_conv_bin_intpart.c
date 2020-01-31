@@ -6,11 +6,10 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 17:34:25 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 18:55:57 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "ft_printf.h"
 
 void	ft_float_len(const char *str, int *len)

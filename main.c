@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 17:44:35 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 18:22:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ i = printf("Karatsuba=%s|", ret);
 
 //	long double d = 1234567890123456789.L;
 //	 i = ft_printf("%Lf", LDBL_MAX);
-i = ft_printf("%f", 5.1);
+i = ft_printf("%f", 38546.5849);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 17:45:02 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 18:03:10 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,12 @@ void	ft_conv_bin_dec(t_spec *s_args, char *str)
 {
 	char	intpart[50000];
 	char	fracpart[50000];
+	char	stop[50000];
 	int		len[4];
 
 	ft_float_len(str, len);
-	ft_conv_bin_fracpart(s_args, str, fracpart);
+	ft_roundup_diff(stop, (s_args->precision ? s_args->precision + 1 : 7));
+	ft_conv_bin_fracpart(s_args, stop, str, fracpart);
 	ft_conv_bin_intpart(str, intpart);
 	ft_strcpy(str, intpart);
 	ft_strcpy(str + ft_strlen(intpart), fracpart + 1);
@@ -77,7 +79,7 @@ void	ft_sum_float(char *s1, char *s2, int base, char *s)
 
 	ft_float_len(s1, len[1]);
 	ft_float_len(s2, len[2]);
-	ft_sum_fracpart(s1 + len[1][1] + 1, s2 + len[2][1] + 1, base, s3);
+	ft_sum_fracpart(s1, s2, base, s3);
 	ft_float_len(s3, len[3]);
 	ft_strncpy(s_int[3], s3, len[3][1]);
 	s_int[3][len[3][1]] = '\0';

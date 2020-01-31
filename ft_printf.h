@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 17:00:56 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 18:17:35 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,10 @@ int	ft_putchar_s_fd(char c, int i, int j, int fd);
 int	ft_max_power(const char *str);
 void ft_mul_long(const char *a, const char *b, char *c);
 void ft_div_by2_frac(char *str);
-void	ft_conv_bin_fracpart(t_spec *s_args, const char *str, char *fracpart);
+void	ft_conv_bin_fracpart(t_spec *s_args, char *stop, const char *str, char *fracpart);
 void	ft_conv_bin_intpart(const char *str, char *intpart);
 void	ft_conv_bin_dec(t_spec *s_args, char *str);
-void	ft_sum_fracpart(char *s1, char *s2, int base, char *s);
+void	ft_sum_fracpart(const char *s1, const char *s2, int base, char *s);
 void	ft_sum_int(const char *s1, const char *s2, int base, char *s);
 void	ft_roundup_diff(char *str, int precision);
 
