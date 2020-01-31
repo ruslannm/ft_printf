@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/30 18:47:10 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 15:55:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,6 +348,6 @@ void	ft_get_f_str(long double n, t_spec *s_args, char *str)
 		return ;
 	}
 	ft_get_binary_str(u_d.f_parts.m, power, str);
-	ft_conv_bin_dec(str);
+	ft_conv_bin_dec(s_args, str);
 	ft_roundup(str, s_args);
 }

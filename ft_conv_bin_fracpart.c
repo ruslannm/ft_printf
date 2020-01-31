@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 15:17:12 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 16:06:51 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ int	ft_max_power(const char *str)
 	return (ret);
 }
 
-void	ft_conv_bin_fracpart(const char *str, char *fracpart)
+void	ft_conv_bin_fracpart(t_spec *s_args, const char *str, char *fracpart)
 {
 	char	power[50000];
+	char	stop_precision[50000];
 	int		max_power;	
 	int		i;
 	int 	start;
 
+	ft_roundup_diff(stop_precision, (s_args->precision ? s_args->precision + 1 : 7));
 	ft_strcpy(fracpart, "0.0");
 	start = ft_strchr(str, '.') - str + 1;
 	max_power = ft_max_power(str);
@@ -76,15 +78,11 @@ void	ft_conv_bin_fracpart(const char *str, char *fracpart)
 		else
 		{
 			ft_div_by2_frac(power);
-			if (i == 16383)
-			{
-				start = start * 1;
-//				write(1, power, ft_strlen(power));
-			}
 			if (str[i] == '1')
 				ft_sum_fracpart(ft_strchr(fracpart, '.') + 1, ft_strchr(power, '.') + 1, 10, fracpart);
 		}
+		if (ft_strncmp(stop_precision, power, (s_args->precision ? s_args->precision + 1 : 7) + 2) > 0)
+			i = max_power;
 		i++;
 	}
-//	write(1, fracpart, ft_strlen(fracpart));
 }

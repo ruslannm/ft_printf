@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 15:20:35 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 15:44:00 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,17 @@ void	ft_shift(char *str, int power)
 		ft_shift_minus(str, - power);
 }
 
-void	ft_conv_bin_dec(char *str)
+void	ft_conv_bin_dec(t_spec *s_args, char *str)
 {
 	char	intpart[50000];
 	char	fracpart[50000];
 	int	len[4];
 
 	ft_float_len(str, len);
-	ft_conv_bin_fracpart(str, fracpart);
-	//write(1, fracpart, ft_strlen(fracpart));
+	ft_conv_bin_fracpart(s_args, str, fracpart);
 	ft_conv_bin_intpart(str, intpart);
 	ft_strcpy(str, intpart);
 	ft_strcpy(str + ft_strlen(intpart), fracpart + 1);
-//	write(1, str, ft_strlen(str));
 
 }
 
