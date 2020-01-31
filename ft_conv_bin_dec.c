@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/30 18:41:08 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 15:20:35 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,12 @@ void	ft_conv_bin_dec(char *str)
 
 	ft_float_len(str, len);
 	ft_conv_bin_fracpart(str, fracpart);
+	//write(1, fracpart, ft_strlen(fracpart));
 	ft_conv_bin_intpart(str, intpart);
 	ft_strcpy(str, intpart);
 	ft_strcpy(str + ft_strlen(intpart), fracpart + 1);
+//	write(1, str, ft_strlen(str));
+
 }
 
 void	ft_sum_float(char *s1, char *s2, int base, char *s)

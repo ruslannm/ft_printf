@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/30 16:04:02 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 15:17:12 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_max_power(const char *str)
 
 void	ft_conv_bin_fracpart(const char *str, char *fracpart)
 {
-	char	power[5000];
+	char	power[50000];
 	int		max_power;	
 	int		i;
 	int 	start;
@@ -76,9 +76,15 @@ void	ft_conv_bin_fracpart(const char *str, char *fracpart)
 		else
 		{
 			ft_div_by2_frac(power);
+			if (i == 16383)
+			{
+				start = start * 1;
+//				write(1, power, ft_strlen(power));
+			}
 			if (str[i] == '1')
 				ft_sum_fracpart(ft_strchr(fracpart, '.') + 1, ft_strchr(power, '.') + 1, 10, fracpart);
 		}
 		i++;
 	}
+//	write(1, fracpart, ft_strlen(fracpart));
 }

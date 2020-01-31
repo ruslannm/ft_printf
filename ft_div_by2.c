@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/28 18:15:32 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 14:35:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_div_by2_first_digit(char *str)
 void ft_div_by2_frac(char *str)
 {
 	int		len;
-	char	ret[5000];
+	char	ret[50000];
 	int		i;
 	int		start;
 
