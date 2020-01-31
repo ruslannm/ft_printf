@@ -6,60 +6,37 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:09:21 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 16:23:57 by rgero            ###   ########.fr       */
+/*   Updated: 2020/01/31 17:29:54 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
- 
-/* c = a * b.  Caller is responsible for memory.
-   c must not be the same as either a or b. */
-void longmulti(const char *a, const char *b, char *c)
+#include "ft_printf.h"
+
+void	ft_mul_long(const char *s1, const char *s2, char *s3)
 {
-	int i = 0, j = 0, k = 0, n, carry;
-	int la, lb;
- 
-	/* either is zero, return "0" */
-	if (!strcmp(a, "0") || !strcmp(b, "0")) {
-		c[0] = '0', c[1] = '\0';
-		return;
+	int	l[3];
+	int	i[6];
+
+	l[1] = ft_strlen(s1);
+	l[2] = ft_strlen(s2);
+	ft_memset(s3, '0', l[1] + l[2]);
+	s3[l[1] + l[2]] = '\0';
+	i[1] = l[1] - 1;
+	while (i[1] >= 0)
+	{
+		i[2] = l[2] - 1;
+		i[3] = i[1] + i[2] + 1;
+		i[5] = 0;
+		while (i[2] >= 0)
+		{
+			i[4] = (s1[i[1]] - '0') * (s2[i[2]--] - '0') + (s3[i[3]] - '0') +
+					i[5];
+			i[5] = i[4] / 10;
+			s3[i[3]--] = (i[4] % 10) + '0';
+		}
+		s3[i[3]] += i[5];
+		i[1]--;
 	}
- 	
-	la = strlen(a);
-	lb = strlen(b);
-	memset(c, '0', la + lb);
-	c[la + lb] = '\0';
- 
-	i = la - 1;
-    while (i >= 0)
-    {
-        j = lb - 1;
-        k = 1;
-        carry = 0;
-        while (j >= 0)
-        {
-            n = (a[i] - '0') * (b[j] - '0') + (c[k] - '0') + carry;
-			carry = n / 10;
-			c[k] = (n % 10) + '0';
-            j--;
-            k--;
-        }
-        c[k] += carry;
-        i--;
-    }
-
-	if (c[0] == '0') 
-        memmove(c, c + 1, la + lb);
-	return;
-}
-
-int main()
-{
-	char c[50000];
-
-	longmulti("12", "34", c);
-	printf("%s\n", c);
- 
-	return 0;
+	if (s3[0] == '0')
+		ft_memmove(s3, s3 + 1, l[1] + l[2]);
 }
