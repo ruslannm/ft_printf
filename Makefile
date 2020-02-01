@@ -6,15 +6,15 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/01 16:48:14 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/01 19:54:15 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
-
+# CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -g
 SRC_PATH = ./
 SRC_NAME = 	ft_check_format.c \
 	ft_get_arg_csp.c \

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 18:54:05 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 19:53:04 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,24 @@ int		ft_max_power(const char *str)
 	return (ret);
 }
 
+int	ft_strncmp_frac(const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n - 1)
+	{
+		if (s2[i] != '\0')
+		{
+			if (!(s2[i] == '.' || s2[i] == '0'))
+				return (-1);
+		}
+		i++;
+	}
+	return (1);
+}
+
+
 void	ft_conv_bin_fracpart(t_spec *s_args, char *stop, const char *str,
 		char *fracpart)
 {
@@ -79,8 +97,8 @@ void	ft_conv_bin_fracpart(t_spec *s_args, char *stop, const char *str,
 			if (str[l[3]] == '1')
 				ft_sum_fracpart(fracpart, power, 10, fracpart);
 		}
-		if (ft_strncmp(stop, power,
-			(s_args->precision ? s_args->precision + 1 : 7) + 2) > 0)
-			l[3] = l[4] + 1;
+//		if (ft_strncmp_frac(power,
+//			(s_args->precision ? s_args->precision + 1 : 7) + 15) > 0)
+//			l[3] = l[4] + 1;
 	}
 }

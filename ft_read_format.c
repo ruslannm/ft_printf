@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 18:21:55 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 18:54:45 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_parse_format(t_spec *s_args, va_list args)
 			str[percent - 1] = '\0';
 		}
 		ft_get_arg_s(s_args, str);
-		s_args->start = s_args->start + (percent > i ? percent : i);
+		s_args->start = s_args->start + (percent > 0 ? percent + 1 : i);
 	}
 	else
 	{
