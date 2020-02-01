@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 17:35:50 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 18:21:55 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,21 @@ int	ft_parse_format(t_spec *s_args, va_list args)
 	percent = ft_parse_percent(s, 0);
 	if (0 == s_args->conversion)
 	{
-		if (percent == i)
+		if (0 == i)
 		{
-			ft_putchar_fd('%', s_args->fd);
-			s_args->start = s_args->start + percent + 1;
-			s_args->len = s_args->len + 1;
+			str[0] = s[0];
+			str[1] = '\0';
+			i = 1;
 		}
+		else if (percent == i)
+			ft_strcpy(str, "%");
 		else
 		{
-			ft_strncpy(str, s + i, percent);
+			ft_strncpy(str, s + i, percent - 1);
+			str[percent - 1] = '\0';
 		}
+		ft_get_arg_s(s_args, str);
+		s_args->start = s_args->start + (percent > i ? percent : i);
 	}
 	else
 	{
@@ -130,10 +135,8 @@ int	ft_parse(t_spec *s_args, va_list args)
 		if (s[i] == '%')
 		{
 			ft_new_spec(&s_args, NULL, i + 1, 0);
-			if (-1 == ft_parse_format(s_args, args))
-				break;
-			else
-				i = s_args->start - 1;			
+			ft_parse_format(s_args, args);
+			i = s_args->start - 1;			
 		}
 		else
 		{

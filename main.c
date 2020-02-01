@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 17:31:18 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 18:22:31 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int main(void)
 	
 //	printf("printf position %%1$i=%%i");
 //	 i = ft_printf("%Lf", LDBL_MAX);
-/*i = ft_printf("%5%m");
+i = ft_printf("%5%m");
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
-*/
-	i = printf("%5%");
+
+	i = printf("%5%m");
 	printf("\nres=%i=li\n", i);
 	
 	//setlocale (LC_ALL,"");

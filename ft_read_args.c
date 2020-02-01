@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 15:22:55 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 16:39:46 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 17:53:52 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_read_args(t_spec *s_args, va_list args)
 	else if (ft_strchr("c", s_args->conversion))
 		ret = (ret == -1 ? ret : ft_get_arg_c(s_args, args));
 	else if (ft_strchr("s", s_args->conversion))
-		ret = (ret == -1 ? ret : ft_get_arg_s(s_args, args));
+		ret = (ret == -1 ? ret : ft_get_arg_s_va_list(s_args, args));
 	else if (ft_strchr("p", s_args->conversion))
 		ret = (ret == -1 ? ret : ft_get_arg_p(s_args, args));
 	else if (ft_strchr("f", s_args->conversion))
