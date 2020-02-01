@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:00:47 by rgero             #+#    #+#             */
-/*   Updated: 2019/12/06 16:49:03 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 16:31:06 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ int	ft_check_format(t_spec *s_args)
 		ret = ft_check_modifier_int(s_args->modifier);
 	else if (ft_strchr("feg", s_args->conversion))
 		ret = ft_check_modifier_float(s_args->modifier);
-	else 
+	else
 	{
 		if (s_args->conversion == 'c')
 		{
 			if (s_args->precision || s_args->modifier)
 				ret = -1;
 		}
-		else 
+		else
 			ret = (s_args->modifier ? -1 : 0);
 	}
 	return (ret);

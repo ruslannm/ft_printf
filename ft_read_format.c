@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 15:52:51 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 17:35:50 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,38 @@ int	ft_parse_format_spec(char *s, t_spec *s_args, int i)
 	return (i);
 }
 
+int	ft_parse_format(t_spec *s_args, va_list args)
+{
+	int		i;
+	char	*s;
+	char 	str[5000];
+	int		percent;
+
+	s = s_args->format + s_args->start;
+	i = ft_parse_format_spec(s, s_args, 0);
+	percent = ft_parse_percent(s, 0);
+	if (0 == s_args->conversion)
+	{
+		if (percent == i)
+		{
+			ft_putchar_fd('%', s_args->fd);
+			s_args->start = s_args->start + percent + 1;
+			s_args->len = s_args->len + 1;
+		}
+		else
+		{
+			ft_strncpy(str, s + i, percent);
+		}
+	}
+	else
+	{
+		s_args->start = s_args->start + i;
+		ft_read_args(s_args, args);
+	}
+	return (0);
+}
+
+/*
 int	ft_parse_format(t_spec *s_args, va_list args)
 {
 	int		i;
@@ -56,7 +88,7 @@ int	ft_parse_format(t_spec *s_args, va_list args)
 	}
 	return (0);
 }
-
+*/
 int	ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 {
 	if (!*s_args)

@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/01/30 17:37:12 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/01 16:48:14 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRC_PATH = ./
 SRC_NAME = 	ft_check_format.c \
 	ft_get_arg_csp.c \
-	ft_get_arg_duoxX.c \
+	ft_get_arg_duox.c \
 	ft_get_arg_f.c \
 	ft_get_str_dic.c \
 	ft_parse_conversion.c \
@@ -26,14 +26,14 @@ SRC_NAME = 	ft_check_format.c \
 	ft_printf.c \
 	ft_put_str_di.c \
 	ft_put_str_f.c \
-	ft_put_str_uoxX.c \
+	ft_put_str_uox.c \
 	ft_read_args.c \
 	ft_read_format.c \
 	ft_div_by2.c \
 	ft_conv_bin_fracpart.c \
 	ft_conv_bin_intpart.c \
 	ft_conv_bin_dec.c \
-	main8.c
+	ft_mul_long.c
 
 OBJ_PATH = ./
 OBJ_NAME = $(SRC_NAME:.c=.o)

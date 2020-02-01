@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 15:54:48 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 17:48:49 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,33 @@ int	ft_get_arg_c(t_spec *s_args, va_list args)
 	ft_get_len_output(s_args, str);
 	ret = (!ret ? ft_put_output(s_args, str) : ret);
 	free(str);
-	return (ret);	
+	return (ret);
 }
 
-int	ft_get_arg_s(t_spec *s_args, va_list args)
+int	ft_get_arg_s(t_spec *s_args, char *str)
 {
 	int		ret;
-	char	*str;
 
 	ret = 0;
+	ft_get_len_output(s_args, str);
+	ret = ft_put_output(s_args, str);
+	return (ret);
+}
+
+int	ft_get_arg_s_va_list(t_spec *s_args, va_list args)
+{
+	char	*str;
+	char	str_null[7];
+
 	str = (char *)va_arg(args, char*);
 	if (!str)
 	{
-		if (!(str = ft_strdup("(null)")))
-			return (-1);
+		ft_strcpy(str_null, "(null)");
+		ft_get_arg_s(s_args, str_null);
 	}
-//	if (s_args->precision_ini && (size_t)s_args->precision < ft_strlen(str))
-//		str[s_args->precision] = '\0';
-	ft_get_len_output(s_args, str);
-	ret =  ft_put_output(s_args, str);
-	//free(str);
-	return (ret);	
+	else
+		ft_get_arg_s(s_args, str);
+	return (0);
 }
 
 int	ft_get_arg_p(t_spec *s_args, va_list args)
@@ -67,5 +73,5 @@ int	ft_get_arg_p(t_spec *s_args, va_list args)
 	ft_get_len_output(s_args, str);
 	ret = ft_put_output(s_args, str);
 	free(str);
-	return (ret);	
+	return (ret);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_arg_d.c                                     :+:      :+:    :+:   */
+/*   ft_get_arg_duox.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/12 10:56:38 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 16:36:34 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	ft_set_sign(t_spec *s_args)
 		if (s_args->flags[4] == '+')
 			s_args->sign = '+';
 		else if (s_args->flags[3] == ' ')
-				s_args->sign = ' ';
+			s_args->sign = ' ';
 	}
 }
 
-int ft_get_arg_d(t_spec *s_args, va_list args)
+int	ft_get_arg_d(t_spec *s_args, va_list args)
 {
 	int 		ret;
 	intmax_t	nb;
@@ -50,7 +50,7 @@ int ft_get_arg_d(t_spec *s_args, va_list args)
 	ft_set_sign(s_args);
 	ft_get_len_output(s_args, str);
 	ret = (!ret ? ft_put_output(s_args, str) : ret);
-	return (ret);	
+	return (ret);
 }
 
 int	ft_get_arg_u(t_spec *s_args, va_list args)
@@ -75,15 +75,15 @@ int	ft_get_arg_u(t_spec *s_args, va_list args)
 	str = ft_get_u_str(nb, s_args);
 	ft_get_len_output(s_args, str);
 	ret = (!ret ? ft_put_output(s_args, str) : ret);
-	return (ret);	
+	return (ret);
 }
 
-int	ft_get_arg_oxX(t_spec *s_args, va_list args)
+int	ft_get_arg_ox(t_spec *s_args, va_list args)
 {
 	int			ret;
 	uintmax_t	nb;
 	char		*str;
-	
+
 	ret = 0;
 	if (!s_args->modifier)
 		nb = (unsigned int)va_arg(args, unsigned int);
@@ -100,8 +100,8 @@ int	ft_get_arg_oxX(t_spec *s_args, va_list args)
 	if (s_args->conversion == 'o')
 		str = ft_get_o_str(nb, s_args);
 	else
-		str = ft_get_xX_str(nb, s_args);
+		str = ft_get_x_str(nb, s_args);
 	ft_get_len_output(s_args, str);
 	ret = (!ret ? ft_put_output(s_args, str) : ret);
-	return (ret);	
+	return (ret);
 }

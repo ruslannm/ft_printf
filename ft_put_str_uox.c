@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_str_uoxX.c                                  :+:      :+:    :+:   */
+/*   ft_put_str_uox.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/21 15:56:07 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/01 16:38:30 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*ft_get_o_str(uintmax_t n, t_spec *s_args)
 	return (str);
 }
 
-char	*ft_get_xX_str(uintmax_t n, t_spec *s_args)
+char	*ft_get_x_str(uintmax_t n, t_spec *s_args)
 {
 	int i;
 	int	base;
