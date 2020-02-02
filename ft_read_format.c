@@ -6,13 +6,13 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 15:28:49 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 16:57:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_parse_format_spec(char *s, t_spec *s_args, int i)
+int		ft_parse_format_spec(char *s, t_spec *s_args, int i)
 {
 	i = ft_parse_flags(s, s_args, i);
 	i = ft_parse_width(s, s_args, i);
@@ -22,48 +22,51 @@ int	ft_parse_format_spec(char *s, t_spec *s_args, int i)
 	return (i);
 }
 
-int	ft_parse_format(t_spec *s_args, va_list args)
+void	ft_emptyconversion(t_spec *s_args, int i, char *s, char *str)
+{
+	int		percent;
+
+	percent = ft_parse_percent(s, 0);
+	if (0 == i)
+	{
+		str[0] = s[0];
+		str[1] = '\0';
+		i = 1;
+	}
+	else if (percent == i)
+		ft_strcpy(str, "%");
+	else if (percent > 0)
+	{
+		ft_strncpy(str, s + i, percent - 1);
+		str[percent - 1] = '\0';
+	}
+	else
+	{
+		s_args->start = s_args->start + i;
+		return ;
+	}
+	ft_get_arg_s(s_args, str);
+	s_args->start = s_args->start + (percent > 0 ? percent + 1 : i);
+}
+
+void	ft_parse_format(t_spec *s_args, va_list args)
 {
 	int		i;
 	char	*s;
 	char	str[5000];
-	int		percent;
 
 	s = s_args->format + s_args->start;
 	i = ft_parse_format_spec(s, s_args, 0);
-	percent = ft_parse_percent(s, 0);
 	if (0 == s_args->conversion)
-	{
-		if (0 == i)
-		{
-			str[0] = s[0];
-			str[1] = '\0';
-			i = 1;
-		}
-		else if (percent == i)
-			ft_strcpy(str, "%");
-		else if (percent > 0)
-		{
-			ft_strncpy(str, s + i, percent - 1);
-			str[percent - 1] = '\0';
-		}
-		else
-		{
-			s_args->start = s_args->start + i;
-			return (0);
-		}
-		ft_get_arg_s(s_args, str);
-		s_args->start = s_args->start + (percent > 0 ? percent + 1 : i);
-	}
+		ft_emptyconversion(s_args, i, s, str);
 	else
 	{
 		s_args->start = s_args->start + i;
 		ft_read_args(s_args, args);
 	}
-	return (0);
 }
 
-int	ft_new_spec(t_spec **s_args, char *format, int start, int fd)
+int		ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 {
 	if (!*s_args)
 	{
@@ -92,7 +95,7 @@ int	ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 	return (0);
 }
 
-int	ft_parse(t_spec *s_args, va_list args)
+int		ft_parse(t_spec *s_args, va_list args)
 {
 	int		i;
 	char	*s;

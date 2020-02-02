@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 16:30:21 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 16:45:54 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	ft_get_arg_c(t_spec *s_args, va_list args)
 {
-	int				ret;
-	unsigned char 	nb;
+	unsigned char	nb;
 	char			str[2];
 
 	nb = (unsigned char)va_arg(args, unsigned int);
