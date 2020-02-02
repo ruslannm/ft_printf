@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:46:44 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/24 18:13:31 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 15:35:55 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ char	*ft_get_str(char *s, t_spec **s_args)
 	return (ret);
 }
 */
-int	ft_get_width_diff(t_spec **s_args)
+/*int	ft_get_width_diff(t_spec **s_args)
 {
 	int	ret;
 	int		j;
@@ -159,10 +159,10 @@ int	ft_get_width_diff(t_spec **s_args)
 	}
 	return (ret);
 }
-
-int ft_printf(const char *format, ...)
+*/
+int	ft_printf(const char *format, ...)
 {
-	int 	ret;
+	int		ret;
 	va_list args;
 	t_spec	*s_args;
 
@@ -172,44 +172,8 @@ int ft_printf(const char *format, ...)
 	if (-1 == ft_new_spec(&s_args, (char*)format, 0, 1))
 		return (-1);
 	ret = ft_parse(s_args, args);
+	free(s_args->format);
+	free(s_args);
+	va_end(args);
 	return (ret);
-
-/*	if ((s_args = ft_read_format((char *)format)))
-		ret = ft_read_args(s_args, args);
-	if (!ret)
-	{
-		output = ft_get_str((char*)format, s_args);
-		ft_putstr(output);
-		ret = ft_strlen(output) + ft_get_width_diff(s_args); //printf_len((char*)format, s_args);
-	}
-	else
-		ret = -1;
-	return (ret);	
-	*/
 }
-
-
-
-/*
-int ft_printf(const char *format, ...)
-{
-	int 	ret;
-	va_list args;
-	t_spec	**s_args;
-	char	*output;
-
-	va_start(args, format);
-	ret = -1;
-	if ((s_args = ft_read_format((char *)format)))
-		ret = ft_read_args(s_args, args);
-	if (!ret)
-	{
-		output = ft_get_str((char*)format, s_args);
-		ft_putstr(output);
-		ret = ft_strlen(output) + ft_get_width_diff(s_args); //printf_len((char*)format, s_args);
-	}
-	else
-		ret = -1;
-	return (ret);	
-}
-*/

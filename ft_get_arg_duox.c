@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 16:36:34 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 15:55:34 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ void	ft_set_sign(t_spec *s_args)
 	}
 }
 
-int	ft_get_arg_d(t_spec *s_args, va_list args)
+void	ft_get_arg_d(t_spec *s_args, va_list args)
 {
-	int 		ret;
 	intmax_t	nb;
-	char		*str;
+	char		str[5000];
 
-	ret = 0;
 	if (!s_args->modifier)
 		nb = (int)va_arg(args, int);
 	else if ('h' == s_args->modifier)
@@ -44,22 +42,19 @@ int	ft_get_arg_d(t_spec *s_args, va_list args)
 		nb = (int)va_arg(args, int);
 	s_args->sign = (nb < 0 ? '-' : 0);
 	if (nb == -9223372036854775807 - 1)
-		str = ft_get_u_str(9223372036854775808U, s_args);
+		ft_get_u_str(9223372036854775808U, s_args, str);
 	else
-		str = ft_get_di_str(nb, s_args);
+		ft_get_di_str(nb, s_args, str);
 	ft_set_sign(s_args);
 	ft_get_len_output(s_args, str);
-	ret = (!ret ? ft_put_output(s_args, str) : ret);
-	return (ret);
+	ft_put_output(s_args, str, 0);
 }
 
-int	ft_get_arg_u(t_spec *s_args, va_list args)
+void	ft_get_arg_u(t_spec *s_args, va_list args)
 {
-	int			ret;
 	uintmax_t	nb;
-	char		*str;
+	char		str[5000];
 
-	ret = 0;
 	if (!s_args->modifier)
 		nb = (unsigned int)va_arg(args, unsigned int);
 	else if ('h' == s_args->modifier)
@@ -72,19 +67,16 @@ int	ft_get_arg_u(t_spec *s_args, va_list args)
 		nb = (unsigned long long)va_arg(args, unsigned long long int);
 	else
 		nb = (unsigned int)va_arg(args, unsigned int);
-	str = ft_get_u_str(nb, s_args);
+	ft_get_u_str(nb, s_args, str);
 	ft_get_len_output(s_args, str);
-	ret = (!ret ? ft_put_output(s_args, str) : ret);
-	return (ret);
+	ft_put_output(s_args, str, 0);
 }
 
-int	ft_get_arg_ox(t_spec *s_args, va_list args)
+void	ft_get_arg_ox(t_spec *s_args, va_list args)
 {
-	int			ret;
 	uintmax_t	nb;
-	char		*str;
+	char		str[5000];
 
-	ret = 0;
 	if (!s_args->modifier)
 		nb = (unsigned int)va_arg(args, unsigned int);
 	else if ('h' == s_args->modifier)
@@ -98,10 +90,9 @@ int	ft_get_arg_ox(t_spec *s_args, va_list args)
 	else
 		nb = (unsigned int)va_arg(args, unsigned int);
 	if (s_args->conversion == 'o')
-		str = ft_get_o_str(nb, s_args);
+		ft_get_o_str(nb, s_args, str);
 	else
-		str = ft_get_x_str(nb, s_args);
+		ft_get_x_str(nb, s_args, str);
 	ft_get_len_output(s_args, str);
-	ret = (!ret ? ft_put_output(s_args, str) : ret);
-	return (ret);
+	ft_put_output(s_args, str, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 13:40:44 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 15:54:17 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,24 +106,22 @@ int		ft_parse_conversion(char *s, t_spec *s_args, int i);
 int		ft_parse_percent(char *s, int i);
 int		ft_check_format(t_spec *s_args);
 int		ft_check_position(t_spec **s_args);
-char	*ft_get_di_str(intmax_t n, t_spec *s_args);
-int		ft_get_arg_d(t_spec *s_args, va_list args);
-int		ft_get_arg_u(t_spec *s_args, va_list args);
-int		ft_get_arg_ox(t_spec *s_args, va_list args);
-int		ft_get_arg_c(t_spec *s_args, va_list args);
-int		ft_get_arg_s(t_spec *s_args, char *str);
+void	ft_get_di_str(intmax_t n, t_spec *s_args, char *str);
+void	ft_get_arg_d(t_spec *s_args, va_list args);
+void	ft_get_arg_u(t_spec *s_args, va_list args);
+void	ft_get_arg_ox(t_spec *s_args, va_list args);
+void	ft_get_arg_c(t_spec *s_args, va_list args);
+void	ft_get_arg_s(t_spec *s_args, char *str);
 int		ft_get_arg_s_va_list(t_spec *s_args, va_list args);
 int		ft_get_arg_p(t_spec *s_args, va_list args);
 int		ft_printf_len(char *format, t_spec **s_args);
 void	ft_set_sign(t_spec *s_args);
-int		ft_put_output(t_spec *s_args, char *str);
-//int		ft_put_output_xX(t_spec *s_args, char *str);
-int		ft_put_output_f(t_spec *s_args, char *str);
-char	*ft_get_u_str(uintmax_t n, t_spec *s_args);
-char	*ft_get_o_str(uintmax_t n, t_spec *s_args);
-char	*ft_get_x_str(uintmax_t n, t_spec *s_args);
-char	*ft_get_c_str(unsigned char n);
-//int		ft_get_s_str(char *s, t_spec *s_args);
+void	ft_put_output(t_spec *s_args, char *str, int i);
+void	ft_put_output_f(t_spec *s_args, char *str, int i);
+void	ft_get_u_str(uintmax_t n, t_spec *s_args, char *str);
+void	ft_get_o_str(uintmax_t n, t_spec *s_args, char *str);
+void	ft_get_x_str(uintmax_t n, t_spec *s_args, char *str);
+void	ft_get_c_str(unsigned char n, char *str);
 char	*ft_get_p_str(char **s);
 void	ft_get_len_output(t_spec *s_args, char *str);
 void	ft_get_len_output_f(t_spec *s_args, char *str);
@@ -131,22 +129,18 @@ int		ft_nbr_len(intmax_t n, int base);
 void	ft_get_f_str(long double n, t_spec *s_args, char *str);
 int		ft_get_arg_f(t_spec *s_args, va_list args);
 void	ft_conv_bin2dec(char *str);
-//int		ft_put_f_sep(t_spec *s_args);
 int		ft_get_width_diff(t_spec **s_args);
 void		ft_shift(char *s, int i);
-//int		ft_shift_int(char **s, int i);
 void	ft_sum_decimal(char *s1, char *s2, int base, char *s);
 void	ft_get_binary_str(unsigned long int n, int power, char *s);
 void	ft_sum_float(char *s1, char *s2, int base, char *s);
 void	ft_float_len(const char *str, int *len);
 int	ft_put_sign(t_spec *s_args, int i);
 int	ft_putchar_s_fd(char c, int i, int j, int fd);
-//char	*ft_mul_str(char *s1, char *s2);
-//char *ft_binpow(char *a, int n);
 int	ft_max_power(const char *str);
 void ft_mul_long(const char *a, const char *b, char *c);
 void ft_div_by2_frac(char *str);
-void	ft_conv_bin_fracpart(t_spec *s_args, char *stop, const char *str, char *fracpart);
+void	ft_conv_bin_fracpart(t_spec *s_args, const char *str, char *fracpart);
 void	ft_conv_bin_intpart(const char *str, char *intpart);
 void	ft_conv_bin_dec(t_spec *s_args, char *str);
 void	ft_sum_fracpart(const char *s1, const char *s2, int base, char *s);

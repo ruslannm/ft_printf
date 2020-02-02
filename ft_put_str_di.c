@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 12:02:09 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 15:51:16 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,10 @@ void	ft_putstrn_fd(char const *s, int n, int fd)
 	}
 }
 
-int	ft_put_output(t_spec *s_args, char *str)
+void	ft_put_output(t_spec *s_args, char *str, int i)
 {
 	int		*len;
-	int		i;
 
-	i = 0;
 	len = s_args->output_len;
 	if (s_args->flags[1])
 	{
@@ -132,5 +130,4 @@ int	ft_put_output(t_spec *s_args, char *str)
 	i = i + (len[3] < len[0] ? len[3] : len[0]);
 	i = ft_putchar_s_fd(' ', i, len[3], s_args->fd);
 	s_args->len = (s_args->len >= 0 ? s_args->len + len[3] : -1);
-	return (0);
 }
