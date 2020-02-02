@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 19:03:06 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:19:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int main(void)
 //	printf("printf position %%1$i=%%i");
 char *s;
 s = ft_strdup("123");
-i = ft_printf("%f", 5.1);
+i = ft_printf("%d", -5);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
-	i = printf("%Z|%d", 5);
+	i = printf("%d", -5);
 printf("\nres=%i=li\n", i);
 	free(s);
 	//setlocale (LC_ALL,"");

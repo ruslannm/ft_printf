@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 19:15:55 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:25:11 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	ft_sum_decimal(char *s1, char *s2, int base, char *s);
 void	ft_get_str_binary(unsigned long int n, int power, char *s);
 void	ft_sum_float(char *s1, char *s2, int base, char *s);
 void	ft_float_len(const char *str, int *len);
-int	ft_put_sign(t_spec *s_args, int i);
+int		ft_put_sign(t_spec *s_args, int *len, int i);
 int	ft_putchar_s_fd(char c, int i, int j, int fd);
 int	ft_max_power(const char *str);
 void ft_mul_long(const char *a, const char *b, char *c);

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 19:00:20 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:25:54 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ void	ft_get_len_output(t_spec *s_args, char *str, int *len)
 			len[1] + len[2]);
 }
 
-int		ft_put_sign(t_spec *s_args, int i)
+int		ft_put_sign(t_spec *s_args, int *len, int i)
 {
-	if (1 == s_args->output_len[2])
+	if (1 == len[2])
 	{
 		ft_putchar_fd(s_args->sign, s_args->fd);
 		i++;
-		s_args->output_len[2] = 0;
+		len[2] = 0;
 	}
-	else if (2 == s_args->output_len[2])
+	else if (2 == len[2])
 	{
 		ft_putchar_fd('0', s_args->fd);
 		ft_putchar_fd((s_args->conversion == 'p' ? 'x' : s_args->conversion),
 						s_args->fd);
 		i = i + 2;
-		s_args->output_len[2] = 0;
+		len[2] = 0;
 	}
 	return (i);
 }
@@ -96,13 +96,13 @@ void	ft_put_output(t_spec *s_args, char *str, int i)
 	ft_get_len_output(s_args, str, len);
 	if (s_args->flags[1])
 	{
-		i = ft_put_sign(s_args, i);
+		i = ft_put_sign(s_args, len, i);
 		i = ft_putchar_s_fd('0', i, len[3] - len[1] - len[2], s_args->fd);
 	}
 	if (s_args->flags[2] == 0)
 		i = ft_putchar_s_fd(' ', i, len[3] - len[1] - len[2], s_args->fd);
 	if (len[2])
-		i = ft_put_sign(s_args, i);
+		i = ft_put_sign(s_args, len, i);
 	i = ft_putchar_s_fd('0', i, i + len[1] - len[0], s_args->fd);
 	if (len[3] < len[0])
 		str[len[3]] = '\0';

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 19:04:15 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:27:02 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ void	ft_put_output_f(t_spec *s_args, char *str, int i)
 	ft_get_len_output_f(s_args, str, l);
 	if (s_args->flags[1])
 	{
-		i = ft_put_sign(s_args, i);
+		i = ft_put_sign(s_args, l, i);
 		i = ft_putchar_s_fd('0', i, l[3] - l[1] - l[2] - l[4], s_args->fd);
 	}
 	if (s_args->flags[2] == 0)
 		i = ft_putchar_s_fd(' ', i, l[3] - l[1] - l[2] - l[4], s_args->fd);
 	if (l[2])
-		i = ft_put_sign(s_args, i);
+		i = ft_put_sign(s_args, l, i);
 	i = ft_putchar_s_fd('0', i, i + l[1] - l[0], s_args->fd);
 	if (l[3] < l[0])
 		str[l[3]] = '\0';
