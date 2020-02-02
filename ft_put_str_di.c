@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 10:54:04 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 12:02:09 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,9 @@ int	ft_put_output(t_spec *s_args, char *str)
 		str[len[3]] = '\0';
 	if (s_args->conversion == 's' && s_args->precision_ini)
 		ft_putstrn_fd(str, s_args->precision, s_args->fd);
-	else 
+	else if (s_args->conversion == 'c')
+		ft_putchar_s_fd(s_args->print_char, i, i + 1, s_args->fd);
+	else
 		ft_putstr_fd(str, s_args->fd);
 	i = i + (len[3] < len[0] ? len[3] : len[0]);
 	i = ft_putchar_s_fd(' ', i, len[3], s_args->fd);

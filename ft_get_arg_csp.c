@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 19:25:12 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 11:48:57 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_get_arg_c(t_spec *s_args, va_list args)
 	ret = 0;
 	str[0] = nb;
 	str[1] = '\0';
+	s_args->print_char = nb;
 	ft_get_len_output(s_args, str);
 	ret = (!ret ? ft_put_output(s_args, str) : ret);
 	return (ret);

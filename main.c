@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 11:22:07 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 11:57:34 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int main(void)
 	//lc->thousands_sep = "f[";//lc->thousands_sep;
 	
 //	printf("printf position %%1$i=%%i");
-i = ft_printf("|%b|", NULL);
+i = ft_printf("%-12c|", 1345);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
-	i = printf("|%s", NULL);
+	i = printf("%-12c|", 1345);
 	printf("\nres=%i=li\n", i);
 	
 	//setlocale (LC_ALL,"");
