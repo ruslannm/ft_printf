@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 19:53:04 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 13:08:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,17 @@ void	ft_conv_bin_fracpart(t_spec *s_args, char *stop, const char *str,
 		char *fracpart)
 {
 	char	power[50000];
+	char	tmp[50000];
 	int		l[5];
+	int		precision;
+	char	round_diff[5000];
 
 	ft_strcpy(fracpart, "0.0");
 	ft_float_len(str, l);
 	l[4] = ft_max_power(str);
 	l[3] = l[1];
+	precision = (s_args->precision_ini ? s_args->precision : 6);
+	l[4] = (precision ? precision : -1);
 	while (l[3]++ <= l[4])
 	{
 		if (l[3] == l[1] + l[2])
@@ -97,8 +102,28 @@ void	ft_conv_bin_fracpart(t_spec *s_args, char *stop, const char *str,
 			if (str[l[3]] == '1')
 				ft_sum_fracpart(fracpart, power, 10, fracpart);
 		}
-//		if (ft_strncmp_frac(power,
-//			(s_args->precision ? s_args->precision + 1 : 7) + 15) > 0)
-//			l[3] = l[4] + 1;
+		if (ft_strncmp_frac(power, precision + 4) > 0)
+		{
+			fracpart[precision + 3] = '\0';
+			if (ft_strchr("6789", fracpart[precision + 2]) ||
+				('5' == fracpart[precision + 2] &&
+				ft_isodd(fracpart[l[1] + 1 + l[4] - 1])))
+			{
+				ft_roundup_diff(round_diff, precision);
+				ft_sum_float(fracpart, round_diff, 10, tmp);
+				ft_strcpy(fracpart, tmp);
+			}
+			l[3] = l[4] + 1;
+		}
 	}
 }
+
+/*
+('5' == str[len[1] + 1 + precision] &&
+			(ft_isodd(str[len[1] + 1 + len[4] - 1]) ||
+			ft_check_str_zero(&str[len[1] + 2 + precision]))))
+		{
+			ft_roundup_diff(round_diff, precision);
+			ft_sum_float(str, round_diff, 10, ret);
+			ft_strcpy(str, ret);
+			*/
