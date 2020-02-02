@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 18:54:45 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 12:17:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,15 @@ int	ft_parse_format(t_spec *s_args, va_list args)
 		}
 		else if (percent == i)
 			ft_strcpy(str, "%");
-		else
+		else if (percent > 0)
 		{
 			ft_strncpy(str, s + i, percent - 1);
 			str[percent - 1] = '\0';
+		}
+		else 
+		{
+			s_args->start = s_args->start + i;
+			return (0);
 		}
 		ft_get_arg_s(s_args, str);
 		s_args->start = s_args->start + (percent > 0 ? percent + 1 : i);

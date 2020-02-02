@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:09:45 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 11:18:34 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 12:26:01 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int	ft_parse_conversion(char *s, t_spec *s_args, int i)
 				s_args->precision = 6;
 			if (ft_strchr("diouixX", s[i]) && s_args->precision_ini)
 				s_args->flags[1] = 0;
+			if ('c' == s[i] && s_args->precision_ini)
+			{
+				s_args->precision = 0;
+				s_args->precision_ini = 0;
+			}
 			i++;
 			break;
 		}
