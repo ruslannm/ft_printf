@@ -6,12 +6,13 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 15:51:16 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 17:28:45 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/*
 int	ft_nbr_len(intmax_t n, int base)
 {
 	int i;
@@ -24,7 +25,7 @@ int	ft_nbr_len(intmax_t n, int base)
 	}
 	return (i);
 }
-
+*/
 /*
 **
 ** len:

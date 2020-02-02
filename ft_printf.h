@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 16:22:26 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 17:25:08 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,10 @@ void	ft_conv_bin_intpart(const char *str, char *intpart);
 void	ft_conv_bin_dec(t_spec *s_args, char *str);
 void	ft_sum_fracpart(const char *s1, const char *s2, int base, char *s);
 void	ft_sum_int(const char *s1, const char *s2, int base, char *s);
-void	ft_roundup_diff(char *str, int precision);
-int	ft_isodd(char c);
+//void	ft_roundup_diff(char *str, int precision);
+//int	ft_isodd(char c);
+//int		ft_check_str_zero(char *str);
+void	ft_roundup(char *str, t_spec *s_args);
 int		ft_check_str_zero(char *str);
 
 #endif

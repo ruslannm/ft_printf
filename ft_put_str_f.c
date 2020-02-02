@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 16:10:12 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 17:25:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ int		ft_mantissa_len(unsigned long int n, int base)
 		i++;
 	}
 	return (i);
-}
-
-int		ft_check_str_zero(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] != '0')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 void	ft_get_binary_str(unsigned long int n, int power, char *str)
@@ -127,53 +113,6 @@ void	ft_put_output_f(t_spec *s_args, char *str, int i)
 	i = i + (l[3] < l[0] ? l[3] : l[0]);
 	i = ft_putchar_s_fd(' ', i, l[3], s_args->fd);
 	s_args->len = (s_args->len >= 0 ? s_args->len + l[3] : -1);
-}
-
-void	ft_roundup_diff(char *str, int precision)
-{
-	if (precision)
-	{
-		ft_strcpy(str, "0.");
-		str[2 + --precision] = '1';
-		while (precision-- > 0)
-			str[2 + precision] = '0';
-	}
-	else
-		ft_strcpy(str, "1.");
-}
-
-int	ft_isodd(char c)
-{
-	if ('1' == c || '3' == c || '5' == c || '7' == c || '9' == c)
-		return (1);
-	return (0);
-}
-
-int	ft_roundup(char *str, t_spec *s_args)
-{
-	int		precision;
-	int		len[5];
-	char	ret[5000];
-	char	round_diff[5000];
-
-	ft_float_len(str, len);
-	precision = s_args->precision;
-	if (precision < len[3])
-	{
-		len[4] = (precision ? precision : -1);
-		if ((ft_strchr("6789", str[len[1] + 1 + precision])) ||
-			('5' == str[len[1] + 1 + precision] &&
-			(ft_isodd(str[len[1] + 1 + len[4] - 1]) ||
-			ft_check_str_zero(&str[len[1] + 2 + precision]))))
-		{
-			ft_roundup_diff(round_diff, precision);
-			ft_sum_float(str, round_diff, 10, ret);
-			ft_strcpy(str, ret);
-		}
-		if ((len[1] + 1 + precision) < (int)ft_strlen(str))
-			str[len[1] + 1 + precision] = '\0';
-	}
-	return (0);
 }
 
 void	ft_get_str_f_null(t_spec *s_args, int sign, char *str)

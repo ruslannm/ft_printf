@@ -6,11 +6,24 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:46:29 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 16:15:18 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 17:29:47 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int		ft_nbr_len(intmax_t n, int base)
+{
+	int i;
+
+	i = 1;
+	while (n / base > 0)
+	{
+		n = n / base;
+		i++;
+	}
+	return (i);
+}
 
 void	ft_get_di_str(intmax_t n, t_spec *s_args, char *str)
 {
