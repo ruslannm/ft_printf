@@ -1,56 +1,7 @@
-Test 1989 (f_L_limits_dblmin_prec0) : FAILED.
-    First line of code: {return test("%.0Lf", LDBL_MIN);}
-    Timed out
-
-Test 1990 (f_L_limits_dblmin_prec3) : FAILED.
-    First line of code: {return test("%.3Lf", LDBL_MIN);}
-    Timed out
-
-Test 1991 (f_L_limits_dblmin_precd) : FAILED.
-    First line of code: {return test("%Lf", LDBL_MIN);}
-    Timed out
-
-Test 1992 (f_L_limits_dblmin_prec8) : FAILED.
-    First line of code: {return test("%.8Lf", LDBL_MIN);}
-    Timed out
-
-Test 1993 (f_L_stress_limits_dblmin_prec12) : FAILED.
-    First line of code: {return test("%.12Lf", LDBL_MIN);}
-    Timed out
-
-Test 1994 (f_L_stress_limits_dblmin_prec16) : FAILED.
-    First line of code: {return test("%.16Lf", LDBL_MIN);}
-    Timed out
-
-Test 1995 (f_L_stress_limits_dblmin_prec18) : FAILED.
-    First line of code: {return test("%.18Lf", LDBL_MIN);}
-    Timed out
-
-Test 1996 (f_L_limits_ndblmin_prec0) : FAILED.
-    First line of code: {return test("%.0Lf", -LDBL_MIN);}
-    Timed out
-
-Test 1997 (f_L_limits_ndblmin_prec3) : FAILED.
-    First line of code: {return test("%.3Lf", -LDBL_MIN);}
-    Timed out
-
-Test 1998 (f_L_limits_ndblmin_precd) : FAILED.
-    First line of code: {return test("%Lf", -LDBL_MIN);}
-    Timed out
-
-Test 1999 (f_L_limits_ndblmin_prec8) : FAILED.
-    First line of code: {return test("%.8Lf", -LDBL_MIN);}
-    Timed out
-
-Test 2000 (f_L_stress_limits_ndblmin_prec12) : FAILED.
-    First line of code: {return test("%.12Lf", -LDBL_MIN);}
-    Timed out
-
-Test 2001 (f_L_stress_limits_ndblmin_prec16) : FAILED.
-    First line of code: {return test("%.16Lf", -LDBL_MIN);}
-    Timed out
-
-Test 2002 (f_L_stress_limits_ndblmin_prec18) : FAILED.
-    First line of code: {return test("%.18Lf", -LDBL_MIN);}
-    Timed out
+Test 1356 (f_prec1_negative) : FAILED.
+    First line of code: {return test("%.1f", -3.85);}
+      expected output : "-3.9"
+      your output     : "-3.8"
+      expected (nonprintable as hex) : "-3.9"
+      actual   (nonprintable as hex) : "-3.8"
 

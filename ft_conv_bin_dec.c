@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/31 18:03:10 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 14:24:21 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	ft_conv_bin_dec(t_spec *s_args, char *str)
 {
 	char	intpart[50000];
 	char	fracpart[50000];
-	char	stop[50000];
+//	char	stop[50000];
 	int		len[4];
 
 	ft_float_len(str, len);
-	ft_roundup_diff(stop, (s_args->precision ? s_args->precision + 1 : 7));
-	ft_conv_bin_fracpart(s_args, stop, str, fracpart);
+//	ft_roundup_diff(stop, (s_args->precision ? s_args->precision + 1 : 7));
 	ft_conv_bin_intpart(str, intpart);
+	ft_conv_bin_fracpart(s_args, intpart, str, fracpart);
 	ft_strcpy(str, intpart);
 	ft_strcpy(str + ft_strlen(intpart), fracpart + 1);
 }
