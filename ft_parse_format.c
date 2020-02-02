@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read_format.c                                   :+:      :+:    :+:   */
+/*   ft_parse_format.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 16:57:14 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 18:24:53 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_parse_format(t_spec *s_args, va_list args)
 	else
 	{
 		s_args->start = s_args->start + i;
-		ft_read_args(s_args, args);
+		ft_get_args(s_args, args);
 	}
 }
 

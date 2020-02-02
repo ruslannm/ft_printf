@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 15:55:34 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:11:31 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ void	ft_get_arg_d(t_spec *s_args, va_list args)
 		nb = (int)va_arg(args, int);
 	s_args->sign = (nb < 0 ? '-' : 0);
 	if (nb == -9223372036854775807 - 1)
-		ft_get_u_str(9223372036854775808U, s_args, str);
+		ft_get_str_u(9223372036854775808U, s_args, str);
 	else
-		ft_get_di_str(nb, s_args, str);
+		ft_get_str_di(nb, s_args, str);
 	ft_set_sign(s_args);
-	ft_get_len_output(s_args, str);
 	ft_put_output(s_args, str, 0);
 }
 
@@ -67,8 +66,7 @@ void	ft_get_arg_u(t_spec *s_args, va_list args)
 		nb = (unsigned long long)va_arg(args, unsigned long long int);
 	else
 		nb = (unsigned int)va_arg(args, unsigned int);
-	ft_get_u_str(nb, s_args, str);
-	ft_get_len_output(s_args, str);
+	ft_get_str_u(nb, s_args, str);
 	ft_put_output(s_args, str, 0);
 }
 
@@ -90,9 +88,8 @@ void	ft_get_arg_ox(t_spec *s_args, va_list args)
 	else
 		nb = (unsigned int)va_arg(args, unsigned int);
 	if (s_args->conversion == 'o')
-		ft_get_o_str(nb, s_args, str);
+		ft_get_str_o(nb, s_args, str);
 	else
-		ft_get_x_str(nb, s_args, str);
-	ft_get_len_output(s_args, str);
+		ft_get_str_x(nb, s_args, str);
 	ft_put_output(s_args, str, 0);
 }

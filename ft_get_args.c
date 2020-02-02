@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read_args.c                                     :+:      :+:    :+:   */
+/*   ft_get_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 15:22:55 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 16:02:48 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:09:32 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_read_args(t_spec *s_args, va_list args)
+void	ft_get_args(t_spec *s_args, va_list args)
 {
 	if (ft_strchr("di", s_args->conversion))
 		ft_get_arg_d(s_args, args);

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:26:38 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 15:27:03 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:09:13 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		ft_max_power(const char *str)
 	return (ret);
 }
 
-int	ft_strncmp_frac(const char *s2, size_t n)
+int		ft_strncmp_frac(const char *s2, size_t n)
 {
 	size_t	i;
 

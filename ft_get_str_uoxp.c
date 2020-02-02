@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_str_uox.c                                   :+:      :+:    :+:   */
+/*   ft_get_str_uoxp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 16:22:01 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:13:09 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static int	ft_get_udigit(uintmax_t n, int base)
 	return (i);
 }
 
-void	ft_get_u_str(uintmax_t n, t_spec *s_args, char *str)
+void		ft_get_str_u(uintmax_t n, t_spec *s_args, char *str)
 {
-	int 	i;
+	int	i;
 
 	i = ft_get_udigit(n, 10);
-	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0 )
+	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0)
 		i = 0;
 	str[i] = '\0';
 	if (s_args->precision_ini == 1)
@@ -42,7 +42,7 @@ void	ft_get_u_str(uintmax_t n, t_spec *s_args, char *str)
 	}
 }
 
-void	ft_get_o_str(uintmax_t n, t_spec *s_args, char *str)
+void		ft_get_str_o(uintmax_t n, t_spec *s_args, char *str)
 {
 	int i;
 	int	base;
@@ -61,7 +61,7 @@ void	ft_get_o_str(uintmax_t n, t_spec *s_args, char *str)
 	}
 }
 
-void	ft_get_x_str(uintmax_t n, t_spec *s_args, char *str)
+void		ft_get_str_x(uintmax_t n, t_spec *s_args, char *str)
 {
 	int i;
 	int	base;
@@ -81,11 +81,11 @@ void	ft_get_x_str(uintmax_t n, t_spec *s_args, char *str)
 	}
 }
 
-void	ft_get_p_str(char **s, char *str)
+void		ft_get_str_p(char **s, char *str)
 {
-	int i;
-	int	base;
-	long p;
+	int		i;
+	int		base;
+	long	p;
 
 	base = 16;
 	p = (long)(*s);

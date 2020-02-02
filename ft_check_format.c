@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:00:47 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 16:31:06 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:08:31 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_fix_precision(t_spec *s_args)
 {
 	if (s_args->conversion == 'f')
 	{
-		if  (s_args->precision_ini && !s_args->precision)
+		if (s_args->precision_ini && !s_args->precision)
 			s_args->flags[1] = 0;
 	}
 	else if (s_args->precision_ini)
@@ -65,6 +65,7 @@ int	ft_check_format(t_spec *s_args)
 	}
 	return (ret);
 }
+
 /*
 int		ft_check_position(t_spec **s_args)
 {

@@ -6,31 +6,33 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 17:02:36 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:05:52 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/*int		ft_parse_position(char *s, t_spec *s_args, int *i)
-{
-	int	position;
-	int j;
-
-	j = *i;
-	if (ft_isdigit(s[j]))
-	{
-		position = ft_atoi(&s[j]);
-		while (ft_isdigit(s[j]))
-			j++;
-		if (s[j] != '$')
-			return (-1);
-		s_args->position = position;
-		*i = j + 1;
-	}
-	return (0);
-}
+/*
+** int		ft_parse_position(char *s, t_spec *s_args, int *i)
+** {
+**	int	position;
+**	int j;
+**
+**	j = *i;
+**	if (ft_isdigit(s[j]))
+**	{
+**		position = ft_atoi(&s[j]);
+**		while (ft_isdigit(s[j]))
+**			j++;
+**		if (s[j] != '$')
+**			return (-1);
+**		s_args->position = position;
+**		*i = j + 1;
+**	}
+**	return (0);
+**}
 */
+
 void	ft_set_flag(t_spec *s_args, char c)
 {
 	if (c == '#')

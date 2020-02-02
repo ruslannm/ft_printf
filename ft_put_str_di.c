@@ -6,28 +6,13 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 17:28:45 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 19:00:20 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 /*
-int	ft_nbr_len(intmax_t n, int base)
-{
-	int i;
-
-	i = 1;
-	while (n / base > 0)
-	{
-		n = n / base;
-		i++;
-	}
-	return (i);
-}
-*/
-/*
-**
 ** len:
 ** 0 - length of output_raw
 ** 1 - the large of precision and len[0] for s - min
@@ -36,10 +21,8 @@ int	ft_nbr_len(intmax_t n, int base)
 ** 4 - counter
 */
 
-void	ft_get_len_output(t_spec *s_args, char *str)
+void	ft_get_len_output(t_spec *s_args, char *str, int *len)
 {
-	int	len[4];
-
 	len[0] = ft_strlen(str);
 	if (('c' == s_args->conversion && 0 == len[0]) ||
 	('o' == s_args->conversion && s_args->flags[0] && 0 == len[0]))
@@ -47,41 +30,42 @@ void	ft_get_len_output(t_spec *s_args, char *str)
 	len[1] = len[0];
 	if ('s' != s_args->conversion && len[0] < s_args->precision)
 		len[1] = s_args->precision;
-	if ('s' == s_args->conversion && len[0] > s_args->precision && s_args->precision_ini)
+	if ('s' == s_args->conversion && len[0] > s_args->precision &&
+		s_args->precision_ini)
 	{
 		len[0] = s_args->precision;
 		len[1] = len[0];
 	}
-	if ((ft_strcmp(str, "0") && ft_strlen(str) && (ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#')) || s_args->conversion == 'p')
+	if ((ft_strcmp(str, "0") && ft_strlen(str) &&
+		(ft_strchr("xX", s_args->conversion) && s_args->flags[0] == '#')) ||
+		s_args->conversion == 'p')
 		len[2] = 2;
 	else
 		len[2] = (s_args->sign ? 1 : 0);
-	len[3] = (len[1] + len[2] < s_args->width ? s_args->width : len[1] + len[2]);
-	s_args->output_len[0] = len[0];
-	s_args->output_len[1] = len[1];
-	s_args->output_len[2] = len[2];
-	s_args->output_len[3] = len[3];
+	len[3] = (len[1] + len[2] < s_args->width ? s_args->width :
+			len[1] + len[2]);
 }
 
-int	ft_put_sign(t_spec *s_args, int i)
+int		ft_put_sign(t_spec *s_args, int i)
 {
-		if (1 == s_args->output_len[2])
-		{
-			ft_putchar_fd(s_args->sign, s_args->fd);
-			i++;
-			s_args->output_len[2] = 0;
-		}
-		else if (2 == s_args->output_len[2])
-		{
-			ft_putchar_fd('0', s_args->fd);
-			ft_putchar_fd((s_args->conversion == 'p' ? 'x' : s_args->conversion), s_args->fd);
-			i = i + 2;
-			s_args->output_len[2] = 0;
-		}
+	if (1 == s_args->output_len[2])
+	{
+		ft_putchar_fd(s_args->sign, s_args->fd);
+		i++;
+		s_args->output_len[2] = 0;
+	}
+	else if (2 == s_args->output_len[2])
+	{
+		ft_putchar_fd('0', s_args->fd);
+		ft_putchar_fd((s_args->conversion == 'p' ? 'x' : s_args->conversion),
+						s_args->fd);
+		i = i + 2;
+		s_args->output_len[2] = 0;
+	}
 	return (i);
 }
 
-int	ft_putchar_s_fd(char c, int i, int j, int fd)
+int		ft_putchar_s_fd(char c, int i, int j, int fd)
 {
 	while (i < j)
 	{
@@ -107,9 +91,9 @@ void	ft_putstrn_fd(char const *s, int n, int fd)
 
 void	ft_put_output(t_spec *s_args, char *str, int i)
 {
-	int		*len;
+	int		len[4];
 
-	len = s_args->output_len;
+	ft_get_len_output(s_args, str, len);
 	if (s_args->flags[1])
 	{
 		i = ft_put_sign(s_args, i);
