@@ -12,27 +12,6 @@
 
 #include "ft_printf.h"
 
-/*
-** int		ft_parse_position(char *s, t_spec *s_args, int *i)
-** {
-**	int	position;
-**	int j;
-**
-**	j = *i;
-**	if (ft_isdigit(s[j]))
-**	{
-**		position = ft_atoi(&s[j]);
-**		while (ft_isdigit(s[j]))
-**			j++;
-**		if (s[j] != '$')
-**			return (-1);
-**		s_args->position = position;
-**		*i = j + 1;
-**	}
-**	return (0);
-**}
-*/
-
 void	ft_set_flag(t_spec *s_args, char c)
 {
 	if (c == '#')
@@ -60,7 +39,7 @@ int		ft_parse_flags(char *s, t_spec *s_args, int i)
 	return (i);
 }
 
-int		ft_parse_width(char *s, t_spec *s_args, int i)
+int		ft_parse_width(char *s, t_spec *s_args, va_list args, int i)
 {
 	if (ft_isdigit(s[i]))
 	{
@@ -72,12 +51,18 @@ int		ft_parse_width(char *s, t_spec *s_args, int i)
 		while (ft_isdigit(s[i]))
 			i++;
 	}
+	else if ('*' == s[i])
+	{
+		s_args->width = (int)va_arg(args, int);
+		s_args->width_ini = 1;
+		i++;
+	}
 	if (!s_args->width_ini && s_args->flags[1])
 		s_args->flags[1] = 0;
 	return (i);
 }
 
-int		ft_parse_precision(char *s, t_spec *s_args, int i)
+int		ft_parse_precision(char *s, t_spec *s_args, va_list args, int i)
 {
 	if (s[i] == '.')
 	{
@@ -91,6 +76,12 @@ int		ft_parse_precision(char *s, t_spec *s_args, int i)
 				s_args->precision = 0;
 			while (ft_isdigit(s[i]))
 				i++;
+		}
+		else if ('*' == s[i])
+		{
+			s_args->precision = (int)va_arg(args, int);
+			s_args->precision_ini = 1;
+			i++;
 		}
 		else
 		{

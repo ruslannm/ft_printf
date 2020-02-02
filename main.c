@@ -16,25 +16,27 @@
 #include <limits.h>
 #include <math.h>
 #include <float.h>
+#include <fcntl.h>
 
 int main(void)
 {
 	int i;
-	//struct lconv *lc;
-	setlocale(LC_NUMERIC, "en_US"); //for check '
-	//lc = localeconv();
-	//lc->thousands_sep = "f[";//lc->thousands_sep;
-	
-//	printf("printf position %%1$i=%%i");
-char *s;
-s = ft_strdup("123");
-i = ft_printf("%d", -5);
+	char *s;
+	int fd;
+
+	s = ft_strdup("123");
+	i = ft_printf("%*.*d|%c|", 10, 5, -5, 0);
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
-	i = printf("%d", -5);
-printf("\nres=%i=li\n", i);
+	i = printf("%*.*d|%c|", 10, 5, -5, 0);
+	printf("\nres=%i=li\n", i);
 	free(s);
-	//setlocale (LC_ALL,"");
+/*
+** test fail desc
+*/
+	fd = open("test.txt", O_WRONLY | O_CREAT, 0644);
+	ft_printf_fd(fd, "%*.*d|", 10, 5, -5);
+	close(fd);
 	return (0);
 }

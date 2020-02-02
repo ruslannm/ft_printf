@@ -13,7 +13,7 @@
 NAME = ft_printf
 
 CC = gcc
-CFLAGS = -w -g
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_PATH = ./
 SRC_NAME = 	ft_check_format.c \

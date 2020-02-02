@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-int		ft_parse_format_spec(char *s, t_spec *s_args, int i)
+int		ft_parse_format_spec(char *s, t_spec *s_args, va_list args, int i)
 {
 	i = ft_parse_flags(s, s_args, i);
-	i = ft_parse_width(s, s_args, i);
-	i = ft_parse_precision(s, s_args, i);
+	i = ft_parse_width(s, s_args, args, i);
+	i = ft_parse_precision(s, s_args, args, i);
 	i = ft_parse_modifier(s, s_args, i);
 	i = ft_parse_conversion(s, s_args, i);
 	return (i);
@@ -56,7 +56,7 @@ void	ft_parse_format(t_spec *s_args, va_list args)
 	char	str[5000];
 
 	s = s_args->format + s_args->start;
-	i = ft_parse_format_spec(s, s_args, 0);
+	i = ft_parse_format_spec(s, s_args, args, 0);
 	if (0 == s_args->conversion)
 		ft_emptyconversion(s_args, i, s, str);
 	else
@@ -73,12 +73,10 @@ int		ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 		if (!(*s_args = (t_spec*)malloc(sizeof(t_spec))))
 			return (-1);
 		(*s_args)->len = 0;
-		(*s_args)->width_diff = 0;
 		(*s_args)->fd = fd;
 		if (!((*s_args)->format = ft_strdup(format)))
 			return (-1);
 	}
-	(*s_args)->position = 0;
 	(*s_args)->flags[0] = 0;
 	(*s_args)->flags[1] = 0;
 	(*s_args)->flags[2] = 0;
@@ -92,6 +90,7 @@ int		ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 	(*s_args)->conversion = 0;
 	(*s_args)->start = start;
 	(*s_args)->sign = 0;
+	(*s_args)->print_char = 0;
 	return (0);
 }
 

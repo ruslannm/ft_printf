@@ -13,8 +13,8 @@
 NAME = libftprintf.a
 
 CC = gcc
-# CFLAGS = -Wall -Wextra -Werror -g
-CFLAGS = -g
+CFLAGS = -Wall -Wextra -Werror
+
 SRC_PATH = ./
 SRC_NAME = 	ft_check_format.c \
 	ft_get_args.c \

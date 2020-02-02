@@ -30,3 +30,22 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (ret);
 }
+
+int	ft_printf_fd(int fd, const char *format, ...)
+{
+	int		ret;
+	va_list args;
+	t_spec	*s_args;
+
+	va_start(args, format);
+	ret = 0;
+	s_args = NULL;
+	if (-1 == ft_new_spec(&s_args, (char*)format, 0, fd))
+		return (-1);
+	ret = ft_parse(s_args, args);
+	if (s_args->format)
+		free(s_args->format);
+	free(s_args);
+	va_end(args);
+	return (ret);
+}

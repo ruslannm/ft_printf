@@ -65,29 +65,3 @@ int	ft_check_format(t_spec *s_args)
 	}
 	return (ret);
 }
-
-/*
-int		ft_check_position(t_spec **s_args)
-{
-	int	position;
-	int asterisk;
-	int i;
-
-	position = 0;
-	asterisk = 0;
-	i = 0;
-	while (s_args[i])
-	{
-		if (s_args[i]->position)
-			position++;
-		if (s_args[i]->width_ini == -1 || s_args[i]->precision_ini == -1)
-			asterisk++;
-		i++;
-	}
-	if (position && asterisk)
-		return (-1);
-	if (position && position != i)
-		return (-1);
-	return (0);
-}
-*/
