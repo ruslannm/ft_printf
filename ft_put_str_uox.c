@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/01 16:38:30 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 16:22:01 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,56 +25,27 @@ static int	ft_get_udigit(uintmax_t n, int base)
 	return (i);
 }
 
-char	*ft_get_u_str(uintmax_t n, t_spec *s_args)
+void	ft_get_u_str(uintmax_t n, t_spec *s_args, char *str)
 {
 	int 	i;
-	char	*str;
 
 	i = ft_get_udigit(n, 10);
 	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0 )
 		i = 0;
+	str[i] = '\0';
 	if (s_args->precision_ini == 1)
 		s_args->flags[1] = 0;
-	if (!(str = ft_strnew(i)))
-		return (NULL);
 	while (--i >= 0)
 	{
 		str[i] = n % 10 + '0';
 		n = n / 10;
 	}
-	return (str);
 }
 
-/*
-int	ft_put_u_str(uintmax_t n, t_spec *s_args)
-{
-	int 	i;
-	int		j;
-
-	i = ft_get_udigit(n, 10);
-	i = i + (s_args->flags[5] == 39 ? THOUSAND_SEP_LEN * (i / 3 ) : 0);
-	if (!(s_args->output_raw = ft_strnew(i)))
-		return (-1);
-	j = 0;
-	while (--i >= 0)
-	{
-		if (j++ % 3 == 0 && j > 2 && s_args->flags[5] == 39 && THOUSAND_SEP_LEN > 0)
-		{
-			ft_strncpy(&s_args->output_raw[i + 1 - THOUSAND_SEP_LEN], THOUSAND_SEP, THOUSAND_SEP_LEN);
-			i = i - THOUSAND_SEP_LEN;
-		}
-		s_args->output_raw[i] = n % 10 + '0';
-		n = n / 10;
-	}
-	return (0);
-}
-*/
-
-char	*ft_get_o_str(uintmax_t n, t_spec *s_args)
+void	ft_get_o_str(uintmax_t n, t_spec *s_args, char *str)
 {
 	int i;
 	int	base;
-	char	*str;
 
 	base = (s_args->conversion == 'o' ? 8 : 16);
 	i = ft_get_udigit(n, base);
@@ -82,32 +53,24 @@ char	*ft_get_o_str(uintmax_t n, t_spec *s_args)
 		i = 0;
 	if (s_args->flags[0] && (!i || n))
 		i++;
-	if (!(str = ft_strnew(i)))
-		return (NULL);
+	str[i] = '\0';
 	while (--i >= 0)
 	{
 		str[i] = n % base + '0';
 		n = n / base;
 	}
-	return (str);
 }
 
-char	*ft_get_x_str(uintmax_t n, t_spec *s_args)
+void	ft_get_x_str(uintmax_t n, t_spec *s_args, char *str)
 {
 	int i;
 	int	base;
-	char	*str;
 
 	base = (s_args->conversion == 'o' ? 8 : 16);
 	i = ft_get_udigit(n, base);
 	if (n == 0 && s_args->precision_ini == 1 && s_args->precision == 0)
 		i = 0;
-/*
-	if (s_args->conversion != 'o' && n == 0 && s_args->precision_ini == 1 && s_args->precision == 0)// && !s_args->flags[0])
-		i = 0;
-*/
-	if (!(str = ft_strnew(i)))
-		return (NULL);
+	str[i] = '\0';
 	while (--i >= 0)
 	{
 		if (n % base < 10)
@@ -116,29 +79,24 @@ char	*ft_get_x_str(uintmax_t n, t_spec *s_args)
 			str[i] = n % base - 10 + (s_args->conversion == 'x' ? 'a' : 'A');
 		n = n / base;
 	}
-	return (str);
 }
 
-char	*ft_get_p_str(char **s)
+void	ft_get_p_str(char **s, char *str)
 {
 	int i;
 	int	base;
 	long p;
-	char	*ret;
 
 	base = 16;
 	p = (long)(*s);
-//	free(s);
 	i = ft_get_udigit(p, base);
-	if (!(ret = ft_strnew(i)))
-		return (NULL);
+	str[i] = '\0';
 	while (--i >= 0)
 	{
 		if (p % base < 10)
-			ret[i] = p % base + '0';
+			str[i] = p % base + '0';
 		else
-			ret[i] = p % base - 10 + 'a';
+			str[i] = p % base - 10 + 'a';
 		p = p / base;
 	}
-	return (ret);
 }

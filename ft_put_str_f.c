@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 14:34:52 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/02 16:10:12 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,10 @@ void	ft_get_len_output_f(t_spec *s_args, char *str)
 	s_args->output_len[4] = len[4];
 }
 
-int	ft_put_output_f(t_spec *s_args, char *str)
+void	ft_put_output_f(t_spec *s_args, char *str, int i)
 {
 	int	*l;
-	int	i;
 
-	i = 0;
 	l = s_args->output_len;
 	if (s_args->flags[1])
 	{
@@ -129,7 +127,6 @@ int	ft_put_output_f(t_spec *s_args, char *str)
 	i = i + (l[3] < l[0] ? l[3] : l[0]);
 	i = ft_putchar_s_fd(' ', i, l[3], s_args->fd);
 	s_args->len = (s_args->len >= 0 ? s_args->len + l[3] : -1);
-	return (0);
 }
 
 void	ft_roundup_diff(char *str, int precision)
