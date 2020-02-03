@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 18:01:48 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 20:35:35 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,8 @@ void						ft_get_str_f_null(t_spec *s_args, int sign,
 							char *str);
 void						ft_get_str_f_naninf(t_spec *s_args,
 							unsigned long int mantissa, char *str);
+void						ft_putchar_format(t_spec *s_args, char *s, int i);
+void						ft_putchar_empty(t_spec *s_args, char *s,
+							char *str, int i);
 
 #endif

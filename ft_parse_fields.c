@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 19:53:23 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 20:16:18 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,21 @@ int		ft_parse_precision(char *s, t_spec *s_args, va_list args, int i)
 		{
 			s_args->precision = ft_atoi(&s[i]);
 			if (s_args->precision < 0)
-			{
 				s_args->precision_ini = 0;
-				s_args->precision = 0;
-			}
 			while (ft_isdigit(s[i]))
 				i++;
 		}
 		else if ('*' == s[i])
 		{
 			s_args->precision = (int)va_arg(args, int);
+			if (s_args->precision < 0)
+				s_args->precision_ini = 0;
 			i++;
 		}
 		else
 			s_args->precision = 0;
 	}
+	if (!s_args->precision_ini)
+		s_args->precision = 0;
 	return (i);
 }

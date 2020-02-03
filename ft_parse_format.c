@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 19:55:59 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 20:38:16 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		ft_parse_format_spec(char *s, t_spec *s_args, va_list args, int i)
 	i = ft_parse_flags(s, s_args, i, 0);
 	i = ft_parse_width(s, s_args, args, i);
 	i = ft_parse_width(s, s_args, args, i);
+	i = ft_parse_precision(s, s_args, args, i);
 	i = ft_parse_precision(s, s_args, args, i);
 	i = ft_parse_modifier(s, s_args, i);
 	i = ft_parse_conversion(s, s_args, i);
@@ -43,33 +44,11 @@ void	ft_emptyconversion(t_spec *s_args, int i, char *s, char *str)
 			str[1] = '\0';
 			i = 1;
 		}
+		ft_get_arg_s(s_args, str);
+		s_args->start = s_args->start + (percent > 0 ? percent + 1 : i);
 	}
 	else
-	{
-		s_args->print_char = s[i];
-		str[0] = s[i];
-		str[1] = '\0';
-		s_args->start = s_args->start + 1 + i;
-		ft_get_arg_c(s_args, str);
-		return ;
-	}
-	
-//	else if (percent == i)
-//		ft_strcpy(str, "%");
-/*	else if (percent > 0)
-	{
-		ft_strncpy(str, s + i, percent - 1);
-		str[percent - 1] = '\0';
-	}
-*/
-/*	else
-	{
-		s_args->start = s_args->start + i;
-		return ;
-	}
-*/
-	ft_get_arg_s(s_args, str);
-	s_args->start = s_args->start + (percent > 0 ? percent + 1 : i);
+		ft_putchar_empty(s_args, s, str, i);
 }
 
 void	ft_parse_format(t_spec *s_args, va_list args)
@@ -131,11 +110,7 @@ int		ft_parse(t_spec *s_args, va_list args)
 			if (s[i + 1] == '\0')
 				break ;
 			else if (s[i + 1] == '%')
-			{
-				ft_putchar_fd(s[++i], s_args->fd);
-				if (s_args->len >= 0)
-					s_args->len = s_args->len + 1;
-			}
+				ft_putchar_format(s_args, s, ++i);
 			else
 			{
 				ft_new_spec(&s_args, NULL, i + 1, 0);
@@ -144,13 +119,7 @@ int		ft_parse(t_spec *s_args, va_list args)
 			}
 		}
 		else
-		{
-			ft_putchar_fd(s[i], s_args->fd);
-			if (s_args->len >= 0)
-				s_args->len = s_args->len + 1;
-		}
+			ft_putchar_format(s_args, s, i);
 	}
-	if (-1 == s_args->len)
-		return (-1);
 	return (s_args->len);
 }

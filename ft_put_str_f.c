@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 19:18:37 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 19:27:02 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 20:35:11 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,20 @@ void	ft_put_output_f(t_spec *s_args, char *str, int i)
 	i = i + (l[3] < l[0] ? l[3] : l[0]);
 	i = ft_putchar_s_fd(' ', i, l[3], s_args->fd);
 	s_args->len = (s_args->len >= 0 ? s_args->len + l[3] : -1);
+}
+
+void	ft_putchar_format(t_spec *s_args, char *s, int i)
+{
+	ft_putchar_fd(s[i], s_args->fd);
+	if (s_args->len >= 0)
+		s_args->len = s_args->len + 1;
+}
+
+void	ft_putchar_empty(t_spec *s_args, char *s, char *str, int i)
+{
+	s_args->print_char = s[i];
+	str[0] = s[i];
+	str[1] = '\0';
+	s_args->start = s_args->start + 1 + i;
+	ft_get_arg_c(s_args, str);
 }
