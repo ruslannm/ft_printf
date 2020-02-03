@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 19:05:37 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 19:53:23 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ int		ft_parse_width(char *s, t_spec *s_args, va_list args, int i)
 	else if ('*' == s[i])
 	{
 		s_args->width = (int)va_arg(args, int);
+		if (s_args->width < 0)
+		{
+			s_args->width = -s_args->width;
+			s_args->flags[2] = '-';
+		}
 		s_args->width_ini = 1;
 		i++;
 	}
