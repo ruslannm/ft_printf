@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/02 18:45:38 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/03 15:22:48 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,10 @@ SRC_NAME = 	ft_check_format.c \
 	ft_printf.c \
 	ft_put_str_di.c \
 	ft_put_str_f.c \
-	ft_div_by2.c \
+	ft_big_number.c \
 	ft_conv_bin_fracpart.c \
 	ft_conv_bin_intpart.c \
 	ft_conv_bin_dec.c \
-	ft_mul_long.c \
 	ft_roundup.c \
 	main.c
 
@@ -54,7 +53,7 @@ all: $(NAME)
 $(NAME): $(LIB_PATH)$(LIB_NAME) $(OBJ_NAME)
 	$(CC) -o $(NAME)  $(OBJ_NAME) -L $(LIB_PATH) -lft
 
-%.o: %.c
+%.o: %.c ft_printf.h
 	$(CC) $(CFLAGS) -I ${INC_PATH} -o $@  -c $<
 
 $(LIB_PATH)$(LIB_NAME):
