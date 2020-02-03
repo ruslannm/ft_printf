@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 16:24:39 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 19:04:34 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_parse_format_spec(char *s, t_spec *s_args, va_list args, int i)
 {
-	i = ft_parse_flags(s, s_args, i);
+	i = ft_parse_flags(s, s_args, i, 0);
 	i = ft_parse_width(s, s_args, args, i);
 	i = ft_parse_precision(s, s_args, args, i);
 	i = ft_parse_modifier(s, s_args, i);
@@ -43,6 +43,16 @@ void	ft_emptyconversion(t_spec *s_args, int i, char *s, char *str)
 			i = 1;
 		}
 	}
+	else
+	{
+		s_args->print_char = s[i];
+		str[0] = s[i];
+		str[1] = '\0';
+		s_args->start = s_args->start + 1 + i;
+		ft_get_arg_c(s_args, str);
+		return ;
+	}
+	
 //	else if (percent == i)
 //		ft_strcpy(str, "%");
 /*	else if (percent > 0)
@@ -51,11 +61,12 @@ void	ft_emptyconversion(t_spec *s_args, int i, char *s, char *str)
 		str[percent - 1] = '\0';
 	}
 */
-	else
+/*	else
 	{
 		s_args->start = s_args->start + i;
 		return ;
 	}
+*/
 	ft_get_arg_s(s_args, str);
 	s_args->start = s_args->start + (percent > 0 ? percent + 1 : i);
 }
@@ -117,7 +128,7 @@ int		ft_parse(t_spec *s_args, va_list args)
 		if (s[i] == '%')
 		{
 			if (s[i + 1] == '\0')
-				i++;
+				break ;
 			else if (s[i + 1] == '%')
 			{
 				ft_putchar_fd(s[++i], s_args->fd);

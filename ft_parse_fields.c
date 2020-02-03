@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:14:04 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 15:01:51 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 19:05:37 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,22 @@ void	ft_set_flag(t_spec *s_args, char c)
 	}
 }
 
-int		ft_parse_flags(char *s, t_spec *s_args, int i)
+int		ft_parse_flags(char *s, t_spec *s_args, int i, int j)
 {
-	while (s[i] && ft_strchr("#0- +'", s[i]))
-		ft_set_flag(s_args, s[i++]);
+	if (j)
+	{
+		while (i < j)
+		{
+			if (ft_strchr("#0- +'", s[i]))
+				ft_set_flag(s_args, s[i]);
+			i++;
+		}
+	}
+	else
+	{
+		while (s[i] && ft_strchr("#0- +'", s[i]))
+			ft_set_flag(s_args, s[i++]);
+	}
 	return (i);
 }
 

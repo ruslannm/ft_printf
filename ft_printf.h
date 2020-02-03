@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 15:20:24 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 18:01:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void						ft_flag_char(va_list args, int *p);
 void						ft_flag_str(va_list args, int *p);
 int							ft_parse_position(char *s, t_spec *s_args, int *i);
 int							ft_parse_flags(char *s, t_spec *s_args,
-							int i);
+							int i, int j);
 int							ft_parse_width(char *s, t_spec *s_args,
 							va_list args, int i);
 int							ft_parse_precision(char *s, t_spec *s_args,
@@ -75,7 +75,8 @@ void						ft_get_args(t_spec *s_args, va_list args);
 void						ft_get_arg_d(t_spec *s_args, va_list args);
 void						ft_get_arg_u(t_spec *s_args, va_list args);
 void						ft_get_arg_ox(t_spec *s_args, va_list args);
-void						ft_get_arg_c(t_spec *s_args, va_list args);
+void						ft_get_arg_c(t_spec *s_args, char *str);
+void						ft_get_arg_c_va_list(t_spec *s_args, va_list args);
 void						ft_get_arg_s(t_spec *s_args, char *str);
 void						ft_get_arg_s_va_list(t_spec *s_args, va_list args);
 void						ft_get_arg_p(t_spec *s_args, va_list args);
