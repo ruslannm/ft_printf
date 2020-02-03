@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:00:47 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 19:08:31 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 14:43:24 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_check_modifier_float(char modifier)
 	return (-1);
 }
 
-void	ft_fix_precision(t_spec *s_args)
+void		ft_fix_precision(t_spec *s_args)
 {
 	if (s_args->conversion == 'f')
 	{
@@ -41,7 +41,7 @@ void	ft_fix_precision(t_spec *s_args)
 		s_args->flags[1] = 0;
 }
 
-int	ft_check_format(t_spec *s_args)
+int			ft_check_format(t_spec *s_args)
 {
 	int	ret;
 

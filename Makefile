@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/02 19:14:17 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/03 14:47:49 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ $(NAME): $(LIB_PATH)$(LIB_NAME) $(OBJ_NAME)
 	cp $(LIB_PATH)$(LIB_NAME) ./$(NAME)
 	ar -rc $(NAME) $(OBJ)
 	ranlib $(NAME)
-#	$(CC) -o $(NAME)  $(OBJ_NAME) -L $(LIB_PATH) -lft
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I ${INC_PATH} -o $@  -c $<
@@ -65,6 +64,7 @@ $(LIB_PATH)$(LIB_NAME):
 clean:
 	/bin/rm -f $(OBJ)
 	make -C $(LIB_PATH) clean
+	
 fclean: clean
 	/bin/rm -f $(NAME)
 	/bin/rm -f $(LIB_PATH)$(LIB_NAME)
