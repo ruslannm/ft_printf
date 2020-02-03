@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 14:51:50 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 16:12:11 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,20 @@ int	main(void)
 {
 	int		i;
 	char	*s;
-	int		fd;
 
 	s = ft_strdup("123");
-	i = ft_printf("%.f|%c|", 44.50001, 0);
+	i = ft_printf("%%   %", "test");
 	write(1, "\nres=", 5);
 	ft_putnbr(i);
 	write(1, "=my\n", 4);
-	i = printf("%.f|%c|", 44.50001, 0);
+	i = printf("%%   %", "test");
 	printf("\nres=%i=li\n", i);
 	free(s);
-	fd = open("test.txt", O_WRONLY | O_CREAT, 0644);
-	ft_printf_fd(fd, "%*.*d|", 10, 5, -5);
-	close(fd);
 	return (0);
 }
+
+/*
+**	fd = open("test.txt", O_WRONLY | O_CREAT, 0644);
+**	ft_printf_fd(fd, "%*.*d|", 10, 5, -5);
+**	close(fd);
+*/

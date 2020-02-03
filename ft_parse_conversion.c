@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:09:45 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 19:13:36 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 15:50:38 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	ft_parse_modifier(char *s, t_spec *s_args, int i)
 
 int	ft_parse_conversion(char *s, t_spec *s_args, int i)
 {
+	int	ret;
+
+	ret = i;
 	while (s[i] != '\0' && s[i] != '%')
 	{
 		if (ft_strchr("cspdiouxXf", s[i]))
@@ -48,7 +51,7 @@ int	ft_parse_conversion(char *s, t_spec *s_args, int i)
 		}
 		i++;
 	}
-	return (i);
+	return (s_args->conversion ? i : ret);
 }
 
 int	ft_parse_percent(char *s, int i)

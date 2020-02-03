@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/02 18:24:53 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 16:24:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,28 @@ void	ft_emptyconversion(t_spec *s_args, int i, char *s, char *str)
 	percent = ft_parse_percent(s, 0);
 	if (0 == i)
 	{
-		str[0] = s[0];
-		str[1] = '\0';
-		i = 1;
+		if (percent > 0)
+		{
+			ft_strncpy(str, s + i, percent - 1);
+			str[percent - 1] = '\0';
+		}
+		else if (0 == percent)
+			ft_strcpy(str, "%");
+		else
+		{
+			str[0] = s[0];
+			str[1] = '\0';
+			i = 1;
+		}
 	}
-	else if (percent == i)
-		ft_strcpy(str, "%");
-	else if (percent > 0)
+//	else if (percent == i)
+//		ft_strcpy(str, "%");
+/*	else if (percent > 0)
 	{
 		ft_strncpy(str, s + i, percent - 1);
 		str[percent - 1] = '\0';
 	}
+*/
 	else
 	{
 		s_args->start = s_args->start + i;
@@ -105,9 +116,20 @@ int		ft_parse(t_spec *s_args, va_list args)
 	{
 		if (s[i] == '%')
 		{
-			ft_new_spec(&s_args, NULL, i + 1, 0);
-			ft_parse_format(s_args, args);
-			i = s_args->start - 1;
+			if (s[i + 1] == '\0')
+				i++;
+			else if (s[i + 1] == '%')
+			{
+				ft_putchar_fd(s[++i], s_args->fd);
+				if (s_args->len >= 0)
+					s_args->len = s_args->len + 1;
+			}
+			else
+			{
+				ft_new_spec(&s_args, NULL, i + 1, 0);
+				ft_parse_format(s_args, args);
+				i = s_args->start - 1;
+			}
 		}
 		else
 		{
