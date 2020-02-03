@@ -6,16 +6,11 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 19:48:33 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 20:54:27 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	ft_get_arg_c(t_spec *s_args, char *str)
-{
-   	ft_put_output(s_args, str, 0);
-}
 
 void	ft_get_arg_c_va_list(t_spec *s_args, va_list args)
 {

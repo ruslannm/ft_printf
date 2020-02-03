@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 20:35:35 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 20:59:28 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void						ft_get_args(t_spec *s_args, va_list args);
 void						ft_get_arg_d(t_spec *s_args, va_list args);
 void						ft_get_arg_u(t_spec *s_args, va_list args);
 void						ft_get_arg_ox(t_spec *s_args, va_list args);
-void						ft_get_arg_c(t_spec *s_args, char *str);
 void						ft_get_arg_c_va_list(t_spec *s_args, va_list args);
 void						ft_get_arg_s(t_spec *s_args, char *str);
 void						ft_get_arg_s_va_list(t_spec *s_args, va_list args);
@@ -83,6 +82,7 @@ void						ft_get_arg_p(t_spec *s_args, va_list args);
 void						ft_get_arg_f(t_spec *s_args, va_list args);
 void						ft_set_sign(t_spec *s_args);
 void						ft_put_output(t_spec *s_args, char *str, int i);
+void						ft_put_output_d(t_spec *s_args, char *str);
 void						ft_put_output_f(t_spec *s_args, char *str, int i);
 void						ft_get_str_di(intmax_t n, t_spec *s_args,
 							char *str);

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:29:09 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 18:51:43 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/03 21:01:03 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	ft_set_sign(t_spec *s_args)
 {
-	if (s_args->sign != '-')
+	if (ft_strchr("dif", s_args->conversion))
 	{
-		if (s_args->flags[4] == '+')
-			s_args->sign = '+';
-		else if (s_args->flags[3] == ' ')
-			s_args->sign = ' ';
+		if (s_args->sign != '-')
+		{
+			if (s_args->flags[4] == '+')
+				s_args->sign = '+';
+			else if (s_args->flags[3] == ' ')
+				s_args->sign = ' ';
+		}
 	}
 }
 
@@ -49,8 +52,7 @@ void	ft_get_arg_d(t_spec *s_args, va_list args)
 		ft_get_str_u(9223372036854775808U, s_args, str);
 	else
 		ft_get_str_di(nb, s_args, str);
-	ft_set_sign(s_args);
-	ft_put_output(s_args, str, 0);
+	ft_put_output_d(s_args, str);
 }
 
 void	ft_get_arg_u(t_spec *s_args, va_list args)
