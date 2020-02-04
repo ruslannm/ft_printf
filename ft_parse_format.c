@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:43:02 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 20:38:16 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/04 15:51:09 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ void	ft_emptyconversion(t_spec *s_args, int i, char *s, char *str)
 		ft_putchar_empty(s_args, s, str, i);
 }
 
-void	ft_parse_format(t_spec *s_args, va_list args)
+void	ft_parse_format(t_spec *s_args, va_list args, char *str)
 {
 	int		i;
 	char	*s;
-	char	str[5000];
+	char	str_empty[5000];
 
-	s = s_args->format + s_args->start;
+	s = str + s_args->start;
 	i = ft_parse_format_spec(s, s_args, args, 0);
 	if (0 == s_args->conversion)
-		ft_emptyconversion(s_args, i, s, str);
+		ft_emptyconversion(s_args, i, s, str_empty);
 	else
 	{
 		s_args->start = s_args->start + i;
@@ -68,7 +68,7 @@ void	ft_parse_format(t_spec *s_args, va_list args)
 	}
 }
 
-int		ft_new_spec(t_spec **s_args, char *format, int start, int fd)
+int		ft_new_spec(t_spec **s_args, int start, int fd)
 {
 	if (!*s_args)
 	{
@@ -76,8 +76,6 @@ int		ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 			return (-1);
 		(*s_args)->len = 0;
 		(*s_args)->fd = fd;
-		if (!((*s_args)->format = ft_strdup(format)))
-			return (-1);
 	}
 	(*s_args)->flags[0] = 0;
 	(*s_args)->flags[1] = 0;
@@ -96,30 +94,28 @@ int		ft_new_spec(t_spec **s_args, char *format, int start, int fd)
 	return (0);
 }
 
-int		ft_parse(t_spec *s_args, va_list args)
+int		ft_parse(t_spec *s_args, va_list args, char *str)
 {
 	int		i;
-	char	*s;
 
 	i = -1;
-	s = s_args->format;
-	while (s[++i] != '\0')
+	while (str[++i] != '\0')
 	{
-		if (s[i] == '%')
+		if (str[i] == '%')
 		{
-			if (s[i + 1] == '\0')
+			if (str[i + 1] == '\0')
 				break ;
-			else if (s[i + 1] == '%')
-				ft_putchar_format(s_args, s, ++i);
+			else if (str[i + 1] == '%')
+				ft_putchar_format(s_args, str, ++i);
 			else
 			{
-				ft_new_spec(&s_args, NULL, i + 1, 0);
-				ft_parse_format(s_args, args);
+				ft_new_spec(&s_args, i + 1, 0);
+				ft_parse_format(s_args, args, str);
 				i = s_args->start - 1;
 			}
 		}
 		else
-			ft_putchar_format(s_args, s, i);
+			ft_putchar_format(s_args, str, i);
 	}
 	return (s_args->len);
 }

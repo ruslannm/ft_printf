@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:45:27 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 20:08:10 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/04 16:45:03 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@
 int	main(void)
 {
 	int		i;
-	char	*s;
+	char	s[50000];
 
+
+	ft_big_div(5, s);
+	ft_printf("5 =|%s|", s);
+	ft_big_div(1500, s);
+	ft_printf("1500 =|%s|", s);
+/*
 	s = ft_strdup("123");
 	i = ft_printf("{%.*d}", -5, 42);
 	write(1, "\nres=", 5);
@@ -31,7 +37,9 @@ int	main(void)
 	i = printf("{%.*d}", -5, 42);
 	printf("\nres=%i=li\n", i);
 	free(s);
+	*/
 	return (0);
+
 }
 
 /*

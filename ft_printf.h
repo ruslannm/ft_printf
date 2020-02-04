@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/03 20:59:28 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/04 16:34:04 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 typedef struct				s_spec
 {
 	int						fd;
-	char					*format;
 	char					flags[5];
 	int						width;
 	int						width_ini;
@@ -53,9 +52,8 @@ union						u_long_double
 
 int							ft_printf(const char *format, ...);
 int							ft_printf_fd(int fd, const char *format, ...);
-int							ft_parse(t_spec *s_args, va_list args);
-int							ft_new_spec(t_spec **s_args, char *format,
-							int start, int fd);
+int							ft_parse(t_spec *s_args, va_list args, char *str);
+int							ft_new_spec(t_spec **s_args, int start, int fd);
 void						ft_flag_int(va_list args, int *p);
 void						ft_flag_char(va_list args, int *p);
 void						ft_flag_str(va_list args, int *p);
@@ -128,5 +126,6 @@ void						ft_get_str_f_naninf(t_spec *s_args,
 void						ft_putchar_format(t_spec *s_args, char *s, int i);
 void						ft_putchar_empty(t_spec *s_args, char *s,
 							char *str, int i);
+void						ft_big_div(int power, char *ret);
 
 #endif
